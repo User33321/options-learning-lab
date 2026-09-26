@@ -185,7 +185,8 @@
     .case-source { display: inline-flex; align-items: center; min-height: 44px; gap: .4rem; padding: .35rem .65rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
     .source-tag { display: inline-block; padding: .08rem .42rem; border-radius: 999px; background: var(--orange-2); color: var(--ink); font-size: .72rem; font-weight: 800; white-space: nowrap; }
     .hero-note { margin-top: 1rem; padding: .7rem .9rem; border-left: 3px solid var(--blue); border-radius: 0 11px 11px 0; background: var(--blue-2); color: var(--ink); font-size: .9rem; }
-    .editor-stack { display: grid; gap: 1.25rem; }
+    .editor-stack { display: grid; min-width: 0; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
+    .editor-stack > *, .panel, .review-grid, .evidence-levels, .strategy-ladder, .question-grid, .exit-grid { min-width: 0; }
     .verdict-callout { border-color: color-mix(in srgb, var(--green) 45%, var(--line)); background: var(--green-2); }
     .review-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .review-card { min-width: 0; padding: 1.2rem; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
