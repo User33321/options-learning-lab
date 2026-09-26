@@ -104,7 +104,7 @@
     h3 { margin: 0 0 .65rem; font-size: 1.2rem; line-height: 1.25; }
     .section-head { max-width: 760px; margin-bottom: 2rem; }
     .section-head p, .muted { color: var(--muted); }
-    .module-map { display: grid; grid-template-columns: repeat(6, 1fr); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--line); gap: 1px; }
+    .module-map { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--line); gap: 1px; }
     .module { min-height: 184px; padding: 1.15rem; background: var(--surface); text-decoration: none; color: var(--ink); transition: transform .2s ease, background .2s ease; }
     .module:hover { background: var(--green-2); transform: translateY(-3px); }
     .module-num { display: block; color: var(--green); font-weight: 900; font-size: .8rem; margin-bottom: 2.4rem; }
@@ -187,6 +187,28 @@
     .hero-note { margin-top: 1rem; padding: .7rem .9rem; border-left: 3px solid var(--blue); border-radius: 0 11px 11px 0; background: var(--blue-2); color: var(--ink); font-size: .9rem; }
     .editor-stack { display: grid; min-width: 0; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
     .editor-stack > *, .panel, .review-grid, .evidence-levels, .strategy-ladder, .question-grid, .exit-grid { min-width: 0; }
+    .zero-dte-stack, .mao-review-stack { display: grid; min-width: 0; gap: 1.25rem; }
+    .dte-factors, .dte-formulas, .concept-tier-grid, .mao-workflow { display: grid; gap: .9rem; min-width: 0; }
+    .dte-factors { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .dte-formulas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .concept-tier-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .mao-workflow { grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
+    .dte-factor, .concept-tier, .mao-workflow li { min-width: 0; padding: 1rem; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+    .dte-factor h3, .concept-tier h3, .mao-workflow h4 { margin: 0 0 .45rem; }
+    .dte-factor p, .concept-tier p, .mao-workflow p { margin: 0; color: var(--muted); }
+    .dte-flow-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .65rem; margin: 0; padding: 0; list-style: none; counter-reset: dte-step; }
+    .dte-flow-grid li { min-width: 0; padding: 2.1rem .85rem .9rem; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); counter-increment: dte-step; position: relative; }
+    .dte-flow-grid li::before { content: counter(dte-step); position: absolute; top: .55rem; left: .7rem; display: grid; place-items: center; width: 1.15rem; height: 1.15rem; border-radius: 50%; background: var(--green-2); color: var(--green); font-size: .75rem; font-weight: 900; }
+    .dte-flow-grid strong { display: block; margin-bottom: .3rem; }
+    .dte-table-wrap, .fact-table-wrap { min-width: 0; overflow-x: auto; overscroll-behavior-inline: contain; border: 1px solid var(--line); border-radius: 14px; }
+    .dte-table, .fact-table { width: 100%; min-width: 680px; border-collapse: collapse; background: var(--surface); }
+    .dte-table th, .dte-table td, .fact-table th, .fact-table td { padding: .75rem .85rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+    .dte-table th, .fact-table th { background: var(--surface-2); }
+    .dte-table tr:last-child td, .fact-table tr:last-child td { border-bottom: 0; }
+    .concept-tier:nth-child(1) { border-top: 4px solid var(--blue); }
+    .concept-tier:nth-child(2) { border-top: 4px solid var(--orange); }
+    .concept-tier:nth-child(3) { border-top: 4px solid var(--red); }
+    .dte-calc label { font-size: .9rem; }
     .verdict-callout { border-color: color-mix(in srgb, var(--green) 45%, var(--line)); background: var(--green-2); }
     .review-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .review-card { min-width: 0; padding: 1.2rem; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
@@ -318,6 +340,7 @@
       .toplinks { display: none; }
       .icon-btn { order: 1; }
       .mobile-nav { display: block; order: 2; flex: 0 0 100%; max-width: none; }
+      .dte-flow-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
     @media (max-width: 700px) {
       body { padding-bottom: 76px; }
@@ -326,7 +349,7 @@
       .hero { padding-top: 2.6rem; }
       .contract-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .trade-flows, .moneyness-results, .concept-figures, .maturity-grid, .method-grid, .inference-grid { grid-template-columns: 1fr; }
-      .review-grid, .review-facts, .evidence-levels, .strategy-ladder, .question-grid, .exit-grid, .source-link-list { grid-template-columns: 1fr; }
+      .review-grid, .review-facts, .evidence-levels, .strategy-ladder, .question-grid, .exit-grid, .source-link-list, .dte-factors, .dte-formulas, .dte-flow-grid, .concept-tier-grid, .mao-workflow { grid-template-columns: 1fr; }
       .current-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .45rem; }
       .current-stat { padding: .75rem .4rem; }
       .current-stat strong { font-size: 1.25rem; }
@@ -341,6 +364,8 @@
       .stat-row, .calculator-grid, .timeline { grid-template-columns: 1fr; }
       .term-grid, .leg-grid, .fit-grid { grid-template-columns: 1fr; }
       .module-map { grid-template-columns: repeat(2, 1fr); }
+      .dte-table, .fact-table { min-width: 0; table-layout: fixed; }
+      .dte-table th:first-child, .dte-table td:first-child, .fact-table th:first-child, .fact-table td:first-child { width: 32%; }
       .module { min-height: 145px; }
       .module-num { margin-bottom: 1.4rem; }
       .greeks { grid-template-columns: 1fr; }
@@ -376,10 +401,10 @@
     <div class="shell topbar-inner">
       <div class="brand">期權實戰學堂</div>
       <div class="toplinks">
-        <a href="#roadmap">學習地圖</a><a href="#basics">入門圖解</a><a href="#glossary">術語速查</a><a href="#course">16 課</a><a href="#kirk-current">KOL 個案</a><a href="#editor-review">獨立評審</a><a href="#lab">互動工具</a><a href="#checklist">交易清單</a><a href="#sources">來源</a>
+        <a href="#roadmap">學習地圖</a><a href="#zero-dte">0DTE 入門</a><a href="#basics">入門圖解</a><a href="#glossary">術語速查</a><a href="#course">16 課</a><a href="#kirk-current">KOL 個案</a><a href="#mao-review">KOL 評審 02</a><a href="#editor-review">獨立評審</a><a href="#lab">互動工具</a><a href="#checklist">交易清單</a><a href="#sources">來源</a>
       </div>
       <select class="mobile-nav" aria-label="跳到章節" id="mobileNav">
-        <option value="">前往章節…</option><option value="#roadmap">學習地圖</option><option value="#basics">入門圖解</option><option value="#glossary">術語速查</option><option value="#course">16 課</option><option value="#kirk-current">KOL 個案</option><option value="#editor-review">獨立評審</option><option value="#lab">互動工具</option><option value="#checklist">交易清單</option><option value="#sources">來源</option>
+        <option value="">前往章節…</option><option value="#roadmap">學習地圖</option><option value="#zero-dte">0DTE 入門</option><option value="#basics">入門圖解</option><option value="#glossary">術語速查</option><option value="#course">16 課</option><option value="#kirk-current">KOL 個案</option><option value="#mao-review">KOL 評審 02</option><option value="#editor-review">獨立評審</option><option value="#lab">互動工具</option><option value="#checklist">交易清單</option><option value="#sources">來源</option>
       </select>
       <button class="icon-btn" id="themeBtn" type="button" aria-label="切換深淺色">◐</button>
       <button class="icon-btn" id="printBtn" type="button">列印</button>
@@ -392,7 +417,7 @@
         <div>
           <span class="eyebrow">期權基礎 × 風險管理 × 公開案例</span>
           <h1>先學識風險，<br>再學點樣贏。</h1>
-          <p class="lede">整合期權基礎、OIC 制度資料與公開交易案例，製作成圖解互動教材：由 Call / Put、Greeks、IV，一路學到價差、倉位管理與交易復盤。</p>
+          <p class="lede">涵蓋期權基礎、風險管理、策略與公開案例，並以 0DTE Long Call／Put 建立專題入門路徑：把方向、幅度、時間、權利金上限與到期安排放進同一流程。</p>
           <p class="hero-note">KOL 內容只作案例；本網站會把作者自述、制度事實與編輯判斷分開呈現。</p>
           <div class="hero-actions">
             <a class="primary-btn" href="#roadmap">開始學習</a>
@@ -410,8 +435,8 @@
       </div>
       <div class="stat-row" aria-label="教材統計">
         <div class="stat"><strong>16</strong><span>核心課堂</span></div>
-        <div class="stat"><strong>4</strong><span>互動計算器</span></div>
-        <div class="stat"><strong>6</strong><span>學習模組</span></div>
+        <div class="stat"><strong>5</strong><span>互動計算器</span></div>
+        <div class="stat"><strong>7</strong><span>學習模組</span></div>
         <div class="stat"><strong>1</strong><span>完整交易流程</span></div>
       </div>
     </div>
@@ -422,7 +447,7 @@
       <div class="shell">
         <div class="section-head">
           <span class="section-kicker">Learning map</span>
-          <h2>六步由概念走到落單</h2>
+          <h2>七個模組由概念走到落單</h2>
           <p>建議順序學習。每個模組先理解「點解」，再用計算器測試「如果」，最後用清單決定「做唔做」。</p>
         </div>
         <div class="module-map">
@@ -432,7 +457,85 @@
           <a class="module" href="#m4"><span class="module-num">04</span><strong>策略建構</strong><small>價差、Covered Call</small></a>
           <a class="module" href="#m5"><span class="module-num">05</span><strong>執行風控</strong><small>流動性、離場、倉位</small></a>
           <a class="module" href="#m6"><span class="module-num">06</span><strong>建立系統</strong><small>期望值、日誌、Playbook</small></a>
+          <a class="module" href="#zero-dte"><span class="module-num">07</span><strong>0DTE 專題</strong><small>Long Call／Put、同日風險</small></a>
         </div>
+      </div>
+    </section>
+
+    <section id="zero-dte">
+      <div class="shell zero-dte-stack">
+        <div class="section-head">
+          <span class="section-kicker">0DTE learning path</span>
+          <h2>0DTE Long Call／Put：結構較簡單，盈利要求更嚴格</h2>
+          <p>此路徑適合想研究較短持倉時間、且期權權利金風險有上限的買方；但 0DTE 並非低風險或容易獲利的方法。買方必須在同一交易日對方向、幅度與時間判斷得足夠準確。</p>
+        </div>
+
+        <div class="dte-factors" aria-label="0DTE 買方需要同時判斷的三個因素">
+          <article class="dte-factor"><span class="pill">01</span><h3>方向</h3><p>標的需要向預期方向移動；方向錯誤時，剩餘時間很短，修正空間有限。</p></article>
+          <article class="dte-factor"><span class="pill">02</span><h3>幅度</h3><p>標的要在限時內有足夠波幅，令期權可按高於買入成本的價格平倉；只有持有至到期時，標的才須越過 K±P 的到期打和點才有淨盈利（未計費用）。</p></article>
+          <article class="dte-factor"><span class="pill">03</span><h3>時間</h3><p>預期移動須在到期前發生；即使最後方向正確，太遲出現也可能不足以獲利。</p></article>
+        </div>
+
+        <div class="dte-formulas">
+          <article class="panel">
+            <h3>Long Call｜買入看升期權</h3>
+            <p class="formula">到期損益／股 = max(S−K, 0)−P</p>
+            <p class="formula">打和點 = K+P</p>
+            <p class="formula">最大損失 = P×合約乘數×張數</p>
+          </article>
+          <article class="panel">
+            <h3>Long Put｜買入看跌期權</h3>
+            <p class="formula">到期損益／股 = max(K−S, 0)−P</p>
+            <p class="formula">打和點 = K−P</p>
+            <p class="formula">最大損失 = P×合約乘數×張數</p>
+          </article>
+        </div>
+        <p class="chart-caption"><strong>符號：</strong>S＝到期時標的價格；K＝行使價；P＝每股已付權利金。以上只計到期損益；到期前期權價格亦受 IV、買賣差價及剩餘分鐘影響。</p>
+
+        <article class="panel">
+          <h3>同日交易流程</h3>
+          <ol class="dte-flow-grid">
+            <li><strong>開市前</strong><span>定義觀察條件、最大權利金風險、事件與券商截止時間。</span></li>
+            <li><strong>Setup 成立</strong><span>只在預先寫明的條件出現時評估交易。</span></li>
+            <li><strong>限價進場</strong><span>核對合約、bid-ask 及可接受價格，不追價。</span></li>
+            <li><strong>價格／時間失效</strong><span>按事前規則判斷，避免把希望當作離場條件。</span></li>
+            <li><strong>券商截止前主動平倉</strong><span>不要依賴自動行使；實物交割股票／ETF 與現金結算指數合約的規則不同，須向券商確認。</span></li>
+          </ol>
+          <p class="muted">到期前核對行使、結算方式與券商截止時間。實物交割可能帶來股票部位；現金結算指數合約則按合約規格以現金結算。</p>
+        </article>
+
+        <article class="panel">
+          <h3>我的初學模式｜編輯框架，不是官方標準</h3>
+          <ul>
+            <li>先完成 30 筆有紀錄的模擬交易。</li>
+            <li>每筆權利金風險不高於帳戶資金 0.25%；每日最大虧損不高於帳戶資金 0.5%。</li>
+            <li>若一張合約已超出風險預算，跳過交易；不要向上取整。</li>
+            <li>同一時間只持有一個方向性部位；不向下加碼，也不為避免確認虧損而展期。</li>
+            <li>初期避開已排定的宏觀數據／業績公布，以及遠價外、以小額博取極端回報的合約。</li>
+            <li>使用限價單，並在券商截止時間前自行平倉。</li>
+          </ul>
+          <p class="chart-caption">以上百分比是保守的教學預設，不是官方規定，也不保證交易結果。</p>
+        </article>
+
+        <article class="panel">
+          <h3>30 筆後先問</h3>
+          <div class="dte-table-wrap" role="region" aria-label="30 筆模擬交易檢視指標表">
+            <table class="dte-table">
+              <thead><tr><th>指標</th><th>檢視問題</th></tr></thead>
+              <tbody>
+                <tr><td>勝率</td><td>多少筆盈利？是否由少數交易主導？</td></tr>
+                <tr><td>平均盈利／平均虧損</td><td>典型贏單和輸單各有多大？</td></tr>
+                <tr><td>扣除成本後期望值</td><td>計入佣金與滑點後，每筆平均結果如何？</td></tr>
+                <tr><td>最大回撤</td><td>資金曲線最差時曾下跌多少？</td></tr>
+                <tr><td>全額權利金損失率</td><td>多少交易損失全部已付權利金？</td></tr>
+                <tr><td>滑點</td><td>實際成交與預期價格相差多少？</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="chart-caption">只有在遵守交易規則且結果可接受時，才考慮下一步；不要根據少數幾筆贏單判斷策略。</p>
+        </article>
+
+        <div class="callout" role="note"><div class="callout-icon" aria-hidden="true">i</div><div><strong>官方資料提示：</strong>OIC 指出 Gamma／Theta 風險集中於最短到期期限的近平值合約；FINRA 提醒期權買方可能損失全部權利金，券商亦可能在收市前強制平倉。<a href="https://prd-web.optionseducation.org/news/may-keytakeaways">OIC 0DTE 風險資料</a> · <a href="https://syndication.finra.org/content/zeroing-options-trading-strategy-0dte">FINRA 0DTE 說明</a></div></div>
       </div>
     </section>
 
@@ -818,12 +921,94 @@
       </div>
     </section>
 
+    <section id="mao-review">
+      <div class="shell mao-review-stack">
+        <div class="section-head">
+          <span class="section-kicker">Independent review · user-supplied transcript</span>
+          <h2>KOL 內容評審 02｜a2ky9／Mao 交易入門</h2>
+          <p>來源為用戶提供的訪談逐字稿，本頁只作摘要，沒有逐字重現。作者自述為 19 歲 funded trader，管理六位數 funded capital 並曾有五位數 withdrawals；以上績效說法未經獨立核驗。</p>
+        </div>
+        <div class="callout verdict-callout" role="note">
+          <div class="callout-icon" aria-hidden="true">!</div>
+          <div><strong>編輯評價：</strong>可取的是流程紀律；不能接受的是快速致富敘事與把未驗證概念當成市場因果。</div>
+        </div>
+
+        <div class="review-grid">
+          <article class="review-card">
+            <h3>A｜可保留</h3>
+            <ul>
+              <li>維持交易日誌。</li>
+              <li>等待預先定義的 setup 成立。</li>
+              <li>入場前設定風險上限與失效條件。</li>
+              <li>檢查經濟日曆與新聞。</li>
+              <li>理解 bid-ask 與限價單。</li>
+              <li>把流程質素與單筆交易結果分開評估。</li>
+              <li>把多時間框架用作整理背景與執行位置的方法。</li>
+            </ul>
+          </article>
+          <article class="review-card">
+            <h3>B｜必須修正</h3>
+            <ul>
+              <li>「幾分鐘成為合格交易員」的說法。</li>
+              <li>辭去正職、建立世代財富的推銷敘事。</li>
+              <li>把未核實的個人盈利當作方法有效的證明。</li>
+              <li>聲稱交易者有 100% 控制權。</li>
+              <li>把每日複利比作固定薪金。</li>
+              <li>「人人都可交易／Prop firm 很容易」的概括。</li>
+              <li>把單一止損或 1:2 風險回報比說成普遍規則。</li>
+            </ul>
+          </article>
+        </div>
+
+        <article class="panel">
+          <h3>Fact check｜把說法放回可核對範圍</h3>
+          <div class="fact-table-wrap" role="region" aria-label="逐項核對交易入門說法" tabindex="0">
+            <table class="fact-table">
+              <thead><tr><th scope="col">主題</th><th scope="col">較準確的表述</th></tr></thead>
+              <tbody>
+                <tr><td>1% 複利</td><td>每期 1%：100→101→102.01，而不是 100→110→121；後者是每期 10%。假設每個交易日都取得 1% 是極端假設，不應作為規劃目標。</td></tr>
+                <tr><td>交易者控制權</td><td>交易者可控制倉位大小、下單與離場決定；不能控制跳空、價格變動、流動性、滑點、平台或券商行動。</td></tr>
+                <tr><td>日內交易者統計</td><td>常見的 97%、1.1% 與 0.5% 數字對應一項巴西股指期貨研究中持續交易超過 300 天的樣本，並非全球通則。台灣研究發現整體日內交易者表現為負、絕大多數不盈利，同時仍存在少數有技能的交易者；兩方面都不應抹去。</td></tr>
+                <tr><td>Prop firm</td><td>宣傳的帳戶規模不等於個人現金，也不必然代表實盤資金。應核對評估費、回撤規則、模擬帳戶、提款條款、交易對手與監管狀態。CFTC 對 Traders Global 的訴訟是需要留意的個案，不足以證明所有公司都有欺詐行為。</td></tr>
+                <tr><td>外匯手數</td><td>標準外匯手數一般為 100,000 個基礎貨幣單位；10,000 通常是 mini lot。美股以股數交易；「一手 100 股」主要涉及標準美股個股期權乘數，不是普通股票下單單位。</td></tr>
+                <tr><td>E-mini 合約規格</td><td>E-mini NQ 每指數點乘數 $20，最小跳動 0.25 點即 $5；E-mini ES 每點 $50，0.25 點即 $12.50。Micro／E-nano 等變體須另行核對合約規格。</td></tr>
+                <tr><td>風險回報比</td><td>1:2 本身不會創造盈利。期望值 = 勝率×平均盈利 − 敗率×平均虧損 − 成本。</td></tr>
+                <tr><td>止損單</td><td>預先設定失效條件有助於紀律，但止損單不保證成交價格；期權可能有較闊差價。價格、時間或權利金離場規則均須按產品測試。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h3>概念分類｜機制、可測試啟發式與敘事假設</h3>
+          <div class="concept-tier-grid">
+            <div class="concept-tier"><span class="pill">第 1 層</span><h3>事實／機制</h3><p>蠟燭圖 OHLC、bid/ask、限價單與市價單、tick／合約乘數、交易時段。</p></div>
+            <div class="concept-tier"><span class="pill">第 2 層</span><h3>可測試的啟發式</h3><p>支持／阻力、多時間框架、ORB、開市區間、趨勢結構。可先寫成規則，再用資料測試。</p></div>
+            <div class="concept-tier"><span class="pill">第 3 層</span><h3>需要證據的敘事假設</h3><p>ICT／SMC 所稱「機構獵取流動性」等因果主張。FVG、Order Block、PO3、SMT 可作回測規則定義，但不是機構意圖的證明。</p></div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h3>如何把概念轉化為 0DTE 流程，而非照抄策略</h3>
+          <p>逐字稿中的 setup 主要圍繞 NQ／ES 期貨，不能在缺少合約選擇與執行規則下直接移植至 0DTE 期權。</p>
+          <ol class="mao-workflow">
+            <li><h4>標的訊號層</h4><p>建立清楚、可記錄時間的規則。</p></li>
+            <li><h4>期權層</h4><p>指定 Call／Put、行使價、bid-ask、到期日與結算方式。</p></li>
+            <li><h4>風險層</h4><p>設定權利金上限、失效條件、時間離場與券商截止時間。</p></li>
+            <li><h4>證據層</h4><p>先累積 30 筆以上模擬交易，並記錄成本。</p></li>
+          </ol>
+        </article>
+
+        <div class="callout" role="note"><div class="callout-icon" aria-hidden="true">✓</div><div><strong>編輯結論：</strong>這份材料可作術語與例行流程的入門索引；不足以證明交易優勢、盈利能力或以交易取代職業的可行性。</div></div>
+      </div>
+    </section>
+
     <section id="editor-review">
       <div class="shell editor-stack">
         <div class="section-head">
           <span class="section-kicker">Independent review</span>
           <h2>獨立評審：可以學框架，不應照抄參數</h2>
-          <p>以下把官方制度資料、作者自述和編輯判斷分開；策略階梯、風控數字及入場清單屬編輯教學框架，不是官方標準。</p>
+          <p>以下評審多個 KOL 個案，並把官方制度資料、作者自述和編輯判斷分開；策略階梯、風控數字及入場清單屬編輯教學框架，不是官方標準。</p>
         </div>
         <div class="callout verdict-callout" role="note">
           <div class="callout-icon" aria-hidden="true">✓</div>
@@ -918,7 +1103,7 @@
             <div class="question-card"><strong>7. 時間失效</strong><span>到哪個日期仍未發生預期，就重新評估或離場？</span></div>
           </div>
 
-          <div class="avoid-note"><strong>初學階段先避免：</strong>裸賣 Short Call／Short Put、0DTE、財報期間持有隔夜短期期權風險，以及流動性差的合約。</div>
+          <div class="avoid-note"><strong>初學階段先避免：</strong>裸賣 Short Call／Short Put、財報期間持有隔夜短期期權風險，以及流動性差的合約。未完成本頁 0DTE 安全模組前，先避免實盤 0DTE；即使完成，也先做模擬盤並用定義風險。</div>
           <h4 style="margin-top:1.25rem">離場規則按風險來源拆分</h4>
           <div class="exit-grid">
             <div class="exit-item"><strong>價格</strong><span>預先定義價格假設何時失效。</span></div>
@@ -935,6 +1120,27 @@
       <div class="shell">
         <div class="section-head"><span class="section-kicker">Interactive lab</span><h2>即時計數，睇清風險</h2><p>輸入例子數值，觀察範圍、盈虧與倉位點樣變。結果未計佣金、滑點、提前行使與波動曲面等因素。</p></div>
         <div class="calculator-grid">
+          <article class="calc-card dte-calc">
+            <h3>0DTE Long Option 到期損益</h3>
+            <div class="field-grid">
+              <label for="zdType">期權類型<select id="zdType"><option value="call">Call</option><option value="put">Put</option></select></label>
+              <label for="zdK">行使價 K $<input id="zdK" type="number" min="0.01" step="0.01" value="100"></label>
+              <label for="zdPremium">權利金 P／股 $<input id="zdPremium" type="number" min="0.01" step="0.01" value="1.50"></label>
+              <label for="zdSpot">到期損益計算標的價 S $<input id="zdSpot" type="number" min="0" step="0.01" value="102"></label>
+              <label for="zdMultiplier">合約乘數<input id="zdMultiplier" type="number" min="1" step="1" value="100"></label>
+              <label for="zdAccount">帳戶資金 $<input id="zdAccount" type="number" min="0" step="100" value="20000"></label>
+              <label for="zdRisk">每筆風險預算 %<input id="zdRisk" type="number" min="0" max="100" step="0.05" value="0.25"></label>
+            </div>
+            <div class="result-box">
+              <div><span>打和點</span><strong id="zdBreakeven">$101.50</strong></div>
+              <div><span>每張最大損失</span><strong id="zdMaxLoss">$150.00</strong></div>
+              <div><span>每張到期損益</span><strong id="zdExpiryPnl">$50.00</strong></div>
+              <div><span>風險預算內最多張數</span><strong id="zdMaxContracts">0 張</strong></div>
+            </div>
+            <p class="risk-gate is-blocked" id="zdGate" role="status" aria-live="polite">每張最大損失超出風險預算：0 張／跳過交易，不可向上取整。</p>
+            <p class="chart-caption">只計到期內在值與權利金，不是盤中期權價格預測；未計佣金或滑點。模擬盤的平倉標的價不代表可按該價格成交期權。</p>
+          </article>
+
           <article class="calc-card">
             <h3>Expected Move</h3>
             <div class="field-grid">
@@ -1060,14 +1266,28 @@
             <li><a href="https://www.optionseducation.org/optionsoverview/exercising-options">OIC Exercising Options</a></li>
           </ul>
         </div>
+        <div class="source-group">
+          <h3><span class="source-tag">KOL 個案 02 核對資料</span></h3>
+          <ul class="source-link-list">
+            <li><a href="https://www.finra.org/investors/insights/frequent-intraday-trading">FINRA Frequent Intraday Trading</a></li>
+            <li><a href="https://syndication.finra.org/content/zeroing-options-trading-strategy-0dte">FINRA 0DTE</a></li>
+            <li><a href="https://prd-web.optionseducation.org/news/may-keytakeaways">OIC May 2026 0DTE Risk Profile</a></li>
+            <li><a href="https://www.sec.gov/files/investor/alerts/tradingseminars.htm">SEC Trading Seminar Fraud</a></li>
+            <li><a href="https://faculty.haas.berkeley.edu/odean/papers/Day%20Traders/The%20Cross-Section%20of%20Speculator%20Skill.pdf">Barber et al., Cross-Section of Speculator Skill</a></li>
+            <li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3423101">Chague et al., Day Trading for a Living?</a></li>
+            <li><a href="https://www.cftc.gov/media/9196/enftradersglobalgroupcomplaint082923/download">CFTC Traders Global complaint（個案提示）</a></li>
+            <li><a href="https://www.cmegroup.com/content/dam/cmegroup/education/modules/files/EQ240_EQ_for_AIT.pdf">CME E-mini contract specifications</a></li>
+          </ul>
+          <p class="muted"><strong>用戶提供的 KOL 訪談逐字稿：</strong>無公開連結；本頁只作摘要，未逐字重現，作者的績效自述未獨立核驗。</p>
+        </div>
       </div>
     </section>
   </main>
 
   <footer><div class="shell">整理日期：2026-09-26 · 教育用途 · 原始文章及制度資料見本頁「延伸閱讀」</div></footer>
   <nav class="mobile-bottom-nav" aria-label="手機快速導覽">
-    <a href="#roadmap">開始</a>
-    <a href="#editor-review">評審</a>
+    <a href="#zero-dte">0DTE</a>
+    <a href="#mao-review">KOL評審</a>
     <a href="#lab">工具</a>
     <a href="#checklist">清單</a>
   </nav>
@@ -1089,6 +1309,41 @@
       });
       $('printBtn').addEventListener('click', () => window.print());
       $('mobileNav').addEventListener('change', (e) => { if (e.target.value) location.hash = e.target.value; });
+
+      function updateZeroDte() {
+        const ids = ['zdK','zdPremium','zdSpot','zdMultiplier','zdAccount','zdRisk'];
+        const raw = ids.map(id => $(id).value.trim());
+        const [strike, premium, spot, multiplier, account, riskInput] = raw.map(Number);
+        const optionType = $('zdType').value;
+        const invalid = raw.some(value => value === '') ||
+          ![strike, premium, spot, multiplier, account, riskInput].every(Number.isFinite) ||
+          strike <= 0 || premium <= 0 || spot < 0 || multiplier <= 0 ||
+          account < 0 || riskInput < 0 || riskInput > 100 ||
+          !['call','put'].includes(optionType);
+        if (invalid) {
+          $('zdBreakeven').textContent = '—';
+          $('zdMaxLoss').textContent = '—';
+          $('zdExpiryPnl').textContent = '—';
+          $('zdMaxContracts').textContent = '—';
+          $('zdGate').classList.add('is-blocked');
+          $('zdGate').textContent = '輸入無效：K、P 與合約乘數須大於 0；S 與帳戶資金不可為負數；風險比例須介乎 0% 至 100%。';
+          return;
+        }
+        const breakeven = optionType === 'call' ? strike + premium : strike - premium;
+        const intrinsic = optionType === 'call' ? Math.max(spot - strike, 0) : Math.max(strike - spot, 0);
+        const maxLoss = premium * multiplier;
+        const expiryPnl = (intrinsic - premium) * multiplier;
+        const riskBudget = account * riskInput / 100;
+        const contracts = Math.floor(riskBudget / maxLoss);
+        $('zdBreakeven').textContent = money(breakeven);
+        $('zdMaxLoss').textContent = money(maxLoss);
+        $('zdExpiryPnl').textContent = money(expiryPnl);
+        $('zdMaxContracts').textContent = contracts + ' 張';
+        $('zdGate').classList.toggle('is-blocked', contracts === 0);
+        $('zdGate').textContent = contracts === 0
+          ? '每張最大損失 ' + money(maxLoss) + ' 高於風險預算 ' + money(riskBudget) + '：0 張／跳過交易，不可向上取整。'
+          : '風險預算 ' + money(riskBudget) + '；按向下取整最多 ' + contracts + ' 張。此數值不含費用與滑點。';
+      }
 
       function updateExpectedMove() {
         const price = Math.max(0, number('emPrice'));
@@ -1230,6 +1485,8 @@
           : '按向下取整計算；實際最大風險不會高於設定的風險預算。';
       }
 
+      ['zdK','zdPremium','zdSpot','zdMultiplier','zdAccount','zdRisk'].forEach(id => $(id).addEventListener('input', updateZeroDte));
+      $('zdType').addEventListener('change', updateZeroDte);
       ['emPrice','emIv','emDte'].forEach(id => $(id).addEventListener('input', updateExpectedMove));
       $('moneynessSlider').addEventListener('input', updateMoneyness);
       ['bpShort','bpLong','bpCredit'].forEach(id => $(id).addEventListener('input', drawBullPut));
@@ -1245,7 +1502,7 @@
       }
       checks.forEach(c => c.addEventListener('change', updateChecklist));
 
-      updateExpectedMove(); updateMoneyness(); drawBullPut(); updateExpectancy(); updatePosition(); updateChecklist();
+      updateZeroDte(); updateExpectedMove(); updateMoneyness(); drawBullPut(); updateExpectancy(); updatePosition(); updateChecklist();
     })();
   </script>
 </body>
