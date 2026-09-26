@@ -370,6 +370,9 @@
     .diagram-figure svg .svg-fill { fill: var(--surface-2); stroke: var(--line); }
     .diagram-wide { grid-column: 1 / -1; }
     .diagram-intro { max-width: 60rem; margin: 0 0 1.2rem; color: var(--muted); }
+    .restart-roadmap { max-width: 46rem; margin-inline: auto; }
+    .diagram-figure.restart-roadmap svg text { font-size: 22px; }
+    .diagram-figure.restart-roadmap svg .svg-small { font-size: 18px; }
     .setup-flow { display: grid; gap: 0; border-top: 1px solid var(--line); }
     .setup-flow-row { display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr) minmax(0, 13rem); gap: .8rem; align-items: center; padding: .8rem .2rem; border-bottom: 1px solid var(--line); }
     .setup-flow-row strong { display: block; }
@@ -670,6 +673,32 @@
           <span class="pill">01｜交易的現實</span>
           <h3>先認清交易係乜</h3>
           <p>不同交易方式主要差在持倉時間、決策節奏和承受哪種風險。持倉較短不代表風險較低；成交成本和執行誤差反而可能更重要。</p>
+          <h4>如果由頭開始：先求生，再求證</h4>
+          <p>呢份逐字稿最值得留下的，不是某個「必勝 setup」或 Prop firm 推薦，而是講者回望後會先學風控、慢慢建立一套規則，再用紀錄檢查自己。佢答「會重新揀」，但同時提醒：日內交易有金錢、時間、心理同孤獨成本，唔係人人都適合，更唔係穩定月薪。</p>
+          <figure class="diagram-figure diagram-wide restart-roadmap">
+            <h3>重新開始的次序</h3>
+            <svg viewBox="0 0 720 590" role="img" aria-labelledby="restart-path-title restart-path-desc">
+              <title id="restart-path-title">由頭學日內交易的風險優先路線</title>
+              <desc id="restart-path-desc">先評估個人財務與時間是否容許承受風險，再學產品機制、訂風險規則、固定一套 setup、扣除成本回測並用未參與設計的資料檢查、前瞻模擬與復盤。最後可以繼續練習、修改或停止；真倉或 Prop firm 並非必經升級。</desc>
+              <rect x="35" y="14" width="650" height="72" rx="7" fill="var(--red-2)" stroke="var(--line)"/><text x="62" y="46">0｜先問：我而家適唔適合？</text><text class="svg-small" x="62" y="72">唔用生活費／借款；唔把交易當急需收入</text>
+              <path class="svg-risk" stroke-width="3" d="M360 87v21m-7-8 7 8 7-8"/><text class="svg-small" x="384" y="103">未準備好 → 暫停實盤</text>
+              <rect class="svg-fill" x="35" y="116" width="650" height="72" rx="7"/><text x="62" y="148">1｜認識產品與成本</text><text class="svg-small" x="62" y="174">合約單位、交易時段、槓桿、手續費、滑點</text>
+              <path class="svg-accent" stroke-width="3" d="M360 189v18m-7-8 7 8 7-8"/>
+              <rect class="svg-fill" x="35" y="215" width="650" height="72" rx="7"/><text x="62" y="247">2｜先寫風險規則</text><text class="svg-small" x="62" y="273">每筆上限、每日停手條件、何時不交易</text>
+              <path class="svg-accent" stroke-width="3" d="M360 288v18m-7-8 7 8 7-8"/>
+              <rect class="svg-fill" x="35" y="314" width="650" height="72" rx="7"/><text x="62" y="346">3｜只固定一套可描述的 setup</text><text class="svg-small" x="62" y="372">入場、失效、止損、目標；不要事後改規則</text>
+              <path class="svg-blue" stroke-width="3" d="M360 387v18m-7-8 7 8 7-8"/>
+              <rect x="35" y="413" width="650" height="72" rx="7" fill="var(--blue-2)" stroke="var(--line)"/><text x="62" y="445">4｜回測扣成本，再做前瞻模擬</text><text class="svg-small" x="62" y="471">保留未用來調規則的資料；每次改版分開記</text>
+              <path class="svg-blue" stroke-width="3" d="M360 486v18m-7-8 7 8 7-8"/>
+              <rect x="35" y="512" width="650" height="64" rx="7" fill="var(--green-2)" stroke="var(--line)"/><text x="62" y="542">5｜Journal 後再決定</text><text class="svg-small" x="62" y="566">繼續模擬、修改、暫停；真倉／Prop 唔係必經下一級</text>
+            </svg>
+            <figcaption>流程圖係學習次序，不是「過關就有盈利」的承諾。模擬成交和歷史回測未必反映真實成交；成本、滑點及人手執行都會改變結果。</figcaption>
+          </figure>
+          <div class="review-grid">
+            <div class="review-card"><h4>片中值得帶走</h4><ul><li>先定每筆及每日可承受的風險，唔好爆倉後先補課。</li><li>集中一個市場、一個時段、一套明確規則，留下可比較的紀錄。</li><li>復盤自己有冇 FOMO、報復交易、超額倉位或違反計劃。</li></ul></div>
+            <div class="review-card"><h4>要保留判斷距離</h4><ul><li>片中的回測盈利數字屬講者自述；未有完整規則、原始資料及獨立重現，不能當成已驗證績效。</li><li>Prop firm 折扣、派款例子或推薦不等於適合你，也不應當作翻身計劃。</li><li>回測調得愈多，愈容易只貼合過去資料；要預留資料及前瞻模擬再檢查。</li></ul></div>
+          </div>
+          <p class="unit-note"><strong>用白話講：</strong>先問「我輸得起嗎？」再問「規則有沒有證據？」最後才考慮是否承受更多曝險。CFTC 指出模擬結果可能漏算滑點、價差、費用及真實執行等限制；研究亦指出反覆挑選歷史上表現最佳版本會帶來回測過度配適風險。<a href="https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/fraudadv_tradingsystem.html">CFTC 說明</a> · <a href="https://www.davidhbailey.com/dhbpapers/backtest-prob.pdf">Bailey 等人研究</a></p>
           <div class="fact-table-wrap" role="region" aria-label="交易方式與主要風險比較">
             <table class="fact-table"><thead><tr><th scope="col">方式</th><th scope="col">典型持倉時間</th><th scope="col">主要風險</th></tr></thead><tbody>
               <tr><td>Day trading</td><td>同一交易日內</td><td>盤中波動、執行與滑點、頻繁交易成本；隔夜風險較少不等於必然較安全。</td></tr>
@@ -1513,6 +1542,7 @@
             <li><a href="https://bookmap.com/knowledgebase/docs/KB-SettingUpAndOperating-HeatmapMainChart">Bookmap：Heatmap main chart 說明</a></li>
             <li><a href="https://www.cmegroup.com/markets/equities/nasdaq/e-mini-nasdaq-100.timeAndSales.html">CME：E-mini Nasdaq-100 合約與交易時段</a></li>
             <li><a href="https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/fraudadv_tradingsystem.html">CFTC：模擬／假設交易結果的限制</a></li>
+            <li><a href="https://www.davidhbailey.com/dhbpapers/backtest-prob.pdf">Bailey et al., The Probability of Backtest Overfitting</a></li>
           </ul>
           <p class="muted"><strong>用戶提供的 a2ky9／Mao 交易入門、Heatmap、ICT walkthrough 及 2026-03-20 Daily Order Flow recap 逐字稿：</strong>無公開連結；本頁以摘要及重畫示意圖方式重組教材，未逐字重現。作者的個人經歷、單日交易結果、績效、平台、Discord 與 Prop firm 推薦未經獨立核驗，亦不構成本頁推薦。</p>
         </div>
