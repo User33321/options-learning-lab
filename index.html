@@ -1446,6 +1446,67 @@
           </div>
         </article>
 
+        <article class="panel" id="live-qa-profile-ai">
+          <h3>補充逐字稿｜直播 Q&amp;A：先定背景，再等確認</h3>
+          <p>新字幕混有音樂、錯聽和觀眾問答，只採用較清楚的片段。以下係概念重畫，唔係原始圖表、即時訊號或入場建議。</p>
+          <div class="recap-stack">
+            <figure class="visual-lesson">
+              <div class="visual-board">
+                <svg viewBox="0 0 620 300" role="img" aria-labelledby="profileShiftTitle profileShiftDesc">
+                  <title id="profileShiftTitle">比較兩段 ETH Volume Profile 的價值區移動</title>
+                  <desc id="profileShiftDesc">兩個完整時段的成交量分佈使用相同價軸。較新的 Profile 的 POC 和 Value Area 整體下移，只作背景假設；日內仍要等價格到達預先標記的位置並出現確認。</desc>
+                  <text x="68" y="28">前一個完整 ETH</text><text x="358" y="28">最新完整 ETH</text>
+                  <line class="chart-level" x1="49" y1="57" x2="49" y2="248"/><text class="chart-note" x="54" y="54">價格高</text><text class="chart-note" x="54" y="265">價格低</text>
+                  <rect x="82" y="72" width="180" height="78" rx="4" fill="var(--blue-2)" opacity=".8"/><rect x="367" y="129" width="180" height="82" rx="4" fill="var(--green-2)" opacity=".8"/>
+                  <g fill="var(--blue)" opacity=".88"><rect x="105" y="62" width="42" height="9"/><rect x="105" y="76" width="91" height="9"/><rect x="105" y="90" width="133" height="9"/><rect x="105" y="104" width="153" height="9"/><rect x="105" y="118" width="126" height="9"/><rect x="105" y="132" width="88" height="9"/><rect x="105" y="146" width="48" height="9"/><rect x="105" y="160" width="20" height="9"/></g>
+                  <g fill="var(--green)" opacity=".88"><rect x="389" y="116" width="26" height="9"/><rect x="389" y="130" width="76" height="9"/><rect x="389" y="144" width="124" height="9"/><rect x="389" y="158" width="153" height="9"/><rect x="389" y="172" width="139" height="9"/><rect x="389" y="186" width="98" height="9"/><rect x="389" y="200" width="48" height="9"/><rect x="389" y="214" width="22" height="9"/></g>
+                  <line class="chart-level" x1="92" y1="104" x2="260" y2="104"/><line class="chart-level" x1="378" y1="165" x2="545" y2="165"/>
+                  <text class="chart-note" x="263" y="108">POC</text><text class="chart-note" x="548" y="169">POC</text>
+                  <text class="chart-note" x="83" y="68">VAH</text><text class="chart-note" x="83" y="171">VAL</text><text class="chart-note" x="369" y="125">VAH</text><text class="chart-note" x="369" y="231">VAL</text>
+                  <line class="chart-entry" x1="300" y1="106" x2="300" y2="163"/><path d="M294 157l6 9 6-9" fill="var(--green)"/><text class="chart-note" x="268" y="193">value 下移？</text>
+                  <text class="chart-note" x="91" y="284">示意：比較相同設定、已完成的 session</text>
+                </svg>
+              </div>
+              <div class="visual-copy">
+                <span class="setup-chip">背景 → 位置 → 確認</span>
+                <h3>ETH 看較大背景；RTH 等實際反應</h3>
+                <p>講者提到先比較 ETH profile 的 value area，再於 RTH 留意日內重要水平。若連續、同一 session 設定的已完成 profile 整體下移，可以記作「市場成交重心向下移」的背景假設；唔代表價格必跌。</p>
+                <ol><li><strong>先統一設定：</strong>確認商品、時區、ETH／RTH 時段及 profile 百分比一致。</li><li><strong>標位置：</strong>前段 VAH／VAL／POC、Composite 區域等，事前畫好。</li><li><strong>等確認：</strong>價格到位後，再看成交有冇推進、吸收或 reload；先寫失效位與風險。</li></ol>
+                <figcaption>POC 是所選期間成交量最高的價位；VAH／VAL 是所選 Value Area 的上下界。Value Area 常見預設 70%，但可因平台設定而異。<a href="https://www.tradingview.com/support/solutions/43000502040-volume-profile-indicators-basic-concepts/">TradingView 定義</a>。Profile 移動只係觀察線索，不是單獨訊號。</figcaption>
+              </div>
+            </figure>
+
+            <figure class="visual-lesson">
+              <div class="visual-board">
+                <svg viewBox="0 0 620 286" role="img" aria-labelledby="aiWorkflowTitle aiWorkflowDesc">
+                  <title id="aiWorkflowTitle">AI 交易輔助的安全工作流程</title>
+                  <desc id="aiWorkflowDesc">先由交易者寫下策略、風險和失效規則，再用 AI 整理或掃描條件，核對即時資料並以模擬和紀錄驗證；未充分測試前不讓 AI 直接執行真倉訂單。</desc>
+                  <rect x="22" y="52" width="170" height="128" rx="8" fill="var(--blue-2)" stroke="var(--blue)" stroke-width="2"/>
+                  <rect x="225" y="52" width="170" height="128" rx="8" fill="var(--green-2)" stroke="var(--green)" stroke-width="2"/>
+                  <rect x="428" y="52" width="170" height="128" rx="8" fill="var(--orange-2)" stroke="var(--orange)" stroke-width="2"/>
+                  <text x="42" y="82">1｜先寫規則</text><text class="chart-note" x="42" y="111">Setup、倉位</text><text class="chart-note" x="42" y="135">最大風險、失效位</text><text class="chart-note" x="42" y="159">資料來源與時段</text>
+                  <text x="245" y="82">2｜AI 做助手</text><text class="chart-note" x="245" y="111">整理圖表／日誌</text><text class="chart-note" x="245" y="135">檢查規則有否齊</text><text class="chart-note" x="245" y="159">唔代你估方向</text>
+                  <text x="448" y="82">3｜人手核實</text><text class="chart-note" x="448" y="111">核對即時行情</text><text class="chart-note" x="448" y="135">先回測／模擬</text><text class="chart-note" x="448" y="159">設風險上限</text>
+                  <line class="chart-entry" x1="195" y1="116" x2="219" y2="116"/><path d="M213 110l8 6-8 6" fill="var(--green)"/><line class="chart-entry" x1="398" y1="116" x2="422" y2="116"/><path d="M416 110l8 6-8 6" fill="var(--green)"/>
+                  <rect x="83" y="211" width="454" height="48" rx="7" fill="var(--red-2)" stroke="var(--red)"/><text x="115" y="242">未驗證前：唔好盲目接駁真倉自動落單</text>
+                </svg>
+              </div>
+              <div class="visual-copy">
+                <span class="setup-chip bonus">觀眾問答｜AI 工具</span>
+                <h3>先教清楚規則，再叫 AI 幫手檢查</h3>
+                <p>字幕中講者提醒，不要完全相信 AI；要先交代 setup、風險管理和倉位規則。較穩妥的學習用途係整理資料、核對清單或掃描候選條件，最後由你核實數據及決定是否交易。</p>
+                <ol><li><strong>用自己的明確規則測試：</strong>固定資料、成本、滑點及樣本，先做回測與模擬。</li><li><strong>查錯而非求答案：</strong>AI 可能誤讀圖表、時間或數據；唔好問完「而家好唔好買」就照做。</li><li><strong>自動化另有風險：</strong>連接真倉前要了解程式、下單權限、錯誤處理和停機方式。</li></ol>
+                <figcaption>AI 可支援研究或流程，但不能保證訊號正確或盈利；FINRA 亦指出 AI 在投資與交易應用中需要適當監督與控制。<a href="https://www.finra.org/rules-guidance/key-topics/fintech/report/artificial-intelligence-in-the-securities-industry/key-challenges">FINRA：AI 應用與風險</a>。</figcaption>
+              </div>
+            </figure>
+          </div>
+          <div class="review-grid">
+            <article class="review-card"><h3>Speed of Tape｜成交速度唔等於方向</h3><p>字幕把它描述為觀察成交活動快慢。要同時問「成交增加後，價格有冇進展？」快而無進展，可能只是吸收；慢下來亦唔代表必定反轉。將速度、位置、價格結果一齊記錄。</p></article>
+            <article class="review-card"><h3>按計劃輸一單，點樣檢討？</h3><p>先分開「流程」與「結果」：照規則、風險合格但虧損，唔足以單憑一單否定策略；違反計劃但剛好盈利，亦唔係 edge 證明。逐筆記錄，再用足夠樣本和交易成本評估。</p></article>
+          </div>
+          <div class="unit-note" style="margin-top:1rem"><strong>字幕取捨：</strong>直播中的即時進出場、金額和平台畫面難以由此逐字稿可靠重建，所以不收錄作交易指示；亦不建議照抄講者倉位。</div>
+        </article>
+
         <article class="panel">
           <h3>如何把概念轉化為 0DTE 流程，而非照抄策略</h3>
           <p>逐字稿中的 setup 主要圍繞 NQ／ES 期貨，不能在缺少合約選擇與執行規則下直接移植至 0DTE 期權。</p>
@@ -1584,11 +1645,13 @@
             <li><a href="https://www.cmegroup.com/education/courses/market-regulation/disruptive-practices-prohibited/disruptive-practices-prohibited-spoofing">CME Rule 575：Spoofing</a></li>
             <li><a href="https://www.cftc.gov/LawRegulation/FederalRegister/FinalRules/2013-12365.html">CFTC：Spoofing interpretive guidance</a></li>
             <li><a href="https://bookmap.com/knowledgebase/docs/KB-SettingUpAndOperating-HeatmapMainChart">Bookmap：Heatmap main chart 說明</a></li>
+            <li><a href="https://www.tradingview.com/support/solutions/43000502040-volume-profile-indicators-basic-concepts/">TradingView：Volume Profile、POC、VAH／VAL 定義</a></li>
+            <li><a href="https://www.finra.org/rules-guidance/key-topics/fintech/report/artificial-intelligence-in-the-securities-industry/key-challenges">FINRA：AI 在證券業的挑戰與監督</a></li>
             <li><a href="https://www.cmegroup.com/markets/equities/nasdaq/e-mini-nasdaq-100.timeAndSales.html">CME：E-mini Nasdaq-100 合約與交易時段</a></li>
             <li><a href="https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/fraudadv_tradingsystem.html">CFTC：模擬／假設交易結果的限制</a></li>
             <li><a href="https://www.davidhbailey.com/dhbpapers/backtest-prob.pdf">Bailey et al., The Probability of Backtest Overfitting</a></li>
           </ul>
-          <p class="muted"><strong>用戶提供的 a2ky9／Mao 交易入門、Heatmap、ICT walkthrough 及 2026-03-20 Daily Order Flow recap 逐字稿：</strong>無公開連結；本頁以摘要及重畫示意圖方式重組教材，未逐字重現。作者的個人經歷、單日交易結果、績效、平台、Discord 與 Prop firm 推薦未經獨立核驗，亦不構成本頁推薦。</p>
+          <p class="muted"><strong>用戶提供的 a2ky9／Mao 交易入門、Heatmap、ICT walkthrough、Daily Order Flow recap 及直播 Q&amp;A 逐字稿：</strong>無公開連結；本頁以摘要及重畫示意圖方式重組教材，未逐字重現。最新直播 Q&amp;A 字幕含大量音樂及辨識錯誤，只保留可辨認的 Profile、Speed of Tape、AI 使用與流程檢討片段；作者個人經歷、單日結果、績效、平台及 Prop firm 說法未經獨立核驗，亦不構成本頁推薦。</p>
         </div>
       </div>
     </section>
