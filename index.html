@@ -1119,16 +1119,58 @@
             </svg>
             <figcaption>CLC 的價值是過濾低質 setup。Confirmation 不是堆最多訊號，而是檢查市場反應是否支持事前寫下的假設。</figcaption>
           </figure>
+
+          <figure class="diagram-figure">
+            <h3>Reload｜成交後，同一價位又見掛單</h3>
+            <svg viewBox="0 0 360 300" role="img" aria-labelledby="reloadSequenceTitle reloadSequenceDesc">
+              <title id="reloadSequenceTitle">同一價位掛單在成交後再次出現的示意</title>
+              <desc id="reloadSequenceDesc">100.00 價位先顯示 20 個 bid，主動賣單成交後可見數量降到 2，稍後又顯示 18；若價格進展仍小，只能說觀察到掛單補回與有限價格進展，不能確認參與者身份或預測反轉。</desc>
+              <text class="svg-small" x="18" y="27">同一價位｜100.00　　時間 →</text>
+              <text class="svg-small" x="58" y="54" text-anchor="middle">t1｜原有</text><rect x="14" y="62" width="88" height="38" rx="4" fill="var(--blue-2)" stroke="var(--blue)"/><text x="58" y="87" text-anchor="middle">Bid 20</text>
+              <path class="svg-line" stroke-width="2" d="M104 81h27m-7-6 7 6-7 6"/>
+              <text class="svg-small" x="180" y="54" text-anchor="middle">t2｜成交後</text><rect x="136" y="62" width="88" height="38" rx="4" fill="var(--surface-2)" stroke="var(--line)"/><text x="180" y="87" text-anchor="middle">Bid 2</text>
+              <path class="svg-line" stroke-width="2" d="M226 81h27m-7-6 7 6-7 6"/>
+              <text class="svg-small" x="302" y="54" text-anchor="middle">t3｜再出現</text><rect x="258" y="62" width="88" height="38" rx="4" fill="var(--blue-2)" stroke="var(--blue)"/><text x="302" y="87" text-anchor="middle">Bid 18</text>
+              <path class="svg-risk" stroke-width="2" d="M180 104v28m-6-7 6 7 6-7"/><text class="svg-small" x="191" y="123">SELL 成交</text>
+              <text class="svg-small" x="18" y="160">價格結果（示意）</text><line class="svg-line svg-dash" x1="20" y1="193" x2="340" y2="193"/><polyline fill="none" stroke="var(--ink)" stroke-width="3" points="24,183 92,184 158,187 226,185 292,188 336,187"/><text class="svg-small" x="180" y="218" text-anchor="middle">下跌進展細</text>
+              <rect x="18" y="236" width="324" height="48" rx="4" fill="var(--green-2)" stroke="var(--line)"/><text x="180" y="257" text-anchor="middle">可能是掛單補回／吸收</text><text class="svg-small" x="180" y="277" text-anchor="middle">不等於必然反轉；再看後續價格反應</text>
+            </svg>
+            <figcaption>數字純為教學示意。Reload 描述「掛單再次出現」；它不證明是冰山單、同一個人，亦不是單獨的入場訊號。</figcaption>
+          </figure>
+
+          <figure class="diagram-figure">
+            <h3>Thin book｜賣單點樣掃過幾格</h3>
+            <svg viewBox="0 0 360 300" role="img" aria-labelledby="thinBookTitle thinBookDesc">
+              <title id="thinBookTitle">主動賣單消耗多個較薄 bid 價位的簡化示意</title>
+              <desc id="thinBookDesc">買盤依次有 3 個在 100.00、2 個在 99.75、4 個在 99.50；一筆 7 個單位的主動賣出成交依次消耗 3、2、2，最後成交價到 99.50。這是薄簿價格影響的示意，不代表真實市場一定如此。</desc>
+              <text class="svg-small" x="20" y="26">可見 Bid 深度</text><text class="svg-small" x="244" y="26">主動 SELL</text>
+              <text x="24" y="72">100.00</text><rect x="104" y="48" width="122" height="34" rx="4" fill="var(--blue-2)" stroke="var(--blue)"/><text x="165" y="71" text-anchor="middle">3 個</text><circle cx="282" cy="65" r="18" fill="var(--red-2)" stroke="var(--red)"/><text x="282" y="70" text-anchor="middle">3</text>
+              <text x="24" y="124">99.75</text><rect x="104" y="100" width="84" height="34" rx="4" fill="var(--blue-2)" stroke="var(--blue)"/><text x="146" y="123" text-anchor="middle">2 個</text><circle cx="282" cy="117" r="18" fill="var(--red-2)" stroke="var(--red)"/><text x="282" y="122" text-anchor="middle">2</text>
+              <text x="24" y="176">99.50</text><rect x="104" y="152" width="160" height="34" rx="4" fill="var(--blue-2)" stroke="var(--blue)"/><text x="184" y="175" text-anchor="middle">4 個</text><circle cx="282" cy="169" r="18" fill="var(--red-2)" stroke="var(--red)"/><text x="282" y="174" text-anchor="middle">2</text>
+              <path class="svg-risk" stroke-width="2" d="M322 47v144m-6-8 6 8 6-8"/><text class="svg-small" x="319" y="38" text-anchor="middle">7 個</text>
+              <rect x="18" y="208" width="324" height="72" rx="4" fill="var(--orange-2)" stroke="var(--line)"/><text x="180" y="232" text-anchor="middle">3 + 2 + 2 被成交</text><text class="svg-small" x="180" y="254" text-anchor="middle">成交價可跨過多個價位</text><text class="svg-small" x="180" y="273" text-anchor="middle">薄簿影響 ≠ 識別到某個大戶</text>
+            </svg>
+            <figcaption>以簡化價位／數量示範市價賣單消耗可見 bid；真實市場的掛單會更新，深度亦不是流動性的完整指標。</figcaption>
+          </figure>
         </div>
+
+        <p class="unit-note"><strong>圖解的限制：</strong>掛單簿只是一個動態切面。CME 的研究提醒，單看 order-book depth 可能低估或誤讀流動性，還要考慮成交速度、報價更新及實際 fill quality。<a href="https://www.cmegroup.com/articles/2025/reassessing-liquidity-beyond-order-book-depth.html">CME：Reassessing Liquidity</a></p>
 
         <div class="section-head" style="margin-top:2rem"><span class="section-kicker">Liquidity states</span><h2>先分類，再解讀</h2><p>同樣一條亮色帶，可以代表完全不同的狀態。以下分類只描述畫面，不直接等於買賣訊號。</p></div>
         <div class="fact-table-wrap" role="region" aria-label="Heatmap 流動性狀態分類"><table class="fact-table"><thead><tr><th scope="col">狀態</th><th scope="col">可觀察定義</th><th scope="col">應該問甚麼</th></tr></thead><tbody>
           <tr><td>Persistent</td><td>同一價位顯示較大掛單並維持一段時間。</td><td>價格接近時仍在嗎？成交後有補回嗎？</td></tr><tr><td>Fresh</td><td>新近出現或突然增加的掛單。</td><td>它維持多久？是否只隨報價短暫調整？</td></tr><tr><td>Shift／Reload</td><td>相似掛單在較接近市場的價位再次出現。</td><td>是否配合價格進展及同方向 follow-through？</td></tr><tr><td>Pulled</td><td>價格到達前掛單減少或消失。</td><td>是正常撤單、風險調整，還是存在誤導意圖？畫面本身不能證明。</td></tr><tr><td>Hidden／Iceberg</td><td>顯示量不大，但同價成交遠高於可見量；原生冰山可由特定 MBO 特徵輔助辨認。</td><td>資料源是否支援 MBO？偵測器是直接證據還是估算？</td></tr><tr><td>Thin／Vacuum</td><td>價位間可見深度很少，少量主動成交已造成較大價格移動。</td><td>價差、滑點及停止條件是否仍可接受？</td></tr>
         </tbody></table></div>
 
-        <div class="section-head" style="margin-top:2rem"><span class="section-kicker">Pattern map</span><h2>六個常見 pattern｜只當觀察語言</h2></div>
+        <div class="section-head" style="margin-top:2rem"><span class="section-kicker">Pattern map</span><h2>八個常見 pattern｜只當觀察語言</h2></div>
         <div class="heatmap-patterns">
-          <div class="heatmap-pattern"><span>01</span><div><strong>Double／cluster wall</strong><p>相鄰兩層明顯掛單；第一層被測試後，觀察第二層是否吸收、補回或同時被消耗。</p></div></div><div class="heatmap-pattern"><span>02</span><div><strong>Continuation structure</strong><p>同方向價格進展配合一側持續 reload，另一側訂單簿較薄；不能只用一次亮色帶判斷。</p></div></div><div class="heatmap-pattern"><span>03</span><div><strong>Iceberg／hidden liquidity</strong><p>大量成交沒有相稱價格進展；需要可信數據和明確偵測規則，肉眼推斷容易誤判。</p></div></div><div class="heatmap-pattern"><span>04</span><div><strong>Auction flip</strong><p>原方向未能延續，反方向成交帶來結構突破，之後有 reload／接受；用來描述轉換，不保證趨勢。</p></div></div><div class="heatmap-pattern"><span>05</span><div><strong>CVD divergence</strong><p>價格與累積 delta 不同步，是「關係異常」提示；可能來自薄簿、吸收或平倉，不能單獨反手。</p></div></div><div class="heatmap-pattern"><span>06</span><div><strong>Delta outlier</strong><p>相對近期樣本異常大的主動成交；重點是其後價格有沒有進展，而不是氣泡本身的顏色。</p></div></div>
+          <div class="heatmap-pattern"><span>01</span><div><strong>Double／cluster wall</strong><p>相鄰兩層明顯掛單；第一層被測試後，觀察第二層是否吸收、補回或同時被消耗。</p></div></div>
+          <div class="heatmap-pattern"><span>02</span><div><strong>Reload</strong><p>同價或更近市場的位置反覆出現相似掛單；觀察價格有沒有進展，不能直接推論是誰在建倉。</p></div></div>
+          <div class="heatmap-pattern"><span>03</span><div><strong>Continuation structure</strong><p>同方向價格進展配合一側持續 reload，另一側訂單簿較薄；不能只用一次亮色帶判斷。</p></div></div>
+          <div class="heatmap-pattern"><span>04</span><div><strong>Iceberg／hidden liquidity</strong><p>大量成交沒有相稱價格進展；需要可信數據和明確偵測規則，肉眼推斷容易誤判。</p></div></div>
+          <div class="heatmap-pattern"><span>05</span><div><strong>Auction flip</strong><p>原方向未能延續，反方向成交帶來結構突破，之後有 reload／接受；用來描述轉換，不保證趨勢。</p></div></div>
+          <div class="heatmap-pattern"><span>06</span><div><strong>Thin book／book sweep</strong><p>較薄的可見深度下，成交可能跨過多個價位；只描述價格影響，不代表已辨認參與者或方向訊號。</p></div></div>
+          <div class="heatmap-pattern"><span>07</span><div><strong>CVD divergence</strong><p>價格與累積 delta 不同步，是「關係異常」提示；可能來自薄簿、吸收或平倉，不能單獨反手。</p></div></div>
+          <div class="heatmap-pattern"><span>08</span><div><strong>Delta outlier</strong><p>相對近期樣本異常大的主動成交；重點是其後價格有沒有進展，而不是氣泡本身的顏色。</p></div></div>
         </div>
 
         <div class="callout" role="note"><div class="callout-icon" aria-hidden="true">!</div><div><strong>同 0DTE 的邊界：</strong>Heatmap 通常分析標的或期貨訂單簿，不能代替期權鏈的 bid-ask、IV、Gamma、行使價流動性與券商截止時間。即使標的方向判斷正確，0DTE Long Option 仍可能因時間值、波幅或價差而虧損。</div></div>
@@ -1537,6 +1579,8 @@
             <li><a href="https://www.cmegroup.com/articles/faqs/market-by-order-mbo.html">CME：Market by Order（MBO）</a></li>
             <li><a href="https://www.cmegroup.com/education/articles-and-reports/how-traders-measure-liquidity">CME：How Traders Measure Liquidity</a></li>
             <li><a href="https://www.cmegroup.com/education/articles-and-reports/assessing-liquidity">CME：Order book depth 並非完整流動性指標</a></li>
+            <li><a href="https://www.cmegroup.com/articles/2025/reassessing-liquidity-beyond-order-book-depth.html">CME：Reassessing Liquidity — Beyond Order Book Depth (2025)</a></li>
+            <li><a href="https://www.cmegroup.com/education/matching-algorithm-overview">CME：Matching Algorithm Overview</a></li>
             <li><a href="https://www.cmegroup.com/education/courses/market-regulation/disruptive-practices-prohibited/disruptive-practices-prohibited-spoofing">CME Rule 575：Spoofing</a></li>
             <li><a href="https://www.cftc.gov/LawRegulation/FederalRegister/FinalRules/2013-12365.html">CFTC：Spoofing interpretive guidance</a></li>
             <li><a href="https://bookmap.com/knowledgebase/docs/KB-SettingUpAndOperating-HeatmapMainChart">Bookmap：Heatmap main chart 說明</a></li>
