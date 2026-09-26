@@ -367,6 +367,32 @@
     .setup-flow-row strong { display: block; }
     .setup-flow-row span { color: var(--muted); }
     .setup-flow-row .setup-flow-tag { font-size: .88rem; color: var(--orange); }
+    .heatmap-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; margin: 1rem 0 1.25rem; }
+    .heatmap-summary article { min-width: 0; padding: 1rem; border-top: 3px solid var(--blue); background: var(--surface); }
+    .heatmap-summary article:nth-child(2) { border-top-color: var(--green); }
+    .heatmap-summary article:nth-child(3) { border-top-color: var(--orange); }
+    .heatmap-summary h3 { margin: 0 0 .35rem; font-size: 1rem; }
+    .heatmap-summary p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .data-layer-list { display: grid; gap: .45rem; margin: .4rem 0 0; padding: 0; list-style: none; }
+    .data-layer-list li { display: grid; grid-template-columns: minmax(7rem, 9rem) minmax(0, 1fr); gap: .7rem; padding: .62rem 0; border-bottom: 1px solid var(--line); }
+    .data-layer-list li:last-child { border-bottom: 0; }
+    .data-layer-list span { color: var(--muted); font-size: .9rem; }
+    .heatmap-outcomes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; overflow: hidden; border: 1px solid var(--line); background: var(--line); }
+    .heatmap-outcome { min-width: 0; padding: 1rem; background: var(--surface); }
+    .heatmap-outcome strong, .heatmap-outcome span { display: block; }
+    .heatmap-outcome strong { margin-bottom: .35rem; }
+    .heatmap-outcome span { color: var(--muted); font-size: .88rem; }
+    .heatmap-outcome b { display: block; margin-top: .65rem; color: var(--green); font-size: .82rem; }
+    .heatmap-patterns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 1.2rem; margin: .8rem 0 1.25rem; border-top: 1px solid var(--line); }
+    .heatmap-pattern { display: grid; grid-template-columns: 2.1rem minmax(0, 1fr); gap: .7rem; padding: .9rem 0; border-bottom: 1px solid var(--line); }
+    .heatmap-pattern > span { color: var(--green); font-weight: 850; }
+    .heatmap-pattern strong { display: block; }
+    .heatmap-pattern p { margin: .2rem 0 0; color: var(--muted); font-size: .88rem; }
+    .heatmap-check { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .7rem; margin: .8rem 0 0; padding: 0; list-style: none; counter-reset: heatmap-check; }
+    .heatmap-check li { min-width: 0; padding: 2rem .85rem .85rem; border: 1px solid var(--line); background: var(--surface); counter-increment: heatmap-check; position: relative; }
+    .heatmap-check li::before { content: counter(heatmap-check); position: absolute; top: .55rem; left: .75rem; color: var(--green); font-weight: 900; }
+    .heatmap-check strong { display: block; margin-bottom: .25rem; }
+    .heatmap-check span { color: var(--muted); font-size: .88rem; }
     .mao-course-stack > .section-head, .mao-course-stack > .callout, .mao-course-stack > .mao-chapter-map, .mao-course-stack > .mao-course-cta { max-width: 52rem; width: 100%; margin-inline: auto; }
     @media (min-width: 951px) and (max-width: 1250px) {
       .topbar-inner { flex-wrap: wrap; padding-block: .5rem; }
@@ -402,7 +428,8 @@
       .diagram-wide { grid-column: auto; }
       .contract-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .trade-flows, .moneyness-results, .concept-figures, .maturity-grid, .method-grid, .inference-grid { grid-template-columns: 1fr; }
-      .review-grid, .review-facts, .evidence-levels, .strategy-ladder, .question-grid, .exit-grid, .source-link-list, .dte-factors, .dte-formulas, .dte-flow-grid, .concept-tier-grid, .mao-workflow { grid-template-columns: 1fr; }
+      .review-grid, .review-facts, .evidence-levels, .strategy-ladder, .question-grid, .exit-grid, .source-link-list, .dte-factors, .dte-formulas, .dte-flow-grid, .concept-tier-grid, .mao-workflow, .heatmap-summary, .heatmap-outcomes, .heatmap-patterns, .heatmap-check { grid-template-columns: 1fr; }
+      .data-layer-list li { grid-template-columns: 1fr; gap: .1rem; }
       .current-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .45rem; }
       .current-stat { padding: .75rem .4rem; }
       .current-stat strong { font-size: 1.25rem; }
@@ -459,10 +486,10 @@
     <div class="shell topbar-inner">
       <div class="brand">0DTE × Mao 手冊</div>
       <div class="toplinks">
-        <a href="#zero-dte">0DTE</a><a href="#mao-course">Mao 課程</a><a href="#diagrams">圖解</a><a href="#mao-setups">五套 Setup</a><a href="#lab">工具</a><a href="#checklist">清單</a><a href="#sources">來源</a>
+        <a href="#zero-dte">0DTE</a><a href="#mao-course">Mao 課程</a><a href="#heatmap">Heatmap</a><a href="#diagrams">圖解</a><a href="#mao-setups">五套 Setup</a><a href="#lab">工具</a><a href="#checklist">清單</a><a href="#sources">來源</a>
       </div>
       <select class="mobile-nav" aria-label="跳到章節" id="mobileNav">
-        <option value="">前往章節…</option><option value="#zero-dte">0DTE</option><option value="#mao-course">Mao 課程</option><option value="#diagrams">圖解</option><option value="#mao-setups">五套 Setup</option><option value="#lab">工具</option><option value="#checklist">清單</option><option value="#sources">來源</option>
+        <option value="">前往章節…</option><option value="#zero-dte">0DTE</option><option value="#mao-course">Mao 課程</option><option value="#heatmap">Heatmap</option><option value="#diagrams">圖解</option><option value="#mao-setups">五套 Setup</option><option value="#lab">工具</option><option value="#checklist">清單</option><option value="#sources">來源</option>
       </select>
       <button class="icon-btn" id="themeBtn" type="button" aria-label="切換深淺色">◐</button>
       <button class="icon-btn" id="printBtn" type="button">列印</button>
@@ -473,14 +500,14 @@
     <div class="shell">
       <span class="eyebrow">0DTE × Mao｜交易學習手冊</span>
       <h1>兩條學習路線，<br>先懂機制再看形態。</h1>
-      <p class="lede">選擇 0DTE 期權路線，理解到期風險與權利金；或由 Mao 課程整理圖表、風控和五套待回測 setup。兩條路線都先用模擬和可觀察規則學習。</p>
+      <p class="lede">選擇 0DTE 期權路線，理解到期風險與權利金；或由 Mao 課程整理圖表、Heatmap、風控和待回測 setup。兩條路線都先用模擬和可觀察規則學習。</p>
       <div class="path-chooser" aria-label="選擇學習路線">
         <a class="path-card" href="#zero-dte"><span class="path-index">路線 01</span><strong>0DTE Long Call／Put</strong><span>方向、幅度、時間；到期損益圖與風險計算器。</span><b>開始 0DTE 學習 →</b></a>
-        <a class="path-card" href="#mao-course"><span class="path-index">路線 02</span><strong>Mao 交易圖表課程</strong><span>市場機制、ICT／SMC 術語、五套假設性 setup 和 Journal。</span><b>開始 Mao 課程 →</b></a>
+        <a class="path-card" href="#mao-course"><span class="path-index">路線 02</span><strong>Mao 交易圖表課程</strong><span>市場機制、Heatmap、ICT／SMC 術語、五套假設性 setup 和 Journal。</span><b>開始 Mao 課程 →</b></a>
       </div>
       <div class="stat-row" aria-label="教材範圍">
         <div class="stat"><strong>2</strong><span>學習主線</span></div>
-        <div class="stat"><strong>8</strong><span>教學圖解</span></div>
+        <div class="stat"><strong>13</strong><span>教學圖解</span></div>
         <div class="stat"><strong>5</strong><span>待回測 setup</span></div>
         <div class="stat"><strong>1</strong><span>交易前清單</span></div>
       </div>
@@ -712,6 +739,90 @@
 
 
 
+    <section id="heatmap">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-kicker">A2KY9 DEEP DIVE</span>
+          <h2>Heatmap／Market Mechanics｜睇清掛單、成交與價格反應</h2>
+          <p>這一章把用戶提供的 A2KY9 Heatmap 逐字稿整理成可操作的學習地圖。核心不是「見到大牆就買／賣」，而是分清位置、掛單變化、主動成交及價格結果，再用固定規則記錄。</p>
+        </div>
+        <div class="callout" role="note"><div class="callout-icon" aria-hidden="true">i</div><div><strong>先記一句：</strong>Heatmap 顯示交易所訂單簿中可見的 resting liquidity 及其歷史變化；它看不到參與者身份或完整意圖。掛單可以修改或取消，取消亦不等同 spoofing。Heatmap 是決策濾網，不是預測器。</div></div>
+
+        <div class="heatmap-summary" aria-label="Heatmap 三個核心問題">
+          <article><h3>01｜Liquidity 在哪裏？</h3><p>找出較集中的可見掛單、持續存在的價位，以及可能影響成交品質的薄弱區域。</p></article>
+          <article><h3>02｜Liquidity 做緊乜？</h3><p>觀察它保持、增加、移近、補回、變薄或被取消；變化比單一截圖更有資訊。</p></article>
+          <article><h3>03｜價格有甚麼結果？</h3><p>比較主動成交的力度與價格進展：突破、停滯、拒絕，還是完全沒有後續。</p></article>
+        </div>
+
+        <div class="diagram-grid">
+          <figure class="diagram-figure diagram-wide">
+            <h3>DOM 與 Heatmap｜現在一格 vs. 一段歷史</h3>
+            <svg viewBox="0 0 720 315" role="img" aria-labelledby="dom-heatmap-title dom-heatmap-desc">
+              <title id="dom-heatmap-title">DOM 與 Heatmap 的資料視角</title>
+              <desc id="dom-heatmap-desc">左側 DOM 顯示某一刻各價位的買賣掛單，右側 Heatmap 將不同時間的訂單簿深度用顏色記錄；顏色越深代表當時顯示數量越大，但不代表必然成交或支撐阻力。</desc>
+              <text x="24" y="26">DOM｜現在</text><text x="300" y="26">Heatmap｜歷史 + 現在</text>
+              <rect x="24" y="44" width="224" height="238" rx="4" fill="var(--surface-2)" stroke="var(--line)"/><text class="svg-small" x="46" y="68">Bid qty</text><text class="svg-small" x="169" y="68">Ask qty</text><line class="svg-line" x1="136" y1="74" x2="136" y2="264"/>
+              <g class="svg-small"><text x="48" y="100">8</text><text x="110" y="100">101.00</text><text x="188" y="100">34</text><text x="48" y="136">19</text><text x="110" y="136">100.75</text><text x="188" y="136">12</text><text x="48" y="172">42</text><text x="110" y="172">100.50</text><text x="188" y="172">7</text><text x="48" y="208">15</text><text x="110" y="208">100.25</text><text x="188" y="208">5</text><text x="48" y="244">6</text><text x="110" y="244">100.00</text><text x="188" y="244">3</text></g>
+              <rect x="39" y="151" width="58" height="27" fill="var(--blue-2)" stroke="var(--blue)"/><rect x="174" y="79" width="59" height="27" fill="var(--red-2)" stroke="var(--red)"/>
+              <rect x="300" y="44" width="394" height="238" rx="4" fill="var(--surface-2)" stroke="var(--line)"/><g stroke="var(--line)"><line x1="365" y1="44" x2="365" y2="282"/><line x1="430" y1="44" x2="430" y2="282"/><line x1="495" y1="44" x2="495" y2="282"/><line x1="560" y1="44" x2="560" y2="282"/><line x1="625" y1="44" x2="625" y2="282"/></g>
+              <rect x="300" y="77" width="394" height="29" fill="var(--orange-2)"/><rect x="430" y="78" width="194" height="27" fill="var(--orange)" opacity=".42"/><rect x="300" y="150" width="260" height="29" fill="var(--blue-2)"/><rect x="495" y="151" width="199" height="27" fill="var(--blue)" opacity=".32"/><rect x="365" y="221" width="260" height="24" fill="var(--green-2)"/><rect x="560" y="221" width="134" height="24" fill="var(--green)" opacity=".32"/>
+              <polyline fill="none" stroke="var(--ink)" stroke-width="3" points="300,205 352,196 404,214 456,174 508,184 560,136 612,149 667,98"/><circle cx="667" cy="98" r="4" fill="var(--ink)"/><text class="svg-small" x="644" y="72">現在</text><text class="svg-small" x="300" y="305">較早 ←　時間　→ 較新</text><text class="svg-small" x="24" y="305">單一時點的可見深度</text>
+            </svg>
+            <figcaption>DOM 是此刻的訂單簿切面；Heatmap 把訂單簿更新按時間排列。顏色通常代表顯示掛單量，不是「機構一定在這裏交易」的證明。</figcaption>
+          </figure>
+
+          <figure class="diagram-figure">
+            <h3>五層資料｜每層回答不同問題</h3>
+            <ul class="data-layer-list"><li><strong>Candlestick</strong><span>結果：某段時間的 OHLC。</span></li><li><strong>Footprint</strong><span>成交：各價位已執行的主動買／賣量。</span></li><li><strong>DOM</strong><span>現在：當前可見的 bid／ask 掛單。</span></li><li><strong>Heatmap</strong><span>歷史：DOM 如何增加、移動或消失。</span></li><li><strong>MBO</strong><span>粒度：匿名個別訂單、排序與全深度資料。</span></li></ul>
+            <figcaption>不同平台的數據來源、顏色、聚合方式和 aggressor 標示可能不同；先確認供應商定義再比較畫面。</figcaption>
+          </figure>
+
+          <figure class="diagram-figure">
+            <h3>Order ≠ Position｜唔好由一張單估意圖</h3>
+            <svg viewBox="0 0 360 300" role="img" aria-labelledby="order-position-title order-position-desc">
+              <title id="order-position-title">買賣訂單可能對應不同持倉行為</title><desc id="order-position-desc">買單可能是新開長倉或平掉短倉，賣單可能是新開短倉或平掉長倉；單靠方向不能知道參與者意圖。</desc>
+              <rect x="18" y="18" width="324" height="54" rx="5" fill="var(--surface-2)" stroke="var(--line)"/><text x="180" y="50" text-anchor="middle">畫面見到：BUY 成交</text><path class="svg-line" stroke-width="2" d="M180 72v30M180 102H86v24M180 102h94v24"/>
+              <rect x="26" y="126" width="120" height="58" rx="5" fill="var(--green-2)" stroke="var(--green)"/><text x="86" y="151" text-anchor="middle">新開 Long</text><text class="svg-small" x="86" y="171" text-anchor="middle">可能看升</text><rect x="214" y="126" width="120" height="58" rx="5" fill="var(--orange-2)" stroke="var(--orange)"/><text x="274" y="151" text-anchor="middle">Short cover</text><text class="svg-small" x="274" y="171" text-anchor="middle">平掉短倉</text>
+              <path class="svg-line" stroke-width="2" d="M86 184v30M274 184v30M86 214h188"/><rect x="52" y="226" width="256" height="56" rx="5" fill="var(--blue-2)" stroke="var(--blue)"/><text x="180" y="250" text-anchor="middle">只觀察結果</text><text class="svg-small" x="180" y="270" text-anchor="middle">成交後價格有沒有進展／延續？</text>
+            </svg>
+            <figcaption>同理，SELL 可能是新開短倉或平掉長倉。Heatmap 能補充掛單和價格反應，但仍不能識別交易者身份或主觀目的。</figcaption>
+          </figure>
+
+          <figure class="diagram-figure diagram-wide">
+            <h3>價格到達流動性區後｜三個主要結果</h3>
+            <div class="heatmap-outcomes" role="list" aria-label="流動性區三種主要結果"><div class="heatmap-outcome" role="listitem"><strong>Exhaustion｜未到已冇力</strong><span>主動成交、delta 或 tape pace 逐步減弱；價格未真正測試牆已停。</span><b>參與度下降，不等於即刻反轉。</b></div><div class="heatmap-outcome" role="listitem"><strong>Absorption｜有力但行唔郁</strong><span>大量主動成交打入同一區，但價格進展很小；可見掛單可能補回。</span><b>攻方暫未突破，要等反向證據。</b></div><div class="heatmap-outcome" role="listitem"><strong>Consumption｜牆被食完</strong><span>掛單逐步減少或取消，而主動成交帶來明顯價格進展及 follow-through。</span><b>突破較可信，仍要觀察回測／延續。</b></div></div>
+            <figcaption>「高成交量」本身沒有方向答案；要把 effort（成交／掛單變化）和 result（價格進展）放在一起看。</figcaption>
+          </figure>
+
+          <figure class="diagram-figure diagram-wide">
+            <h3>CLC｜由市場背景走到下單</h3>
+            <svg viewBox="0 0 720 280" role="img" aria-labelledby="clc-title clc-desc">
+              <title id="clc-title">Context、Location、Confirmation 交易流程</title><desc id="clc-desc">先判斷市場環境和是否適合交易，再等待價格到達事前標記位置，最後用訂單簿和價格反應確認；任何一項不完整便不交易。</desc>
+              <rect x="20" y="36" width="184" height="126" rx="5" fill="var(--surface-2)" stroke="var(--line)"/><text x="112" y="64" text-anchor="middle">C｜Context</text><text class="svg-small" x="38" y="91">• 趨勢／區間</text><text class="svg-small" x="38" y="114">• 波動、成交、新聞</text><text class="svg-small" x="38" y="137">• 時段與產品</text><path class="svg-accent" stroke-width="2" d="M204 99h62m-9-8 9 8-9 8"/>
+              <rect x="266" y="36" width="184" height="126" rx="5" fill="var(--blue-2)" stroke="var(--blue)"/><text x="358" y="64" text-anchor="middle">L｜Location</text><text class="svg-small" x="284" y="91">• Session／previous high-low</text><text class="svg-small" x="284" y="114">• Range edge／volume level</text><text class="svg-small" x="284" y="137">• 事前標記的 liquidity</text><path class="svg-accent" stroke-width="2" d="M450 99h62m-9-8 9 8-9 8"/>
+              <rect x="512" y="36" width="188" height="126" rx="5" fill="var(--green-2)" stroke="var(--green)"/><text x="606" y="64" text-anchor="middle">C｜Confirmation</text><text class="svg-small" x="530" y="91">• Absorption／consumption</text><text class="svg-small" x="530" y="114">• Reload／auction flip</text><text class="svg-small" x="530" y="137">• 價格進展與 follow-through</text><path class="svg-accent" stroke-width="2" d="M606 162v37m-8-9 8 9 8-9"/>
+              <rect x="178" y="203" width="428" height="54" rx="5" fill="var(--orange-2)" stroke="var(--orange)"/><text x="392" y="226" text-anchor="middle">三項齊全 → 才計入場、失效、目標與倉位</text><text class="svg-small" x="392" y="246" text-anchor="middle">缺一項／新聞風險過高／價差過闊 → No trade</text>
+            </svg>
+            <figcaption>CLC 的價值是過濾低質 setup。Confirmation 不是堆最多訊號，而是檢查市場反應是否支持事前寫下的假設。</figcaption>
+          </figure>
+        </div>
+
+        <div class="section-head" style="margin-top:2rem"><span class="section-kicker">Liquidity states</span><h2>先分類，再解讀</h2><p>同樣一條亮色帶，可以代表完全不同的狀態。以下分類只描述畫面，不直接等於買賣訊號。</p></div>
+        <div class="fact-table-wrap" role="region" aria-label="Heatmap 流動性狀態分類"><table class="fact-table"><thead><tr><th scope="col">狀態</th><th scope="col">可觀察定義</th><th scope="col">應該問甚麼</th></tr></thead><tbody>
+          <tr><td>Persistent</td><td>同一價位顯示較大掛單並維持一段時間。</td><td>價格接近時仍在嗎？成交後有補回嗎？</td></tr><tr><td>Fresh</td><td>新近出現或突然增加的掛單。</td><td>它維持多久？是否只隨報價短暫調整？</td></tr><tr><td>Shift／Reload</td><td>相似掛單在較接近市場的價位再次出現。</td><td>是否配合價格進展及同方向 follow-through？</td></tr><tr><td>Pulled</td><td>價格到達前掛單減少或消失。</td><td>是正常撤單、風險調整，還是存在誤導意圖？畫面本身不能證明。</td></tr><tr><td>Hidden／Iceberg</td><td>顯示量不大，但同價成交遠高於可見量；原生冰山可由特定 MBO 特徵輔助辨認。</td><td>資料源是否支援 MBO？偵測器是直接證據還是估算？</td></tr><tr><td>Thin／Vacuum</td><td>價位間可見深度很少，少量主動成交已造成較大價格移動。</td><td>價差、滑點及停止條件是否仍可接受？</td></tr>
+        </tbody></table></div>
+
+        <div class="section-head" style="margin-top:2rem"><span class="section-kicker">Pattern map</span><h2>六個常見 pattern｜只當觀察語言</h2></div>
+        <div class="heatmap-patterns">
+          <div class="heatmap-pattern"><span>01</span><div><strong>Double／cluster wall</strong><p>相鄰兩層明顯掛單；第一層被測試後，觀察第二層是否吸收、補回或同時被消耗。</p></div></div><div class="heatmap-pattern"><span>02</span><div><strong>Continuation structure</strong><p>同方向價格進展配合一側持續 reload，另一側訂單簿較薄；不能只用一次亮色帶判斷。</p></div></div><div class="heatmap-pattern"><span>03</span><div><strong>Iceberg／hidden liquidity</strong><p>大量成交沒有相稱價格進展；需要可信數據和明確偵測規則，肉眼推斷容易誤判。</p></div></div><div class="heatmap-pattern"><span>04</span><div><strong>Auction flip</strong><p>原方向未能延續，反方向成交帶來結構突破，之後有 reload／接受；用來描述轉換，不保證趨勢。</p></div></div><div class="heatmap-pattern"><span>05</span><div><strong>CVD divergence</strong><p>價格與累積 delta 不同步，是「關係異常」提示；可能來自薄簿、吸收或平倉，不能單獨反手。</p></div></div><div class="heatmap-pattern"><span>06</span><div><strong>Delta outlier</strong><p>相對近期樣本異常大的主動成交；重點是其後價格有沒有進展，而不是氣泡本身的顏色。</p></div></div>
+        </div>
+
+        <div class="callout" role="note"><div class="callout-icon" aria-hidden="true">!</div><div><strong>同 0DTE 的邊界：</strong>Heatmap 通常分析標的或期貨訂單簿，不能代替期權鏈的 bid-ask、IV、Gamma、行使價流動性與券商截止時間。即使標的方向判斷正確，0DTE Long Option 仍可能因時間值、波幅或價差而虧損。</div></div>
+        <h3 style="margin-top:1.5rem">實戰前四問</h3>
+        <ol class="heatmap-check"><li><strong>Context 清楚？</strong><span>趨勢、區間、新聞、時段與波動是否容許交易？</span></li><li><strong>Location 預先標記？</strong><span>不是見到亮色才臨時畫位；先寫下參考區。</span></li><li><strong>反應可量化？</strong><span>定義多少成交、多少價格進展、幾次測試或多久才算成立。</span></li><li><strong>風險仍合理？</strong><span>入場、失效、目標、滑點與最大損失全部清楚才落單。</span></li></ol>
+      </div>
+    </section>
+
     <section id="mao-course">
       <div class="shell mao-course-stack">
         <div class="section-head">
@@ -731,6 +842,7 @@
           <a class="mao-chapter-link" href="#mao-setups"><strong>07｜五套假設性 Setup</strong><span>拆成可記錄的規則</span></a>
           <a class="mao-chapter-link" href="#mao-routine"><strong>08｜每日流程與 Journal</strong><span>練習、復盤、驗證</span></a>
         </nav>
+        <p class="unit-note"><strong>進階補充：</strong>想由蠟燭圖再落一層理解掛單與成交，可以先讀 <a href="#heatmap">Heatmap／Market Mechanics 圖解章節</a>。</p>
 
         <article class="panel mao-chapter" id="mao-reality">
           <span class="pill">01｜交易的現實</span>
@@ -1153,8 +1265,14 @@
             <li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3423101">Chague et al., Day Trading for a Living?</a></li>
             <li><a href="https://www.cftc.gov/media/9196/enftradersglobalgroupcomplaint082923/download">CFTC Traders Global complaint（個案提示）</a></li>
             <li><a href="https://www.cmegroup.com/content/dam/cmegroup/education/modules/files/EQ240_EQ_for_AIT.pdf">CME E-mini contract specifications</a></li>
+            <li><a href="https://www.cmegroup.com/articles/faqs/market-by-order-mbo.html">CME：Market by Order（MBO）</a></li>
+            <li><a href="https://www.cmegroup.com/education/articles-and-reports/how-traders-measure-liquidity">CME：How Traders Measure Liquidity</a></li>
+            <li><a href="https://www.cmegroup.com/education/articles-and-reports/assessing-liquidity">CME：Order book depth 並非完整流動性指標</a></li>
+            <li><a href="https://www.cmegroup.com/education/courses/market-regulation/disruptive-practices-prohibited/disruptive-practices-prohibited-spoofing">CME Rule 575：Spoofing</a></li>
+            <li><a href="https://www.cftc.gov/LawRegulation/FederalRegister/FinalRules/2013-12365.html">CFTC：Spoofing interpretive guidance</a></li>
+            <li><a href="https://bookmap.com/knowledgebase/docs/KB-SettingUpAndOperating-HeatmapMainChart">Bookmap：Heatmap main chart 說明</a></li>
           </ul>
-          <p class="muted"><strong>用戶提供的 a2ky9／Mao 訪談逐字稿：</strong>無公開連結；本頁以摘要方式重組教材，未逐字重現。作者的個人經歷與績效說法未經獨立核驗。</p>
+          <p class="muted"><strong>用戶提供的 a2ky9／Mao 交易入門及 Heatmap 逐字稿：</strong>無公開連結；本頁以摘要方式重組教材，未逐字重現。作者的個人經歷、績效、平台與 Prop firm 推薦未經獨立核驗，亦不構成本頁推薦。</p>
         </div>
       </div>
     </section>
@@ -1164,7 +1282,7 @@
   <nav class="mobile-bottom-nav" aria-label="手機快速導覽">
     <a href="#zero-dte">0DTE</a>
     <a href="#mao-course">Mao課程</a>
-    <a href="#lab">工具</a>
+    <a href="#heatmap">Heatmap</a>
     <a href="#checklist">清單</a>
   </nav>
 
