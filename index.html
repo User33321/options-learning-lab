@@ -345,6 +345,14 @@
     .path-overview-item + .path-overview-item { border-left: 1px solid var(--line); padding-left: 1rem; }
     .path-overview-item > span { grid-row: span 2; color: var(--green); font-weight: 800; }
     .path-overview-item small { color: var(--muted); }
+    .learning-routes { display: grid; gap: .65rem; margin-top: 1rem; }
+    .learning-route { display: grid; grid-template-columns: minmax(9rem, 12rem) minmax(0, 1fr); gap: .8rem; align-items: center; padding: .85rem 0; border-bottom: 1px solid var(--line); }
+    .learning-route:first-child { border-top: 1px solid var(--line); }
+    .learning-route > strong { font-size: .92rem; }
+    .route-track { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; }
+    .route-track a { display: inline-flex; min-height: 40px; align-items: center; padding: .3rem .55rem; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); color: var(--ink); text-decoration: none; font-size: .84rem; font-weight: 750; }
+    .route-track a:hover, .route-track a:focus-visible { border-color: var(--green); background: var(--green-2); }
+    .route-track i { color: var(--green); font-style: normal; font-weight: 900; }
     .mao-course-stack > .mao-chapter { max-width: 52rem; width: 100%; margin-inline: auto; padding: 1.65rem 0; border: 0; border-top: 1px solid var(--line); border-radius: 0; background: transparent; box-shadow: none; }
     .diagram-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; align-items: start; }
     .diagram-figure { min-width: 0; margin: 0; padding: .9rem; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
@@ -446,6 +454,7 @@
       .shell { width: min(100% - 22px, 1180px); }
       .hero { padding-top: 2.6rem; }
       .path-chooser, .path-overview, .diagram-grid { grid-template-columns: 1fr; }
+      .learning-route { grid-template-columns: 1fr; gap: .45rem; }
       .setup-flow-row { grid-template-columns: minmax(0, 1fr); gap: .15rem; }
       label { font-size: .95rem; }
       .path-overview-item + .path-overview-item { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; }
@@ -534,7 +543,7 @@
       <div class="stat-row" aria-label="教材範圍">
         <div class="stat"><strong>2</strong><span>學習主線</span></div>
         <div class="stat"><strong>20</strong><span>教學圖解</span></div>
-        <div class="stat"><strong>5</strong><span>待回測 setup</span></div>
+        <div class="stat"><strong>4</strong><span>決策步驟</span></div>
         <div class="stat"><strong>1</strong><span>交易前清單</span></div>
       </div>
     </div>
@@ -551,6 +560,10 @@
         <div class="path-overview">
           <a class="path-overview-item" href="#zero-dte"><span>01</span><strong>0DTE 期權</strong><small>先理解 premium 是最大損失上限，再分辨到期圖與盤中市價。</small></a>
           <a class="path-overview-item" href="#mao-course"><span>02</span><strong>Mao 圖表課</strong><small>把型態轉成可觀察定義，逐步記錄並檢驗，不將因果敘事當事實。</small></a>
+        </div>
+        <div class="learning-routes" aria-label="建議閱讀次序">
+          <div class="learning-route"><strong>0DTE｜合約風險線</strong><div class="route-track"><a href="#zero-dte">機制與最大損失</a><i>→</i><a href="#diagrams">損益圖</a><i>→</i><a href="#lab">風險計算器</a><i>→</i><a href="#checklist">交易前清單</a></div></div>
+          <div class="learning-route"><strong>Mao｜圖表執行線</strong><div class="route-track"><a href="#mao-course">基礎與術語</a><i>→</i><a href="#heatmap">Order Flow／Heatmap</a><i>→</i><a href="#ict-playbook">ICT 決策鏈</a><i>→</i><a href="#daily-recap">3＋1 圖解</a><i>→</i><a href="#mao-routine">Journal 驗證</a></div></div>
         </div>
       </div>
     </section>
@@ -629,6 +642,252 @@
         </article>
 
         <div class="callout" role="note"><div class="callout-icon" aria-hidden="true">i</div><div><strong>官方資料提示：</strong>OIC 指出 Gamma／Theta 風險集中於最短到期期限的近平值合約；FINRA 提醒期權買方可能損失全部權利金，券商亦可能在收市前強制平倉。<a href="https://prd-web.optionseducation.org/news/may-keytakeaways">OIC 0DTE 風險資料</a> · <a href="https://syndication.finra.org/content/zeroing-options-trading-strategy-0dte">FINRA 0DTE 說明</a></div></div>
+      </div>
+    </section>
+
+    <section id="mao-course">
+      <div class="shell mao-course-stack">
+        <div class="section-head">
+          <span class="section-kicker">TRANSCRIPT TO CURRICULUM</span>
+          <h2>Mao 交易入門完整課程｜由市場機制到執行</h2>
+          <p>本課程把用戶提供的逐字稿重組成可學教材，並作編輯校正；它不是原文逐字轉載，也不代表作者的盈利主張已獲核實。以下術語和 setup 用來建立可測試規則，不是獲利保證。</p>
+        </div>
+        <div class="callout" role="note"><div class="callout-icon" aria-hidden="true">i</div><div><strong>閱讀方式：</strong>先認識市場機制，再整理圖表語言、風控和 setup。所有 ICT／SMC 形態都要先定義版本、成本及失效條件，才有辦法檢驗。</div></div>
+
+        <nav class="mao-chapter-map" id="mao-map" aria-label="Mao 完整課程八個章節">
+          <a class="mao-chapter-link" href="#mao-reality"><strong>01｜先認清交易係乜</strong><span>時間跨度、風險與適合度</span></a>
+          <a class="mao-chapter-link" href="#mao-market"><strong>02｜市場、產品與工具</strong><span>產品差異、平台、Prop firm</span></a>
+          <a class="mao-chapter-link" href="#mao-mechanics"><strong>03｜落單與損益機制</strong><span>訂單、槓桿、成本、止損</span></a>
+          <a class="mao-chapter-link" href="#mao-chart"><strong>04｜圖表與多時間框架</strong><span>OHLC、結構、時段</span></a>
+          <a class="mao-chapter-link" href="#mao-risk"><strong>05｜風控、期望值與錯誤</strong><span>倉位、回撤、停止條件</span></a>
+          <a class="mao-chapter-link" href="#mao-ict"><strong>06｜ICT／SMC 術語地圖</strong><span>觀察、回測與因果主張</span></a>
+          <a class="mao-chapter-link" href="#mao-setups"><strong>07｜五套假設性 Setup</strong><span>拆成可記錄的規則</span></a>
+          <a class="mao-chapter-link" href="#mao-routine"><strong>08｜每日流程與 Journal</strong><span>練習、復盤、驗證</span></a>
+        </nav>
+        <p class="unit-note"><strong>進階補充：</strong>想由蠟燭圖再落一層理解掛單與成交，可以先讀 <a href="#heatmap">Heatmap／Market Mechanics 圖解章節</a>；想睇今次逐字稿整理出的完整 top-down 示範，就讀 <a href="#ict-playbook">ICT 實戰流程</a>。</p>
+
+        <article class="panel mao-chapter" id="mao-reality">
+          <span class="pill">01｜交易的現實</span>
+          <h3>先認清交易係乜</h3>
+          <p>不同交易方式主要差在持倉時間、決策節奏和承受哪種風險。持倉較短不代表風險較低；成交成本和執行誤差反而可能更重要。</p>
+          <div class="fact-table-wrap" role="region" aria-label="交易方式與主要風險比較">
+            <table class="fact-table"><thead><tr><th scope="col">方式</th><th scope="col">典型持倉時間</th><th scope="col">主要風險</th></tr></thead><tbody>
+              <tr><td>Day trading</td><td>同一交易日內</td><td>盤中波動、執行與滑點、頻繁交易成本；隔夜風險較少不等於必然較安全。</td></tr>
+              <tr><td>Scalping</td><td>數秒至數分鐘</td><td>價差、速度、排隊與成交品質；微小成本會累積。</td></tr>
+              <tr><td>Swing trading</td><td>數日至數週</td><td>隔夜跳空、新聞、持倉期間的波動與融資成本。</td></tr>
+              <tr><td>Long-term investing</td><td>數月至數年</td><td>公司／資產基本面、估值與長期回撤；長期持有也可能永久虧損。</td></tr>
+            </tbody></table>
+          </div>
+          <div class="fit-grid">
+            <div class="fit-card"><strong>較適合的條件</strong><p>能按預先寫下的規則執行、接受結果不確定，並只用可承受損失的風險資金。</p></div>
+            <div class="fit-card"><strong>不適合的動機</strong><p>把交易當穩定薪金、翻本工具，或因急於辭職而要求短時間內賺到固定收入。</p></div>
+          </div>
+          <p><strong>重要修正：</strong>不可能靠一段幾分鐘的影片就成為合格 trader，也不可假設每日都有收入。市場有時沒有符合條件的機會，交易結果亦不平均。</p>
+          <p class="unit-note"><strong>小練習：</strong>寫下自己可承受的最大損失、每週可投入的交易時間，以及達到甚麼條件就停止當日交易。三項未寫清楚前，先不要用真實資金測試。</p>
+          <a href="#mao-map">↑ 回課程章節地圖</a>
+        </article>
+
+        <article class="panel mao-chapter" id="mao-market">
+          <span class="pill">02｜市場與產品</span>
+          <h3>市場、產品與工具</h3>
+          <p>先分清交易標的是甚麼、用哪種合約交易，以及下單由哪個機構執行。相同圖表形態放到不同產品，乘數、交易時段、槓桿與結算方式都可能不同。</p>
+          <div class="fact-table-wrap" role="region" aria-label="可交易產品和主要風險">
+            <table class="fact-table"><thead><tr><th scope="col">產品</th><th scope="col">入門理解與主要風險</th></tr></thead><tbody>
+              <tr><td>Stocks</td><td>公司股權；面對公司消息、估值、流動性和市場回撤。</td></tr>
+              <tr><td>ETF／指數</td><td>一籃子證券或指數曝險；仍有市場、追蹤、流動性及產品結構風險。</td></tr>
+              <tr><td>Futures</td><td>標準化期貨合約；乘數令價格每跳的盈虧放大，亦有到期／換月及保證金風險。</td></tr>
+              <tr><td>Forex</td><td>貨幣對交易；槓桿、價差、隔夜融資及交易商制度都要留意。</td></tr>
+              <tr><td>Commodities</td><td>能源、金屬、農產品等；供需、天氣、庫存、地緣事件可令價格急變。</td></tr>
+              <tr><td>Crypto</td><td>數碼資產；全天候交易、平台／託管、流動性和極端波動風險較突出。</td></tr>
+              <tr><td>Options</td><td>有到期日和行使價的衍生合約；價格還受 IV、時間、價差及行使／指派影響。</td></tr>
+            </tbody></table>
+          </div>
+          <div class="review-grid">
+            <div class="review-card"><h4>Charting platform</h4><p>用來看圖、標註、研究指標或下模擬單；平台畫面不是實際成交保證，延遲或資料來源亦要核對。</p></div>
+            <div class="review-card"><h4>Broker</h4><p>負責帳戶、訂單傳送、成交回報、保證金與風險管理。下單前要確認券商支援的產品、費用、交易時段和強平規則。</p></div>
+          </div>
+          <h4>Prop firm：先看合約條款，再看宣傳帳戶數字</h4>
+          <p>逐項核對 evaluation fee、回撤計算方式、模擬帳戶還是真實市場帳戶、payout 條款、違規規則、提款條件及交易對手。宣傳的帳戶規模不是個人現金，也不必然等於可自由使用的實盤資金。</p>
+          <h4>NQ／ES 與合約單位</h4>
+          <div class="fact-table-wrap" role="region" aria-label="E-mini 指數期貨規格摘要">
+            <table class="fact-table"><thead><tr><th scope="col">合約</th><th scope="col">每指數點乘數</th><th scope="col">最小跳動</th><th scope="col">每跳價值</th></tr></thead><tbody>
+              <tr><td>E-mini NQ</td><td>$20</td><td>0.25 點</td><td>$5</td></tr>
+              <tr><td>E-mini ES</td><td>$50</td><td>0.25 點</td><td>$12.50</td></tr>
+            </tbody></table>
+          </div>
+          <p class="chart-caption">Micro 合約乘數不同；落單前要按交易所當前規格核對。外匯 standard lot 一般為 100,000 個基礎貨幣單位，mini lot 一般為 10,000。股票以股數交易，沒有固定「每手 100 股」規則；標準美股個股期權通常才以 100 股作合約乘數，但亦有例外。</p>
+          <a href="#mao-map">↑ 回課程章節地圖</a>
+        </article>
+
+        <article class="panel mao-chapter" id="mao-mechanics">
+          <span class="pill">03｜執行與損益</span>
+          <h3>落單與損益機制</h3>
+          <p>Long／short 描述曝險方向，不是「勝率高低」的標籤。持有現貨的 long 通常受惠價格上升；short sale 通常涉及借入後賣出，再買回歸還，價格上升會增加回補成本。期權 short 則是合約義務，風險結構須按策略分開計算。</p>
+          <div class="fact-table-wrap" role="region" aria-label="下單和損益機制速查">
+            <table class="fact-table"><thead><tr><th scope="col">概念</th><th scope="col">白話解釋與注意事項</th></tr></thead><tbody>
+              <tr><td>Market order</td><td>優先求成交，不保證成交價；快速市場或薄弱流動性時可能承受較大滑點。</td></tr>
+              <tr><td>Limit order</td><td>指定可接受的最高買價或最低賣價；能控制價格，但不保證一定成交。</td></tr>
+              <tr><td>Bid／Ask／Spread</td><td>Bid 是市場買方報價，Ask 是賣方報價；兩者差額是 spread，進出都可能要付出成本。</td></tr>
+              <tr><td>Slippage</td><td>預期價格與實際成交價格的差距；波動、流動性、訂單大小和執行速度都可能影響。</td></tr>
+              <tr><td>Leverage／Margin</td><td>槓桿用較少自有資金控制較大名義曝險，會放大盈虧；保證金是抵押要求，不是最大虧損上限。虧損可超過已繳保證金並觸發追加或強平。</td></tr>
+              <tr><td>Stop-loss／Take-profit</td><td>預先定義退出有助紀律，但 stop 不保證成交價。跳空或急速行情可令實際執行遠離觸發價；期權 bid-ask 闊時尤其要按產品測試。</td></tr>
+              <tr><td>到期與盤中損益</td><td>到期損益主要按合約內在值與已付權利金計；到期前期權市價另受 IV、時間價值、利率、差價及流動性影響，因此不能只用到期圖估算盤中盈虧。</td></tr>
+            </tbody></table>
+          </div>
+          <p class="unit-note"><strong>例子：</strong>Limit order 買入代表你接受的最高價格有上限，但市場未必願意在該價格賣給你；若改用 market order，成交機會可能較高，價格就不再由你指定。成交與價格控制是兩種不同取捨。</p>
+          <a href="#mao-map">↑ 回課程章節地圖</a>
+        </article>
+
+        <article class="panel mao-chapter" id="mao-chart">
+          <span class="pill">04｜讀圖與時段</span>
+          <h3>圖表語言與多時間框架</h3>
+          <div class="fact-table-wrap" role="region" aria-label="蠟燭圖 OHLC 組成">
+            <table class="fact-table"><thead><tr><th scope="col">圖表部分</th><th scope="col">代表甚麼</th></tr></thead><tbody>
+              <tr><td>Open／開市價</td><td>該根蠟燭開始時的價格。</td></tr>
+              <tr><td>High／最高價</td><td>該段期間內記錄的最高價。</td></tr>
+              <tr><td>Low／最低價</td><td>該段期間內記錄的最低價。</td></tr>
+              <tr><td>Close／收市價</td><td>該根蠟燭結束時的價格；收市位置可用來定義某些規則。</td></tr>
+              <tr><td>Body／實體、Wick／影線</td><td>實體連接開收價；影線延伸至高低點。顏色只是顯示慣例，須先看清平台設定。</td></tr>
+            </tbody></table>
+          </div>
+          <p><strong>結構詞語：</strong>High／Low 是局部高低點；HH／HL 指較高高點與較高低點，常用來描述上行結構；LH／LL 指較低高點與較低低點，常用來描述下行結構。Trend 是價格較有方向性的移動；Range 是價格在一段區間內往返。這些標記依賴時間框架與 swing 定義，須把判斷規則寫清楚。</p>
+          <div class="review-grid">
+            <div class="review-card"><h4>HTF｜較高時間框架</h4><p>用來整理大方向背景、主要區域和較重要的價格結構；較高時間框架的訊號不是必然預測，不能單憑它忽略反向風險。</p></div>
+            <div class="review-card"><h4>LTF｜較低時間框架</h4><p>用來細化觀察與執行觸發。細節較多也代表雜訊較多，不應把每個短線波動都當成新趨勢。</p></div>
+          </div>
+          <p><strong>交易時段：</strong>常見市場語境會談 Asia、London、New York sessions，但不同產品的主要流動時段不一樣。夏令／冬令時間、交易所假期與合約時段都要按當日官方日曆核對；不要假設紐約開市永遠等於香港時間 21:30。</p>
+          <p class="unit-note"><strong>練習：</strong>在同一個交易日圖表上標出 5 個 swing high／low，再寫下目前較像 trend 還是 range，並註明使用的 timeframe 和 swing 定義。不要只看單一根蠟燭就下結論。</p>
+          <a href="#mao-map">↑ 回課程章節地圖</a>
+        </article>
+
+        <article class="panel mao-chapter" id="mao-risk">
+          <span class="pill">05｜風控與期望值</span>
+          <h3>風控、期望值與常見錯誤</h3>
+          <p class="formula">期望值 = 勝率×平均盈利 − 敗率×平均虧損 − 交易成本</p>
+          <p>1:2 風險回報比只描述某種目標和止損距離，並不保證盈利。還要知道實際勝率、平均成交、尾部虧損及成本。倉位應由最大可承受損失倒推：先定失效點與最壞損失，再決定張數，不是先決定想賺多少。</p>
+          <p><strong>模擬盤風險練習：</strong>可以先用每筆帳戶風險 0.25% 作為保守教學例子，熟悉記錄與執行；這不是對所有人通用的安全值。勿把 1–3% 包裝成普遍適用的安全標準。</p>
+          <div class="review-grid">
+            <div class="review-card"><h4>常見執行錯誤</h4><ul><li>FOMO：怕錯過而追價。</li><li>Revenge trading：虧損後急於報復市場。</li><li>Overtrading：沒有 setup 仍不停下單。</li><li>Averaging losers：虧損後不斷加碼攤平。</li></ul></div>
+            <div class="review-card"><h4>常見判斷偏誤</h4><ul><li>Moving stops：為了不認輸而移遠止損。</li><li>Confirmation bias：只找支持自己立場的證據。</li><li>Premature exit：沒有按計劃就提早離場。</li><li>事後改寫入場理由，令錯誤無法復盤。</li></ul></div>
+          </div>
+          <h4>回撤後回本所需升幅</h4>
+          <div class="fact-table-wrap" role="region" aria-label="回撤幅度與回本所需升幅">
+            <table class="fact-table"><thead><tr><th scope="col">資金回撤</th><th scope="col">回到原資金所需升幅</th><th scope="col">理解方式</th></tr></thead><tbody>
+              <tr><td>−5%</td><td>+5.26%</td><td>由剩餘 95% 回到 100%。</td></tr>
+              <tr><td>−20%</td><td>+25%</td><td>由剩餘 80% 回到 100%。</td></tr>
+              <tr><td>−50%</td><td>+100%</td><td>由剩餘一半翻倍才回本。</td></tr>
+              <tr><td>−90%</td><td>+900%</td><td>只剩一成，需要變成原來的十倍。</td></tr>
+            </tbody></table>
+          </div>
+          <p class="chart-caption">計算不含新增出入金、費用或稅項。回撤愈大，回本所需升幅愈不成比例；避免把「追回虧損」當成加大風險的理由。</p>
+          <div class="unit-note"><strong>每日停止條件示例｜教學框架，不是通用標準：</strong>當日按規則虧損 2 次、觸及 0.5% 模擬日風險上限，或發現自己情緒失控時就停止下單，保存紀錄並離開交易畫面。</div>
+          <a href="#mao-map">↑ 回課程章節地圖</a>
+        </article>
+
+        <article class="panel mao-chapter" id="mao-ict">
+          <span class="pill">06｜術語與假設</span>
+          <h3>ICT／SMC 術語地圖</h3>
+          <p>ICT／SMC 內容混合圖表觀察、交易者自訂規則和對市場參與者意圖的解釋。學習時先問：這個詞是可直接觀察的價格定義，還是需要統計證據的因果敘事？不同作者對同一縮寫可能有不同定義，回測前應固定版本。</p>
+          <h4>A｜可由市場圖表觀察的定義</h4>
+          <div class="fact-table-wrap" role="region" aria-label="圖表上可直接觀察的術語">
+            <table class="fact-table"><thead><tr><th scope="col">術語</th><th scope="col">白話定義</th></tr></thead><tbody>
+              <tr><td>Swing high／low</td><td>按明確的左右蠟燭或價格幅度規則，標出的局部高點／低點；規則不同，結果也不同。</td></tr>
+              <tr><td>Prior high／low</td><td>指定回看期間內，之前形成的高點／低點，例如前一日高低點。</td></tr>
+              <tr><td>Range</td><td>先定上下界和觀察期間後，價格在其中往返的區域。</td></tr>
+              <tr><td>Imbalance</td><td>某套規則定義的單向快速移動或較少重疊區段；名稱本身不代表一定會回補。</td></tr>
+            </tbody></table>
+          </div>
+          <h4>B｜可操作，但必須寫成版本固定的回測規則</h4>
+          <div class="fact-table-wrap" role="region" aria-label="ICT 和 SMC 可測試術語定義">
+            <table class="fact-table"><thead><tr><th scope="col">術語</th><th scope="col">可供測試的白話定義</th></tr></thead><tbody>
+              <tr><td>BSL／SSL</td><td>Buy-side／Sell-side liquidity，常指參考高點上方／低點下方可能聚集的止損或觸發單；圖表無法直接看見所有訂單。</td></tr>
+              <tr><td>Liquidity sweep</td><td>價格越過預先標記的高／低點後回到區間；這是價格路徑描述，不證明有人刻意獵單。</td></tr>
+              <tr><td>BOS</td><td>Break of Structure：按預定 swing 規則收市突破前高或前低，作為結構延續訊號。</td></tr>
+              <tr><td>CHOCH／MSS</td><td>Change of Character／Market Structure Shift：價格打破先前相反方向的結構，用作可能轉變的標記。</td></tr>
+              <tr><td>CISD</td><td>Change in State of Delivery：部分 ICT 教法用來標記短線價格推進方向轉變，必須引用並固定具體蠟燭規則。</td></tr>
+              <tr><td>FVG／IFVG</td><td>Fair Value Gap 常以三根蠟燭中第一與第三根的未重疊區域定義；Inverse FVG 是價格穿越該區後按反向角色觀察。需寫明採用的判定方式。</td></tr>
+              <tr><td>BPR</td><td>Balanced Price Range：按某些規則，把相反方向 FVG 的重疊範圍標作平衡區。</td></tr>
+              <tr><td>Order block／Breaker block</td><td>Order block 常指明顯位移前最後一段反向蠟燭／區域；Breaker block 則指原區域被突破後，改用反向角色觀察。沒有唯一標準。</td></tr>
+              <tr><td>Premium／Discount</td><td>先界定一段 range，再以其中點分成上半部／下半部；在這套術語中不是「價格昂貴」或「打折」的普遍估值。</td></tr>
+              <tr><td>SMT divergence</td><td>比較兩個相關市場的高低點是否互相確認；相關性會變，背離本身不是反轉保證。</td></tr>
+              <tr><td>PO3／AMD</td><td>Power of Three／Accumulation-Manipulation-Distribution：把盤整、突破掃單、方向推進分成敘事階段，須把每段定義為可觀察規則。</td></tr>
+              <tr><td>IRL／ERL</td><td>Internal／External Range Liquidity：常指一段區間內部的流動性參考，與區間邊界外的高低點參考；範圍要先界定。</td></tr>
+              <tr><td>Session highs／lows</td><td>預先選定交易時段內的最高／最低價；時段需按產品與夏令時間明確設定。</td></tr>
+              <tr><td>Trendline／equal highs liquidity</td><td>Trendline 是依規則連接 swing 的線；equal highs 是相近高點群。它們是圖表標記，市場是否有相應止損單不能單靠形態證明。</td></tr>
+            </tbody></table>
+          </div>
+          <div class="unit-note"><strong>C｜未被形態本身證實的因果敘事：</strong>「機構刻意獵止損／控制市場」不能只靠一個 sweep、FVG 或 order block 圖形證明。價格形態可用來定義假設，參與者意圖則需要獨立資料支持。</div>
+          <h4>把形態寫成可檢驗模板</h4>
+          <p class="formula">Instrument｜Timeframe｜Session｜Entry｜Invalidation｜Exit｜Cost</p>
+          <p>例：先寫明交易哪個合約、用哪個 timeframe、哪段 session；setup 如何觸發、甚麼情況代表失效、用甚麼離場規則，以及佣金、bid-ask 和滑點如何計入。規則改動要重新編號，不能事後挑選成功圖表。</p>
+          <p class="unit-note"><strong>逐字稿延伸：</strong>完整的 HTF → session location → SMT／MSS／IFVG → invalidation 流程見 <a href="#ict-playbook">ICT 實戰流程</a>；開市 initiative、POC failed auction、initial range breakout 與失敗突破反手，見 <a href="#daily-recap">每日 Order Flow 圖解</a>。</p>
+          <a href="#mao-map">↑ 回課程章節地圖</a>
+        </article>
+
+        <article class="panel mao-chapter" id="mao-setups">
+          <span class="pill">07｜五套假設性 Setup</span>
+          <h3>逐字稿五套 Setup｜整理成可測試規則</h3>
+          <p>以下只把逐字稿中的描述整理成待驗證假設；觸發語句仍要轉為明確數值／蠟燭條件再測試。每套都不是經證實 edge，也不構成實盤入場建議。</p>
+          <div class="review-grid">
+            <article class="review-card">
+              <h4>A｜Key-level reversal</h4>
+              <p><strong>假設性 setup，並非經證實 edge。</strong></p>
+              <ul><li><strong>背景：</strong>先在 HTF 標記前高低、range 邊界或其他事前定義的 key level。</li><li><strong>觸發：</strong>5m 出現預先定義的反轉或延續證據，不把觸碰本身當觸發。</li><li><strong>入場：</strong>等 1m trigger 確認後才按規則進場。</li><li><strong>失效：</strong>價格穿越事前選定的 swing／關鍵位失效邊界。</li><li><strong>目標：</strong>下一個預先標記的反向區域或固定風險單位。</li><li><strong>記錄：</strong>key level 來源、5m 證據、1m trigger、實際成交與成本。</li></ul>
+            </article>
+            <article class="review-card">
+              <h4>B｜HTF liquidity → LTF continuation</h4>
+              <p><strong>假設性 setup，並非經證實 edge。</strong></p>
+              <ul><li><strong>背景：</strong>入場前寫明 HTF bias，以及 HTF 與 LTF 各自的 liquidity 參考。</li><li><strong>觸發：</strong>價格到達預定區域後，LTF 按明確結構規則重新向 bias 方向推進。</li><li><strong>入場：</strong>等結構觸發收市或回測條件成立，不只因「掃過流動性」便追入。</li><li><strong>失效：</strong>預定 LTF pivot 被突破，或 HTF 前提失效。</li><li><strong>目標：</strong>下一個預定 liquidity／區間參考。</li><li><strong>記錄：</strong>bias、兩個 timeframe 的區域定義、觸發和實現結果。</li></ul>
+            </article>
+            <article class="review-card">
+              <h4>C｜IFVG reversal</h4>
+              <p><strong>假設性 setup，並非經證實 edge。</strong></p>
+              <ul><li><strong>背景：</strong>先固定 FVG 的三蠟燭定義及觀察 timeframe。</li><li><strong>觸發：</strong>價格先 sweep 預定高／低點，再以明確收市條件穿越 FVG，之後出現回測／延續確認。</li><li><strong>入場：</strong>只按回測或延續規則執行，不預測區域必然反轉。</li><li><strong>失效：</strong>超越 sweep 極值或按規則重新收回失效區。</li><li><strong>目標：</strong>事前界定的對向區域；若剩餘距離太短則不交易。</li><li><strong>記錄：</strong>FVG 版本、sweep 大小、收市確認、回測與滑點。</li></ul>
+            </article>
+            <article class="review-card">
+              <h4>D｜5-minute ORB</h4>
+              <p><strong>假設性 setup，並非經證實 edge。</strong></p>
+              <ul><li><strong>背景：</strong>以交易所時鐘標記 09:30–09:35 ET 開市區間。</li><li><strong>觸發：</strong>突破後須符合預先定義的收市或 imbalance 條件；不因單一 wick 刺穿就追入。</li><li><strong>入場：</strong>等確認收市或規則所定回測。</li><li><strong>失效：</strong>突破失敗並回到區間內，或觸及事前失效位。</li><li><strong>目標：</strong>使用固定目標／下一區域作統一測試，不事後改目標。</li><li><strong>記錄：</strong>區間寬度、突破方向、成交時間、離場與費用。</li></ul>
+            </article>
+            <article class="review-card">
+              <h4>E｜30-minute range FVG</h4>
+              <p><strong>假設性 setup，並非經證實 edge。</strong></p>
+              <ul><li><strong>背景：</strong>標記開市後首 30 分鐘的 range，並用固定規則識別 FVG。</li><li><strong>觸發：</strong>價格離開或回測 range／FVG 時，所有規則條件須一併成立。</li><li><strong>入場：</strong>按明確的 close、回測或延續條件；不因單一區域標記而下單。</li><li><strong>失效：</strong>range 邊界或 setup pivot 按規則失效。</li><li><strong>目標：</strong>事前設定距離或下一個價格參考。</li><li><strong>記錄：</strong>range、FVG 定義、離開／回測型態、時段和執行成本。</li></ul>
+            </article>
+          </div>
+          <div class="unit-note"><strong>共通 no-trade filters：</strong>重大數據公布前後、spread 過闊、目標太近、沒有清楚 invalidation，或已達每日風險上限時不交易。09:30 ET 等時段會受夏令／冬令時間影響，必須使用交易所時鐘，不要硬換算成固定香港時間。</div>
+          <a href="#mao-map">↑ 回課程章節地圖</a>
+        </article>
+
+        <article class="panel mao-chapter" id="mao-routine">
+          <span class="pill">08｜每日流程與驗證</span>
+          <h3>每日流程、Journal 與心理</h3>
+          <ol class="dte-flow-grid" aria-label="每日交易五步流程">
+            <li><strong>Pre-market</strong><span>核對日曆、交易時段、重要價格區與當日最大風險。</span></li>
+            <li><strong>Wait</strong><span>等待已定義 setup；條件不完整就不補想像。</span></li>
+            <li><strong>Execute</strong><span>按規則下單，記低訂單類型、成交價與失效位。</span></li>
+            <li><strong>Manage</strong><span>按價格、時間、波動和日風險規則處理，不臨場加大風險。</span></li>
+            <li><strong>Journal</strong><span>保存圖表和決策，檢查流程，不只看單筆盈虧。</span></li>
+          </ol>
+          <h4>Journal 建議欄位</h4>
+          <p>instrument、session、setup version、entry／exit、最大風險、slippage／fees、入場與離場 screenshot、rule adherence、emotion、MAE／MFE（持倉最大不利／有利變動）及 lesson。欄位應在交易前後一致填寫，避免只記想看的資料。</p>
+          <div class="review-grid">
+            <div class="review-card"><h4>好交易</h4><p>按規則執行，風險在預算內；即使這一筆虧損，仍可是一個符合流程的好決策。</p></div>
+            <div class="review-card"><h4>壞交易</h4><p>違反既定規則；即使偶然盈利，也要記為執行錯誤，不能用好結果替違規辯護。</p></div>
+          </div>
+          <h4>生活安排先於交易敘事</h4>
+          <ul><li>只用可承受損失的風險資金，不用生活費、借款或緊急儲備金。</li><li>睡眠、健康和家庭責任不應被長時間盯盤破壞。</li><li>保留工作與生活上的穩定安排，不把辭職或快速致富當成交易驗證標準。</li></ul>
+          <h4>30-trade validation｜先模擬，再評估</h4>
+          <p>先以模擬盤累積 30 筆以上同一版本 setup 的紀錄，統計 win rate、平均盈利、平均虧損、扣成本後 expectancy、drawdown 和 fees。只在已按規則執行的樣本上評價流程。修改條件後重新編 setup version，重新收集樣本，不要把新舊規則混在同一統計中；30 筆也只是一個初步檢查點，不足以證明長期有效。</p>
+          <a href="#mao-map">↑ 回課程章節地圖</a>
+        </article>
+
+        <div class="callout" role="note"><div class="callout-icon" aria-hidden="true">!</div><div><strong>產品差異聲明：</strong>逐字稿包含期貨／指數日內交易概念，不能直接移植到 0DTE options；期權另有合約選擇、IV、Theta、bid-ask、行使與結算規則。</div></div>
+        <div class="mao-course-cta" aria-label="Mao 課程後續閱讀">
+          <a class="primary-btn" href="#mao-review">睇獨立評審與 fact-check</a>
+          <a class="primary-btn secondary-btn" href="#zero-dte">轉到 0DTE 路徑</a>
+          <a class="primary-btn secondary-btn" href="#lab">使用計算器</a>
+        </div>
       </div>
     </section>
 
@@ -944,6 +1203,11 @@
           <p>以下把 2026 年 3 月 20 日逐字稿重畫成示意圖。重點不是複製當日結果，而是學識「先見到甚麼、再等甚麼、在哪裏承認錯」。所有水平及走勢均為教學示意，不是原始市場截圖。</p>
         </div>
         <div class="callout" role="note"><div class="callout-icon" aria-hidden="true">↳</div><div><strong>睇圖方法：</strong>黑線是價格；橙色虛線是事前水平；綠色是候選入場／目標；紅色是失效。每張圖都要按 <strong>背景 → 位置 → 成交反應 → 失效</strong> 的次序讀，不能因為見到一粒大 delta 就立即落單。</div></div>
+        <div class="heatmap-summary" aria-label="Daily recap 編輯審核結果">
+          <article><h3>保留｜Effort 對 Result</h3><p>delta／aggression 只講主動成交；必須再看價格有沒有實際進展。這是四個例子最值得保留的共同骨架。</p></article>
+          <article><h3>固定｜定義與比較基準</h3><p>POC 要寫明 profile 期間；Initial Range 要寫 09:30–09:35 ET；開市量要和相近開市樣本比較，不能直接拿 9:29 對 9:30。</p></article>
+          <article><h3>刪除｜單日結果當證據</h3><p>「textbook」「perfect」和單日 1:5 目標都不能證明 edge。四類 setup 必須分開收集樣本及計入滑點／成本。</p></article>
+        </div>
 
         <div class="recap-stack">
           <figure class="visual-lesson">
@@ -963,7 +1227,7 @@
             <div class="visual-copy">
               <span class="setup-chip">主 Setup 01</span>
               <h3>開市 Seller Initiative → 回抽再做</h3>
-              <p>片中最早一單：開市成交量增加、delta 明顯偏負，而且價格真的向下走。</p>
+              <p>片中最早一單：開市成交量增加、delta 明顯偏負，而且價格真的向下走。由於 09:30 ET 本來就常有成交量跳升，應與其他相同開市時段比較。</p>
               <ol><li><strong>先證明有結果：</strong>負 delta 同時要有下跌進展。</li><li><strong>不追最低位：</strong>等價格回到 effort zone／原賣方興趣區。</li><li><strong>失效：</strong>價格接受在該區上方，而不是固定「40 點」套用所有日子。</li></ol>
               <figcaption>易錯位：只有負 delta、價格卻沒有下跌，較像 absorption；那不是同一個 setup。</figcaption>
             </div>
@@ -986,9 +1250,9 @@
             <div class="visual-copy">
               <span class="setup-chip">主 Setup 02</span>
               <h3>POC 回測 → Failed Auction → Buyers Trapped</h3>
-              <p>POC 本身不是做空訊號。真正有用的是價格回到該區後，買方的向上嘗試沒有結果，之後賣方成交帶來下跌。</p>
+              <p>POC 本身不是做空訊號，而且要先寫明用哪一段 volume profile 計算。真正有用的是價格回到該區後，買方向上嘗試沒有結果，之後賣方成交帶來下跌。</p>
               <ol><li><strong>位置：</strong>預先標記 POC／成交密集區。</li><li><strong>反應：</strong>向上測試失敗，買方沒有 follow-through。</li><li><strong>確認：</strong>賣方 aggression 有實際價格進展；回測原賣方興趣才考慮入場。</li></ol>
-              <figcaption>易錯位：「buyers trapped」不是看圖後的故事；要先固定什麼叫失敗、多少時間內沒有延續，以及反向成交要推動多少價格。</figcaption>
+              <figcaption>易錯位：「failed auction／buyers trapped」在不同 order-flow 教法可以有不同意思；要固定何謂測試失敗、多少時間內沒有延續，以及反向成交要推動多少價格。</figcaption>
             </div>
           </figure>
 
@@ -1008,7 +1272,7 @@
             <div class="visual-copy">
               <span class="setup-chip">主 Setup 03</span>
               <h3>Initial Range Breakout｜要突破兼有成交支持</h3>
-              <p>先固定開市首五分鐘高低。區間未完成或價格仍在內部來回，不算突破。</p>
+              <p>先用交易所時鐘固定 09:30–09:35 ET 開市首五分鐘高低。區間未完成或價格仍在內部來回，不算突破。</p>
               <ol><li><strong>等收市：</strong>實體收在 range 外，不以一支影線當 breakout。</li><li><strong>看支持：</strong>主動賣方成交要帶來下跌進展，而不是被吸收。</li><li><strong>兩種測法：</strong>突破 candle 收市入場，或等待 range low 回測；兩者分開統計。</li></ol>
               <figcaption>逐字稿提到約 9:50 才出現較清楚的突破；時間只是當日描述，不應寫成每天固定 9:50 落單。</figcaption>
             </div>
@@ -1041,252 +1305,6 @@
         <h3 style="margin-top:1.5rem">四個 Setup 共用的決策骨架</h3>
         <ol class="recap-rule"><li><strong>1｜先畫位置</strong><span>POC、initial range、PDL／PDH 必須在訊號前存在。</span></li><li><strong>2｜看 effort</strong><span>delta、volume、aggression 說明誰主動，不等於誰一定贏。</span></li><li><strong>3｜看 result</strong><span>成交有價格進展才叫 continuation；沒有進展要考慮 absorption／failure。</span></li><li><strong>4｜先寫失效</strong><span>入場、止損、目標及最大風險要在落單前固定。</span></li></ol>
         <div class="unit-note" style="margin-top:1rem"><strong>回測時分開記：</strong>Setup 01、02、03 和 Bonus 不能混成同一樣本；突破收市入場與回測入場亦要分開。單日出現四個漂亮例子，只能當教材，不能證明長期期望值。</div>
-      </div>
-    </section>
-
-    <section id="mao-course">
-      <div class="shell mao-course-stack">
-        <div class="section-head">
-          <span class="section-kicker">TRANSCRIPT TO CURRICULUM</span>
-          <h2>Mao 交易入門完整課程｜由市場機制到執行</h2>
-          <p>本課程把用戶提供的逐字稿重組成可學教材，並作編輯校正；它不是原文逐字轉載，也不代表作者的盈利主張已獲核實。以下術語和 setup 用來建立可測試規則，不是獲利保證。</p>
-        </div>
-        <div class="callout" role="note"><div class="callout-icon" aria-hidden="true">i</div><div><strong>閱讀方式：</strong>先認識市場機制，再整理圖表語言、風控和 setup。所有 ICT／SMC 形態都要先定義版本、成本及失效條件，才有辦法檢驗。</div></div>
-
-        <nav class="mao-chapter-map" id="mao-map" aria-label="Mao 完整課程八個章節">
-          <a class="mao-chapter-link" href="#mao-reality"><strong>01｜先認清交易係乜</strong><span>時間跨度、風險與適合度</span></a>
-          <a class="mao-chapter-link" href="#mao-market"><strong>02｜市場、產品與工具</strong><span>產品差異、平台、Prop firm</span></a>
-          <a class="mao-chapter-link" href="#mao-mechanics"><strong>03｜落單與損益機制</strong><span>訂單、槓桿、成本、止損</span></a>
-          <a class="mao-chapter-link" href="#mao-chart"><strong>04｜圖表與多時間框架</strong><span>OHLC、結構、時段</span></a>
-          <a class="mao-chapter-link" href="#mao-risk"><strong>05｜風控、期望值與錯誤</strong><span>倉位、回撤、停止條件</span></a>
-          <a class="mao-chapter-link" href="#mao-ict"><strong>06｜ICT／SMC 術語地圖</strong><span>觀察、回測與因果主張</span></a>
-          <a class="mao-chapter-link" href="#mao-setups"><strong>07｜五套假設性 Setup</strong><span>拆成可記錄的規則</span></a>
-          <a class="mao-chapter-link" href="#mao-routine"><strong>08｜每日流程與 Journal</strong><span>練習、復盤、驗證</span></a>
-        </nav>
-        <p class="unit-note"><strong>進階補充：</strong>想由蠟燭圖再落一層理解掛單與成交，可以先讀 <a href="#heatmap">Heatmap／Market Mechanics 圖解章節</a>；想睇今次逐字稿整理出的完整 top-down 示範，就讀 <a href="#ict-playbook">ICT 實戰流程</a>。</p>
-
-        <article class="panel mao-chapter" id="mao-reality">
-          <span class="pill">01｜交易的現實</span>
-          <h3>先認清交易係乜</h3>
-          <p>不同交易方式主要差在持倉時間、決策節奏和承受哪種風險。持倉較短不代表風險較低；成交成本和執行誤差反而可能更重要。</p>
-          <div class="fact-table-wrap" role="region" aria-label="交易方式與主要風險比較">
-            <table class="fact-table"><thead><tr><th scope="col">方式</th><th scope="col">典型持倉時間</th><th scope="col">主要風險</th></tr></thead><tbody>
-              <tr><td>Day trading</td><td>同一交易日內</td><td>盤中波動、執行與滑點、頻繁交易成本；隔夜風險較少不等於必然較安全。</td></tr>
-              <tr><td>Scalping</td><td>數秒至數分鐘</td><td>價差、速度、排隊與成交品質；微小成本會累積。</td></tr>
-              <tr><td>Swing trading</td><td>數日至數週</td><td>隔夜跳空、新聞、持倉期間的波動與融資成本。</td></tr>
-              <tr><td>Long-term investing</td><td>數月至數年</td><td>公司／資產基本面、估值與長期回撤；長期持有也可能永久虧損。</td></tr>
-            </tbody></table>
-          </div>
-          <div class="fit-grid">
-            <div class="fit-card"><strong>較適合的條件</strong><p>能按預先寫下的規則執行、接受結果不確定，並只用可承受損失的風險資金。</p></div>
-            <div class="fit-card"><strong>不適合的動機</strong><p>把交易當穩定薪金、翻本工具，或因急於辭職而要求短時間內賺到固定收入。</p></div>
-          </div>
-          <p><strong>重要修正：</strong>不可能靠一段幾分鐘的影片就成為合格 trader，也不可假設每日都有收入。市場有時沒有符合條件的機會，交易結果亦不平均。</p>
-          <p class="unit-note"><strong>小練習：</strong>寫下自己可承受的最大損失、每週可投入的交易時間，以及達到甚麼條件就停止當日交易。三項未寫清楚前，先不要用真實資金測試。</p>
-          <a href="#mao-map">↑ 回課程章節地圖</a>
-        </article>
-
-        <article class="panel mao-chapter" id="mao-market">
-          <span class="pill">02｜市場與產品</span>
-          <h3>市場、產品與工具</h3>
-          <p>先分清交易標的是甚麼、用哪種合約交易，以及下單由哪個機構執行。相同圖表形態放到不同產品，乘數、交易時段、槓桿與結算方式都可能不同。</p>
-          <div class="fact-table-wrap" role="region" aria-label="可交易產品和主要風險">
-            <table class="fact-table"><thead><tr><th scope="col">產品</th><th scope="col">入門理解與主要風險</th></tr></thead><tbody>
-              <tr><td>Stocks</td><td>公司股權；面對公司消息、估值、流動性和市場回撤。</td></tr>
-              <tr><td>ETF／指數</td><td>一籃子證券或指數曝險；仍有市場、追蹤、流動性及產品結構風險。</td></tr>
-              <tr><td>Futures</td><td>標準化期貨合約；乘數令價格每跳的盈虧放大，亦有到期／換月及保證金風險。</td></tr>
-              <tr><td>Forex</td><td>貨幣對交易；槓桿、價差、隔夜融資及交易商制度都要留意。</td></tr>
-              <tr><td>Commodities</td><td>能源、金屬、農產品等；供需、天氣、庫存、地緣事件可令價格急變。</td></tr>
-              <tr><td>Crypto</td><td>數碼資產；全天候交易、平台／託管、流動性和極端波動風險較突出。</td></tr>
-              <tr><td>Options</td><td>有到期日和行使價的衍生合約；價格還受 IV、時間、價差及行使／指派影響。</td></tr>
-            </tbody></table>
-          </div>
-          <div class="review-grid">
-            <div class="review-card"><h4>Charting platform</h4><p>用來看圖、標註、研究指標或下模擬單；平台畫面不是實際成交保證，延遲或資料來源亦要核對。</p></div>
-            <div class="review-card"><h4>Broker</h4><p>負責帳戶、訂單傳送、成交回報、保證金與風險管理。下單前要確認券商支援的產品、費用、交易時段和強平規則。</p></div>
-          </div>
-          <h4>Prop firm：先看合約條款，再看宣傳帳戶數字</h4>
-          <p>逐項核對 evaluation fee、回撤計算方式、模擬帳戶還是真實市場帳戶、payout 條款、違規規則、提款條件及交易對手。宣傳的帳戶規模不是個人現金，也不必然等於可自由使用的實盤資金。</p>
-          <h4>NQ／ES 與合約單位</h4>
-          <div class="fact-table-wrap" role="region" aria-label="E-mini 指數期貨規格摘要">
-            <table class="fact-table"><thead><tr><th scope="col">合約</th><th scope="col">每指數點乘數</th><th scope="col">最小跳動</th><th scope="col">每跳價值</th></tr></thead><tbody>
-              <tr><td>E-mini NQ</td><td>$20</td><td>0.25 點</td><td>$5</td></tr>
-              <tr><td>E-mini ES</td><td>$50</td><td>0.25 點</td><td>$12.50</td></tr>
-            </tbody></table>
-          </div>
-          <p class="chart-caption">Micro 合約乘數不同；落單前要按交易所當前規格核對。外匯 standard lot 一般為 100,000 個基礎貨幣單位，mini lot 一般為 10,000。股票以股數交易，沒有固定「每手 100 股」規則；標準美股個股期權通常才以 100 股作合約乘數，但亦有例外。</p>
-          <a href="#mao-map">↑ 回課程章節地圖</a>
-        </article>
-
-        <article class="panel mao-chapter" id="mao-mechanics">
-          <span class="pill">03｜執行與損益</span>
-          <h3>落單與損益機制</h3>
-          <p>Long／short 描述曝險方向，不是「勝率高低」的標籤。持有現貨的 long 通常受惠價格上升；short sale 通常涉及借入後賣出，再買回歸還，價格上升會增加回補成本。期權 short 則是合約義務，風險結構須按策略分開計算。</p>
-          <div class="fact-table-wrap" role="region" aria-label="下單和損益機制速查">
-            <table class="fact-table"><thead><tr><th scope="col">概念</th><th scope="col">白話解釋與注意事項</th></tr></thead><tbody>
-              <tr><td>Market order</td><td>優先求成交，不保證成交價；快速市場或薄弱流動性時可能承受較大滑點。</td></tr>
-              <tr><td>Limit order</td><td>指定可接受的最高買價或最低賣價；能控制價格，但不保證一定成交。</td></tr>
-              <tr><td>Bid／Ask／Spread</td><td>Bid 是市場買方報價，Ask 是賣方報價；兩者差額是 spread，進出都可能要付出成本。</td></tr>
-              <tr><td>Slippage</td><td>預期價格與實際成交價格的差距；波動、流動性、訂單大小和執行速度都可能影響。</td></tr>
-              <tr><td>Leverage／Margin</td><td>槓桿用較少自有資金控制較大名義曝險，會放大盈虧；保證金是抵押要求，不是最大虧損上限。虧損可超過已繳保證金並觸發追加或強平。</td></tr>
-              <tr><td>Stop-loss／Take-profit</td><td>預先定義退出有助紀律，但 stop 不保證成交價。跳空或急速行情可令實際執行遠離觸發價；期權 bid-ask 闊時尤其要按產品測試。</td></tr>
-              <tr><td>到期與盤中損益</td><td>到期損益主要按合約內在值與已付權利金計；到期前期權市價另受 IV、時間價值、利率、差價及流動性影響，因此不能只用到期圖估算盤中盈虧。</td></tr>
-            </tbody></table>
-          </div>
-          <p class="unit-note"><strong>例子：</strong>Limit order 買入代表你接受的最高價格有上限，但市場未必願意在該價格賣給你；若改用 market order，成交機會可能較高，價格就不再由你指定。成交與價格控制是兩種不同取捨。</p>
-          <a href="#mao-map">↑ 回課程章節地圖</a>
-        </article>
-
-        <article class="panel mao-chapter" id="mao-chart">
-          <span class="pill">04｜讀圖與時段</span>
-          <h3>圖表語言與多時間框架</h3>
-          <div class="fact-table-wrap" role="region" aria-label="蠟燭圖 OHLC 組成">
-            <table class="fact-table"><thead><tr><th scope="col">圖表部分</th><th scope="col">代表甚麼</th></tr></thead><tbody>
-              <tr><td>Open／開市價</td><td>該根蠟燭開始時的價格。</td></tr>
-              <tr><td>High／最高價</td><td>該段期間內記錄的最高價。</td></tr>
-              <tr><td>Low／最低價</td><td>該段期間內記錄的最低價。</td></tr>
-              <tr><td>Close／收市價</td><td>該根蠟燭結束時的價格；收市位置可用來定義某些規則。</td></tr>
-              <tr><td>Body／實體、Wick／影線</td><td>實體連接開收價；影線延伸至高低點。顏色只是顯示慣例，須先看清平台設定。</td></tr>
-            </tbody></table>
-          </div>
-          <p><strong>結構詞語：</strong>High／Low 是局部高低點；HH／HL 指較高高點與較高低點，常用來描述上行結構；LH／LL 指較低高點與較低低點，常用來描述下行結構。Trend 是價格較有方向性的移動；Range 是價格在一段區間內往返。這些標記依賴時間框架與 swing 定義，須把判斷規則寫清楚。</p>
-          <div class="review-grid">
-            <div class="review-card"><h4>HTF｜較高時間框架</h4><p>用來整理大方向背景、主要區域和較重要的價格結構；較高時間框架的訊號不是必然預測，不能單憑它忽略反向風險。</p></div>
-            <div class="review-card"><h4>LTF｜較低時間框架</h4><p>用來細化觀察與執行觸發。細節較多也代表雜訊較多，不應把每個短線波動都當成新趨勢。</p></div>
-          </div>
-          <p><strong>交易時段：</strong>常見市場語境會談 Asia、London、New York sessions，但不同產品的主要流動時段不一樣。夏令／冬令時間、交易所假期與合約時段都要按當日官方日曆核對；不要假設紐約開市永遠等於香港時間 21:30。</p>
-          <p class="unit-note"><strong>練習：</strong>在同一個交易日圖表上標出 5 個 swing high／low，再寫下目前較像 trend 還是 range，並註明使用的 timeframe 和 swing 定義。不要只看單一根蠟燭就下結論。</p>
-          <a href="#mao-map">↑ 回課程章節地圖</a>
-        </article>
-
-        <article class="panel mao-chapter" id="mao-risk">
-          <span class="pill">05｜風控與期望值</span>
-          <h3>風控、期望值與常見錯誤</h3>
-          <p class="formula">期望值 = 勝率×平均盈利 − 敗率×平均虧損 − 交易成本</p>
-          <p>1:2 風險回報比只描述某種目標和止損距離，並不保證盈利。還要知道實際勝率、平均成交、尾部虧損及成本。倉位應由最大可承受損失倒推：先定失效點與最壞損失，再決定張數，不是先決定想賺多少。</p>
-          <p><strong>模擬盤風險練習：</strong>可以先用每筆帳戶風險 0.25% 作為保守教學例子，熟悉記錄與執行；這不是對所有人通用的安全值。勿把 1–3% 包裝成普遍適用的安全標準。</p>
-          <div class="review-grid">
-            <div class="review-card"><h4>常見執行錯誤</h4><ul><li>FOMO：怕錯過而追價。</li><li>Revenge trading：虧損後急於報復市場。</li><li>Overtrading：沒有 setup 仍不停下單。</li><li>Averaging losers：虧損後不斷加碼攤平。</li></ul></div>
-            <div class="review-card"><h4>常見判斷偏誤</h4><ul><li>Moving stops：為了不認輸而移遠止損。</li><li>Confirmation bias：只找支持自己立場的證據。</li><li>Premature exit：沒有按計劃就提早離場。</li><li>事後改寫入場理由，令錯誤無法復盤。</li></ul></div>
-          </div>
-          <h4>回撤後回本所需升幅</h4>
-          <div class="fact-table-wrap" role="region" aria-label="回撤幅度與回本所需升幅">
-            <table class="fact-table"><thead><tr><th scope="col">資金回撤</th><th scope="col">回到原資金所需升幅</th><th scope="col">理解方式</th></tr></thead><tbody>
-              <tr><td>−5%</td><td>+5.26%</td><td>由剩餘 95% 回到 100%。</td></tr>
-              <tr><td>−20%</td><td>+25%</td><td>由剩餘 80% 回到 100%。</td></tr>
-              <tr><td>−50%</td><td>+100%</td><td>由剩餘一半翻倍才回本。</td></tr>
-              <tr><td>−90%</td><td>+900%</td><td>只剩一成，需要變成原來的十倍。</td></tr>
-            </tbody></table>
-          </div>
-          <p class="chart-caption">計算不含新增出入金、費用或稅項。回撤愈大，回本所需升幅愈不成比例；避免把「追回虧損」當成加大風險的理由。</p>
-          <div class="unit-note"><strong>每日停止條件示例｜教學框架，不是通用標準：</strong>當日按規則虧損 2 次、觸及 0.5% 模擬日風險上限，或發現自己情緒失控時就停止下單，保存紀錄並離開交易畫面。</div>
-          <a href="#mao-map">↑ 回課程章節地圖</a>
-        </article>
-
-        <article class="panel mao-chapter" id="mao-ict">
-          <span class="pill">06｜術語與假設</span>
-          <h3>ICT／SMC 術語地圖</h3>
-          <p>ICT／SMC 內容混合圖表觀察、交易者自訂規則和對市場參與者意圖的解釋。學習時先問：這個詞是可直接觀察的價格定義，還是需要統計證據的因果敘事？不同作者對同一縮寫可能有不同定義，回測前應固定版本。</p>
-          <h4>A｜可由市場圖表觀察的定義</h4>
-          <div class="fact-table-wrap" role="region" aria-label="圖表上可直接觀察的術語">
-            <table class="fact-table"><thead><tr><th scope="col">術語</th><th scope="col">白話定義</th></tr></thead><tbody>
-              <tr><td>Swing high／low</td><td>按明確的左右蠟燭或價格幅度規則，標出的局部高點／低點；規則不同，結果也不同。</td></tr>
-              <tr><td>Prior high／low</td><td>指定回看期間內，之前形成的高點／低點，例如前一日高低點。</td></tr>
-              <tr><td>Range</td><td>先定上下界和觀察期間後，價格在其中往返的區域。</td></tr>
-              <tr><td>Imbalance</td><td>某套規則定義的單向快速移動或較少重疊區段；名稱本身不代表一定會回補。</td></tr>
-            </tbody></table>
-          </div>
-          <h4>B｜可操作，但必須寫成版本固定的回測規則</h4>
-          <div class="fact-table-wrap" role="region" aria-label="ICT 和 SMC 可測試術語定義">
-            <table class="fact-table"><thead><tr><th scope="col">術語</th><th scope="col">可供測試的白話定義</th></tr></thead><tbody>
-              <tr><td>BSL／SSL</td><td>Buy-side／Sell-side liquidity，常指參考高點上方／低點下方可能聚集的止損或觸發單；圖表無法直接看見所有訂單。</td></tr>
-              <tr><td>Liquidity sweep</td><td>價格越過預先標記的高／低點後回到區間；這是價格路徑描述，不證明有人刻意獵單。</td></tr>
-              <tr><td>BOS</td><td>Break of Structure：按預定 swing 規則收市突破前高或前低，作為結構延續訊號。</td></tr>
-              <tr><td>CHOCH／MSS</td><td>Change of Character／Market Structure Shift：價格打破先前相反方向的結構，用作可能轉變的標記。</td></tr>
-              <tr><td>CISD</td><td>Change in State of Delivery：部分 ICT 教法用來標記短線價格推進方向轉變，必須引用並固定具體蠟燭規則。</td></tr>
-              <tr><td>FVG／IFVG</td><td>Fair Value Gap 常以三根蠟燭中第一與第三根的未重疊區域定義；Inverse FVG 是價格穿越該區後按反向角色觀察。需寫明採用的判定方式。</td></tr>
-              <tr><td>BPR</td><td>Balanced Price Range：按某些規則，把相反方向 FVG 的重疊範圍標作平衡區。</td></tr>
-              <tr><td>Order block／Breaker block</td><td>Order block 常指明顯位移前最後一段反向蠟燭／區域；Breaker block 則指原區域被突破後，改用反向角色觀察。沒有唯一標準。</td></tr>
-              <tr><td>Premium／Discount</td><td>先界定一段 range，再以其中點分成上半部／下半部；在這套術語中不是「價格昂貴」或「打折」的普遍估值。</td></tr>
-              <tr><td>SMT divergence</td><td>比較兩個相關市場的高低點是否互相確認；相關性會變，背離本身不是反轉保證。</td></tr>
-              <tr><td>PO3／AMD</td><td>Power of Three／Accumulation-Manipulation-Distribution：把盤整、突破掃單、方向推進分成敘事階段，須把每段定義為可觀察規則。</td></tr>
-              <tr><td>IRL／ERL</td><td>Internal／External Range Liquidity：常指一段區間內部的流動性參考，與區間邊界外的高低點參考；範圍要先界定。</td></tr>
-              <tr><td>Session highs／lows</td><td>預先選定交易時段內的最高／最低價；時段需按產品與夏令時間明確設定。</td></tr>
-              <tr><td>Trendline／equal highs liquidity</td><td>Trendline 是依規則連接 swing 的線；equal highs 是相近高點群。它們是圖表標記，市場是否有相應止損單不能單靠形態證明。</td></tr>
-            </tbody></table>
-          </div>
-          <div class="unit-note"><strong>C｜未被形態本身證實的因果敘事：</strong>「機構刻意獵止損／控制市場」不能只靠一個 sweep、FVG 或 order block 圖形證明。價格形態可用來定義假設，參與者意圖則需要獨立資料支持。</div>
-          <h4>把形態寫成可檢驗模板</h4>
-          <p class="formula">Instrument｜Timeframe｜Session｜Entry｜Invalidation｜Exit｜Cost</p>
-          <p>例：先寫明交易哪個合約、用哪個 timeframe、哪段 session；setup 如何觸發、甚麼情況代表失效、用甚麼離場規則，以及佣金、bid-ask 和滑點如何計入。規則改動要重新編號，不能事後挑選成功圖表。</p>
-          <p class="unit-note"><strong>逐字稿延伸：</strong>完整的 HTF → session location → SMT／MSS／IFVG → invalidation 流程見 <a href="#ict-playbook">ICT 實戰流程</a>；開市 initiative、POC failed auction、initial range breakout 與失敗突破反手，見 <a href="#daily-recap">每日 Order Flow 圖解</a>。</p>
-          <a href="#mao-map">↑ 回課程章節地圖</a>
-        </article>
-
-        <article class="panel mao-chapter" id="mao-setups">
-          <span class="pill">07｜五套假設性 Setup</span>
-          <h3>逐字稿五套 Setup｜整理成可測試規則</h3>
-          <p>以下只把逐字稿中的描述整理成待驗證假設；觸發語句仍要轉為明確數值／蠟燭條件再測試。每套都不是經證實 edge，也不構成實盤入場建議。</p>
-          <div class="review-grid">
-            <article class="review-card">
-              <h4>A｜Key-level reversal</h4>
-              <p><strong>假設性 setup，並非經證實 edge。</strong></p>
-              <ul><li><strong>背景：</strong>先在 HTF 標記前高低、range 邊界或其他事前定義的 key level。</li><li><strong>觸發：</strong>5m 出現預先定義的反轉或延續證據，不把觸碰本身當觸發。</li><li><strong>入場：</strong>等 1m trigger 確認後才按規則進場。</li><li><strong>失效：</strong>價格穿越事前選定的 swing／關鍵位失效邊界。</li><li><strong>目標：</strong>下一個預先標記的反向區域或固定風險單位。</li><li><strong>記錄：</strong>key level 來源、5m 證據、1m trigger、實際成交與成本。</li></ul>
-            </article>
-            <article class="review-card">
-              <h4>B｜HTF liquidity → LTF continuation</h4>
-              <p><strong>假設性 setup，並非經證實 edge。</strong></p>
-              <ul><li><strong>背景：</strong>入場前寫明 HTF bias，以及 HTF 與 LTF 各自的 liquidity 參考。</li><li><strong>觸發：</strong>價格到達預定區域後，LTF 按明確結構規則重新向 bias 方向推進。</li><li><strong>入場：</strong>等結構觸發收市或回測條件成立，不只因「掃過流動性」便追入。</li><li><strong>失效：</strong>預定 LTF pivot 被突破，或 HTF 前提失效。</li><li><strong>目標：</strong>下一個預定 liquidity／區間參考。</li><li><strong>記錄：</strong>bias、兩個 timeframe 的區域定義、觸發和實現結果。</li></ul>
-            </article>
-            <article class="review-card">
-              <h4>C｜IFVG reversal</h4>
-              <p><strong>假設性 setup，並非經證實 edge。</strong></p>
-              <ul><li><strong>背景：</strong>先固定 FVG 的三蠟燭定義及觀察 timeframe。</li><li><strong>觸發：</strong>價格先 sweep 預定高／低點，再以明確收市條件穿越 FVG，之後出現回測／延續確認。</li><li><strong>入場：</strong>只按回測或延續規則執行，不預測區域必然反轉。</li><li><strong>失效：</strong>超越 sweep 極值或按規則重新收回失效區。</li><li><strong>目標：</strong>事前界定的對向區域；若剩餘距離太短則不交易。</li><li><strong>記錄：</strong>FVG 版本、sweep 大小、收市確認、回測與滑點。</li></ul>
-            </article>
-            <article class="review-card">
-              <h4>D｜5-minute ORB</h4>
-              <p><strong>假設性 setup，並非經證實 edge。</strong></p>
-              <ul><li><strong>背景：</strong>以交易所時鐘標記 09:30–09:35 ET 開市區間。</li><li><strong>觸發：</strong>突破後須符合預先定義的收市或 imbalance 條件；不因單一 wick 刺穿就追入。</li><li><strong>入場：</strong>等確認收市或規則所定回測。</li><li><strong>失效：</strong>突破失敗並回到區間內，或觸及事前失效位。</li><li><strong>目標：</strong>使用固定目標／下一區域作統一測試，不事後改目標。</li><li><strong>記錄：</strong>區間寬度、突破方向、成交時間、離場與費用。</li></ul>
-            </article>
-            <article class="review-card">
-              <h4>E｜30-minute range FVG</h4>
-              <p><strong>假設性 setup，並非經證實 edge。</strong></p>
-              <ul><li><strong>背景：</strong>標記開市後首 30 分鐘的 range，並用固定規則識別 FVG。</li><li><strong>觸發：</strong>價格離開或回測 range／FVG 時，所有規則條件須一併成立。</li><li><strong>入場：</strong>按明確的 close、回測或延續條件；不因單一區域標記而下單。</li><li><strong>失效：</strong>range 邊界或 setup pivot 按規則失效。</li><li><strong>目標：</strong>事前設定距離或下一個價格參考。</li><li><strong>記錄：</strong>range、FVG 定義、離開／回測型態、時段和執行成本。</li></ul>
-            </article>
-          </div>
-          <div class="unit-note"><strong>共通 no-trade filters：</strong>重大數據公布前後、spread 過闊、目標太近、沒有清楚 invalidation，或已達每日風險上限時不交易。09:30 ET 等時段會受夏令／冬令時間影響，必須使用交易所時鐘，不要硬換算成固定香港時間。</div>
-          <a href="#mao-map">↑ 回課程章節地圖</a>
-        </article>
-
-        <article class="panel mao-chapter" id="mao-routine">
-          <span class="pill">08｜每日流程與驗證</span>
-          <h3>每日流程、Journal 與心理</h3>
-          <ol class="dte-flow-grid" aria-label="每日交易五步流程">
-            <li><strong>Pre-market</strong><span>核對日曆、交易時段、重要價格區與當日最大風險。</span></li>
-            <li><strong>Wait</strong><span>等待已定義 setup；條件不完整就不補想像。</span></li>
-            <li><strong>Execute</strong><span>按規則下單，記低訂單類型、成交價與失效位。</span></li>
-            <li><strong>Manage</strong><span>按價格、時間、波動和日風險規則處理，不臨場加大風險。</span></li>
-            <li><strong>Journal</strong><span>保存圖表和決策，檢查流程，不只看單筆盈虧。</span></li>
-          </ol>
-          <h4>Journal 建議欄位</h4>
-          <p>instrument、session、setup version、entry／exit、最大風險、slippage／fees、入場與離場 screenshot、rule adherence、emotion、MAE／MFE（持倉最大不利／有利變動）及 lesson。欄位應在交易前後一致填寫，避免只記想看的資料。</p>
-          <div class="review-grid">
-            <div class="review-card"><h4>好交易</h4><p>按規則執行，風險在預算內；即使這一筆虧損，仍可是一個符合流程的好決策。</p></div>
-            <div class="review-card"><h4>壞交易</h4><p>違反既定規則；即使偶然盈利，也要記為執行錯誤，不能用好結果替違規辯護。</p></div>
-          </div>
-          <h4>生活安排先於交易敘事</h4>
-          <ul><li>只用可承受損失的風險資金，不用生活費、借款或緊急儲備金。</li><li>睡眠、健康和家庭責任不應被長時間盯盤破壞。</li><li>保留工作與生活上的穩定安排，不把辭職或快速致富當成交易驗證標準。</li></ul>
-          <h4>30-trade validation｜先模擬，再評估</h4>
-          <p>先以模擬盤累積 30 筆以上同一版本 setup 的紀錄，統計 win rate、平均盈利、平均虧損、扣成本後 expectancy、drawdown 和 fees。只在已按規則執行的樣本上評價流程。修改條件後重新編 setup version，重新收集樣本，不要把新舊規則混在同一統計中；30 筆也只是一個初步檢查點，不足以證明長期有效。</p>
-          <a href="#mao-map">↑ 回課程章節地圖</a>
-        </article>
-
-        <div class="callout" role="note"><div class="callout-icon" aria-hidden="true">!</div><div><strong>產品差異聲明：</strong>逐字稿包含期貨／指數日內交易概念，不能直接移植到 0DTE options；期權另有合約選擇、IV、Theta、bid-ask、行使與結算規則。</div></div>
-        <div class="mao-course-cta" aria-label="Mao 課程後續閱讀">
-          <a class="primary-btn" href="#mao-review">睇獨立評審與 fact-check</a>
-          <a class="primary-btn secondary-btn" href="#zero-dte">轉到 0DTE 路徑</a>
-          <a class="primary-btn secondary-btn" href="#lab">使用計算器</a>
-        </div>
       </div>
     </section>
 
