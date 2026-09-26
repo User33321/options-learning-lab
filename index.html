@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="繁體中文 0DTE Long Option 風險教學、Mao Heatmap 與 ICT 交易圖表課程、互動計算器及可測試 setup。">
+  <meta name="description" content="繁體中文 0DTE Long Option 風險教學、Mao Heatmap、ICT 與每日 Order Flow 圖解、互動計算器及可測試 setup。">
   <title>0DTE 與交易圖表手冊｜Mao 課程</title>
   <style>
     :root {
@@ -393,6 +393,30 @@
     .heatmap-check li::before { content: counter(heatmap-check); position: absolute; top: .55rem; left: .75rem; color: var(--green); font-weight: 900; }
     .heatmap-check strong { display: block; margin-bottom: .25rem; }
     .heatmap-check span { color: var(--muted); font-size: .88rem; }
+    .recap-stack { display: grid; gap: 1rem; margin-top: 1.2rem; }
+    .visual-lesson { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(17rem, .75fr); gap: 1.1rem; align-items: stretch; margin: 0; padding: 1rem; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+    .visual-lesson:nth-child(even) { grid-template-columns: minmax(17rem, .75fr) minmax(0, 1.35fr); }
+    .visual-lesson:nth-child(even) .visual-board { order: 2; }
+    .visual-board { min-width: 0; padding: .55rem; border-radius: 5px; background: var(--bg); }
+    .visual-board svg { display: block; width: 100%; height: auto; }
+    .visual-board svg text { fill: var(--ink); font: 15px system-ui, sans-serif; }
+    .visual-board svg .chart-note { fill: var(--muted); font-size: 13px; }
+    .visual-board svg .chart-price { stroke: var(--ink); fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    .visual-board svg .chart-level { stroke: var(--orange); fill: none; stroke-width: 2; stroke-dasharray: 7 5; }
+    .visual-board svg .chart-entry { stroke: var(--green); fill: none; stroke-width: 3; }
+    .visual-board svg .chart-risk { stroke: var(--red); fill: none; stroke-width: 2; }
+    .visual-copy { min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+    .visual-copy h3 { margin-bottom: .35rem; }
+    .visual-copy p { margin: .25rem 0; color: var(--muted); }
+    .visual-copy ol { margin: .55rem 0; padding-left: 1.25rem; }
+    .visual-copy li + li { margin-top: .35rem; }
+    .visual-copy figcaption { margin-top: .45rem; padding-top: .65rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .88rem; }
+    .setup-chip { display: inline-flex; align-self: flex-start; margin-bottom: .55rem; padding: .12rem .48rem; border-left: 3px solid var(--green); background: var(--green-2); color: var(--ink); font-size: .78rem; font-weight: 850; }
+    .setup-chip.bonus { border-left-color: var(--orange); background: var(--orange-2); }
+    .recap-rule { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .7rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+    .recap-rule li { min-width: 0; padding: .85rem; border-top: 3px solid var(--green); background: var(--surface); }
+    .recap-rule strong, .recap-rule span { display: block; }
+    .recap-rule span { margin-top: .2rem; color: var(--muted); font-size: .88rem; }
     .mao-course-stack > .section-head, .mao-course-stack > .callout, .mao-course-stack > .mao-chapter-map, .mao-course-stack > .mao-course-cta { max-width: 52rem; width: 100%; margin-inline: auto; }
     @media (min-width: 951px) and (max-width: 1250px) {
       .topbar-inner { flex-wrap: wrap; padding-block: .5rem; }
@@ -428,7 +452,9 @@
       .diagram-wide { grid-column: auto; }
       .contract-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .trade-flows, .moneyness-results, .concept-figures, .maturity-grid, .method-grid, .inference-grid { grid-template-columns: 1fr; }
-      .review-grid, .review-facts, .evidence-levels, .strategy-ladder, .question-grid, .exit-grid, .source-link-list, .dte-factors, .dte-formulas, .dte-flow-grid, .concept-tier-grid, .mao-workflow, .heatmap-summary, .heatmap-outcomes, .heatmap-patterns, .heatmap-check { grid-template-columns: 1fr; }
+      .review-grid, .review-facts, .evidence-levels, .strategy-ladder, .question-grid, .exit-grid, .source-link-list, .dte-factors, .dte-formulas, .dte-flow-grid, .concept-tier-grid, .mao-workflow, .heatmap-summary, .heatmap-outcomes, .heatmap-patterns, .heatmap-check, .recap-rule { grid-template-columns: 1fr; }
+      .visual-lesson, .visual-lesson:nth-child(even) { grid-template-columns: 1fr; }
+      .visual-lesson:nth-child(even) .visual-board { order: 0; }
       .data-layer-list li { grid-template-columns: 1fr; gap: .1rem; }
       .current-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .45rem; }
       .current-stat { padding: .75rem .4rem; }
@@ -486,10 +512,10 @@
     <div class="shell topbar-inner">
       <div class="brand">0DTE × Mao 手冊</div>
       <div class="toplinks">
-        <a href="#zero-dte">0DTE</a><a href="#mao-course">Mao 課程</a><a href="#heatmap">Heatmap</a><a href="#ict-playbook">ICT 流程</a><a href="#diagrams">圖解</a><a href="#mao-setups">五套 Setup</a><a href="#lab">工具</a><a href="#checklist">清單</a><a href="#sources">來源</a>
+        <a href="#zero-dte">0DTE</a><a href="#mao-course">Mao 課程</a><a href="#heatmap">Heatmap</a><a href="#ict-playbook">ICT 流程</a><a href="#daily-recap">每日 Recap</a><a href="#diagrams">圖解</a><a href="#mao-setups">五套 Setup</a><a href="#lab">工具</a><a href="#checklist">清單</a><a href="#sources">來源</a>
       </div>
       <select class="mobile-nav" aria-label="跳到章節" id="mobileNav">
-        <option value="">前往章節…</option><option value="#zero-dte">0DTE</option><option value="#mao-course">Mao 課程</option><option value="#heatmap">Heatmap</option><option value="#ict-playbook">ICT 實戰流程</option><option value="#diagrams">圖解</option><option value="#mao-setups">五套 Setup</option><option value="#lab">工具</option><option value="#checklist">清單</option><option value="#sources">來源</option>
+        <option value="">前往章節…</option><option value="#zero-dte">0DTE</option><option value="#mao-course">Mao 課程</option><option value="#heatmap">Heatmap</option><option value="#ict-playbook">ICT 實戰流程</option><option value="#daily-recap">每日 Order Flow 圖解</option><option value="#diagrams">圖解</option><option value="#mao-setups">五套 Setup</option><option value="#lab">工具</option><option value="#checklist">清單</option><option value="#sources">來源</option>
       </select>
       <button class="icon-btn" id="themeBtn" type="button" aria-label="切換深淺色">◐</button>
       <button class="icon-btn" id="printBtn" type="button">列印</button>
@@ -507,7 +533,7 @@
       </div>
       <div class="stat-row" aria-label="教材範圍">
         <div class="stat"><strong>2</strong><span>學習主線</span></div>
-        <div class="stat"><strong>16</strong><span>教學圖解</span></div>
+        <div class="stat"><strong>20</strong><span>教學圖解</span></div>
         <div class="stat"><strong>5</strong><span>待回測 setup</span></div>
         <div class="stat"><strong>1</strong><span>交易前清單</span></div>
       </div>
@@ -910,6 +936,114 @@
       </div>
     </section>
 
+    <section id="daily-recap">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-kicker">A2KY9 · DAILY ORDER FLOW RECAP</span>
+          <h2>一日 3＋1 個 Setup｜每個概念都配一張圖</h2>
+          <p>以下把 2026 年 3 月 20 日逐字稿重畫成示意圖。重點不是複製當日結果，而是學識「先見到甚麼、再等甚麼、在哪裏承認錯」。所有水平及走勢均為教學示意，不是原始市場截圖。</p>
+        </div>
+        <div class="callout" role="note"><div class="callout-icon" aria-hidden="true">↳</div><div><strong>睇圖方法：</strong>黑線是價格；橙色虛線是事前水平；綠色是候選入場／目標；紅色是失效。每張圖都要按 <strong>背景 → 位置 → 成交反應 → 失效</strong> 的次序讀，不能因為見到一粒大 delta 就立即落單。</div></div>
+
+        <div class="recap-stack">
+          <figure class="visual-lesson">
+            <div class="visual-board">
+              <svg viewBox="0 0 620 330" role="img" aria-labelledby="recap16Title recap16Desc">
+                <title id="recap16Title">開市賣方主動性與回抽入場示意</title>
+                <desc id="recap16Desc">開市出現明顯負 delta 和成交量增加，價格下跌後回抽賣方努力區，候選做空，失效在區域上方，目標為事前水平。</desc>
+                <line class="chart-level" x1="55" y1="90" x2="575" y2="90"/><text x="58" y="78">賣方 effort zone</text>
+                <line class="chart-level" x1="55" y1="270" x2="575" y2="270"/><text x="58" y="294">事前目標／參考低位</text>
+                <polyline class="chart-price" points="60,65 112,76 145,150 188,220 238,250 286,206 330,126 372,151 430,218 505,264 567,284"/>
+                <rect x="132" y="105" width="58" height="105" rx="5" fill="var(--red-2)" stroke="var(--red)"/><text class="chart-note" x="119" y="230">9:29–9:30</text><text class="chart-note" x="127" y="247">負 delta 擴大</text>
+                <circle cx="330" cy="126" r="8" fill="var(--green)"/><text x="347" y="130">回抽後候選 short</text>
+                <line class="chart-risk" x1="315" y1="64" x2="395" y2="64"/><text x="402" y="69">失效</text>
+                <path class="chart-entry" d="M353 150L401 197"/><path d="M395 194l8 5-4-9" fill="var(--green)"/>
+              </svg>
+            </div>
+            <div class="visual-copy">
+              <span class="setup-chip">主 Setup 01</span>
+              <h3>開市 Seller Initiative → 回抽再做</h3>
+              <p>片中最早一單：開市成交量增加、delta 明顯偏負，而且價格真的向下走。</p>
+              <ol><li><strong>先證明有結果：</strong>負 delta 同時要有下跌進展。</li><li><strong>不追最低位：</strong>等價格回到 effort zone／原賣方興趣區。</li><li><strong>失效：</strong>價格接受在該區上方，而不是固定「40 點」套用所有日子。</li></ol>
+              <figcaption>易錯位：只有負 delta、價格卻沒有下跌，較像 absorption；那不是同一個 setup。</figcaption>
+            </div>
+          </figure>
+
+          <figure class="visual-lesson">
+            <div class="visual-board">
+              <svg viewBox="0 0 620 330" role="img" aria-labelledby="recap17Title recap17Desc">
+                <title id="recap17Title">POC 回測後買方被困和賣方接手示意</title>
+                <desc id="recap17Desc">價格回到成交量控制點，向上嘗試失敗，買方被困，隨後賣方主動成交令價格下降，候選在回測時做空，目標為前日低位。</desc>
+                <rect x="55" y="104" width="520" height="44" rx="5" fill="var(--orange-2)"/><line class="chart-level" x1="55" y1="126" x2="575" y2="126"/><text x="66" y="96">POC／成交密集區</text>
+                <line class="chart-level" x1="55" y1="276" x2="575" y2="276"/><text x="55" y="303">PDL／事前目標</text>
+                <polyline class="chart-price" points="60,245 118,210 172,160 225,128 270,80 305,122 340,92 371,142 410,185 447,151 492,220 565,274"/>
+                <circle cx="270" cy="80" r="8" fill="var(--red)"/><text x="201" y="48">向上 auction 失敗</text>
+                <circle cx="371" cy="142" r="8" fill="var(--green)"/><text x="385" y="135">賣方接手</text>
+                <line class="chart-risk" x1="247" y1="62" x2="354" y2="62"/><text x="364" y="66">失效區</text>
+                <path class="chart-entry" d="M448 150L490 207"/><text class="chart-note" x="425" y="137">回測賣方興趣</text>
+              </svg>
+            </div>
+            <div class="visual-copy">
+              <span class="setup-chip">主 Setup 02</span>
+              <h3>POC 回測 → Failed Auction → Buyers Trapped</h3>
+              <p>POC 本身不是做空訊號。真正有用的是價格回到該區後，買方的向上嘗試沒有結果，之後賣方成交帶來下跌。</p>
+              <ol><li><strong>位置：</strong>預先標記 POC／成交密集區。</li><li><strong>反應：</strong>向上測試失敗，買方沒有 follow-through。</li><li><strong>確認：</strong>賣方 aggression 有實際價格進展；回測原賣方興趣才考慮入場。</li></ol>
+              <figcaption>易錯位：「buyers trapped」不是看圖後的故事；要先固定什麼叫失敗、多少時間內沒有延續，以及反向成交要推動多少價格。</figcaption>
+            </div>
+          </figure>
+
+          <figure class="visual-lesson">
+            <div class="visual-board">
+              <svg viewBox="0 0 620 330" role="img" aria-labelledby="recap18Title recap18Desc">
+                <title id="recap18Title">五分鐘 Initial Range 向下突破示意</title>
+                <desc id="recap18Desc">開市首五分鐘形成區間，價格在區間內震盪，之後實體收在區間下方並有主動賣方成交，候選在收市或回測入場，失效在重新接受於區間內。</desc>
+                <rect x="56" y="88" width="300" height="132" rx="5" fill="var(--blue-2)" stroke="var(--blue)"/><text x="66" y="78">首 5 分鐘 Initial Range</text>
+                <line class="chart-level" x1="55" y1="88" x2="575" y2="88"/><line class="chart-level" x1="55" y1="220" x2="575" y2="220"/>
+                <polyline class="chart-price" points="63,155 108,104 150,194 196,116 243,199 292,140 338,205 380,252 421,214 465,271 560,292"/>
+                <rect x="354" y="198" width="50" height="66" rx="4" fill="var(--red-2)" stroke="var(--red)"/><text class="chart-note" x="363" y="284">實體收穿＋賣方成交</text>
+                <circle cx="421" cy="214" r="8" fill="var(--green)"/><text x="436" y="206">回測候選 short</text>
+                <line class="chart-risk" x1="389" y1="184" x2="473" y2="184"/><text x="480" y="188">重新入 range = 失效</text>
+              </svg>
+            </div>
+            <div class="visual-copy">
+              <span class="setup-chip">主 Setup 03</span>
+              <h3>Initial Range Breakout｜要突破兼有成交支持</h3>
+              <p>先固定開市首五分鐘高低。區間未完成或價格仍在內部來回，不算突破。</p>
+              <ol><li><strong>等收市：</strong>實體收在 range 外，不以一支影線當 breakout。</li><li><strong>看支持：</strong>主動賣方成交要帶來下跌進展，而不是被吸收。</li><li><strong>兩種測法：</strong>突破 candle 收市入場，或等待 range low 回測；兩者分開統計。</li></ol>
+              <figcaption>逐字稿提到約 9:50 才出現較清楚的突破；時間只是當日描述，不應寫成每天固定 9:50 落單。</figcaption>
+            </div>
+          </figure>
+
+          <figure class="visual-lesson">
+            <div class="visual-board">
+              <svg viewBox="0 0 620 330" role="img" aria-labelledby="recap19Title recap19Desc">
+                <title id="recap19Title">Initial Range 假突破後重新接受並反手示意</title>
+                <desc id="recap19Desc">價格短暫跌穿區間低位但沒有賣方延續，然後收回區間並有買方價格進展，候選做多，失效在假突破低位下方，第一目標為 POC 或區間另一側。</desc>
+                <rect x="55" y="80" width="520" height="152" rx="5" fill="var(--blue-2)" stroke="var(--blue)"/><text x="66" y="70">Initial Range</text>
+                <line class="chart-level" x1="55" y1="156" x2="575" y2="156"/><text x="486" y="145">POC</text>
+                <polyline class="chart-price" points="62,128 119,185 176,112 234,202 286,218 333,281 368,217 410,190 458,147 514,110 566,91"/>
+                <circle cx="333" cy="281" r="8" fill="var(--red)"/><text x="207" y="311">跌穿但無賣方 follow-through</text>
+                <circle cx="368" cy="217" r="8" fill="var(--green)"/><text x="382" y="248">收回 range 才候選 long</text>
+                <line class="chart-risk" x1="295" y1="298" x2="371" y2="298"/><text x="380" y="303">失效</text>
+                <path class="chart-entry" d="M386 205L443 161"/><path d="M437 162l9-4-5 8" fill="var(--green)"/>
+              </svg>
+            </div>
+            <div class="visual-copy">
+              <span class="setup-chip bonus">Bonus Setup</span>
+              <h3>Failed Initial Range Breakout｜唔係一穿就反手</h3>
+              <p>原本預期向下突破，但沒有足夠賣方延續；價格重新收回 range，才開始考慮相反方向。</p>
+              <ol><li><strong>先見失敗：</strong>跌穿後沒有價格進展／賣方明顯衰竭。</li><li><strong>再見收回：</strong>價格重新接受在 range 內，最好有買方成交支持。</li><li><strong>目標：</strong>先測 POC，再測 range 另一側；不能因為想要更高 R 而跳過中間阻力。</li></ol>
+              <figcaption>易錯位：任何 breakout 輸錢後立即反手，會變成 revenge trade。反手必須是一個獨立、事前定義的 setup。</figcaption>
+            </div>
+          </figure>
+        </div>
+
+        <h3 style="margin-top:1.5rem">四個 Setup 共用的決策骨架</h3>
+        <ol class="recap-rule"><li><strong>1｜先畫位置</strong><span>POC、initial range、PDL／PDH 必須在訊號前存在。</span></li><li><strong>2｜看 effort</strong><span>delta、volume、aggression 說明誰主動，不等於誰一定贏。</span></li><li><strong>3｜看 result</strong><span>成交有價格進展才叫 continuation；沒有進展要考慮 absorption／failure。</span></li><li><strong>4｜先寫失效</strong><span>入場、止損、目標及最大風險要在落單前固定。</span></li></ol>
+        <div class="unit-note" style="margin-top:1rem"><strong>回測時分開記：</strong>Setup 01、02、03 和 Bonus 不能混成同一樣本；突破收市入場與回測入場亦要分開。單日出現四個漂亮例子，只能當教材，不能證明長期期望值。</div>
+      </div>
+    </section>
+
     <section id="mao-course">
       <div class="shell mao-course-stack">
         <div class="section-head">
@@ -1085,7 +1219,7 @@
           <h4>把形態寫成可檢驗模板</h4>
           <p class="formula">Instrument｜Timeframe｜Session｜Entry｜Invalidation｜Exit｜Cost</p>
           <p>例：先寫明交易哪個合約、用哪個 timeframe、哪段 session；setup 如何觸發、甚麼情況代表失效、用甚麼離場規則，以及佣金、bid-ask 和滑點如何計入。規則改動要重新編號，不能事後挑選成功圖表。</p>
-          <p class="unit-note"><strong>新逐字稿延伸：</strong>完整的 HTF → session location → SMT／MSS／IFVG → invalidation 流程與兩張圖解，見 <a href="#ict-playbook">ICT 實戰流程</a>。</p>
+          <p class="unit-note"><strong>逐字稿延伸：</strong>完整的 HTF → session location → SMT／MSS／IFVG → invalidation 流程見 <a href="#ict-playbook">ICT 實戰流程</a>；開市 initiative、POC failed auction、initial range breakout 與失敗突破反手，見 <a href="#daily-recap">每日 Order Flow 圖解</a>。</p>
           <a href="#mao-map">↑ 回課程章節地圖</a>
         </article>
 
@@ -1362,7 +1496,7 @@
             <li><a href="https://www.cmegroup.com/markets/equities/nasdaq/e-mini-nasdaq-100.timeAndSales.html">CME：E-mini Nasdaq-100 合約與交易時段</a></li>
             <li><a href="https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/fraudadv_tradingsystem.html">CFTC：模擬／假設交易結果的限制</a></li>
           </ul>
-          <p class="muted"><strong>用戶提供的 a2ky9／Mao 交易入門、Heatmap 及 ICT walkthrough 逐字稿：</strong>無公開連結；本頁以摘要方式重組教材，未逐字重現。作者的個人經歷、績效、平台與 Prop firm 推薦未經獨立核驗，亦不構成本頁推薦。</p>
+          <p class="muted"><strong>用戶提供的 a2ky9／Mao 交易入門、Heatmap、ICT walkthrough 及 2026-03-20 Daily Order Flow recap 逐字稿：</strong>無公開連結；本頁以摘要及重畫示意圖方式重組教材，未逐字重現。作者的個人經歷、單日交易結果、績效、平台、Discord 與 Prop firm 推薦未經獨立核驗，亦不構成本頁推薦。</p>
         </div>
       </div>
     </section>
@@ -1372,7 +1506,7 @@
   <nav class="mobile-bottom-nav" aria-label="手機快速導覽">
     <a href="#zero-dte">0DTE</a>
     <a href="#mao-course">Mao課程</a>
-    <a href="#ict-playbook">ICT流程</a>
+    <a href="#daily-recap">每日Recap</a>
     <a href="#checklist">清單</a>
   </nav>
 
