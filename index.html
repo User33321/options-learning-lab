@@ -3,57 +3,55 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="繁體中文期權基礎、風險管理、互動計算器與公開案例獨立評審。">
-  <title>期權實戰學堂｜圖解＋互動課程</title>
+  <meta name="description" content="繁體中文 0DTE Long Option 風險教學、Mao 交易圖表課程、互動計算器與可測試 setup。">
+  <title>0DTE 與交易圖表手冊｜Mao 課程</title>
   <style>
     :root {
       color-scheme: light;
-      --bg: #f3f5f0;
+      --bg: #f5f6f4;
       --surface: #ffffff;
-      --surface-2: #e9efe8;
-      --ink: #17201c;
-      --muted: #627068;
-      --line: #d6ded8;
-      --green: #0d7b5f;
-      --green-2: #d8f2e8;
-      --blue: #376a8f;
-      --blue-2: #dbeaf4;
-      --orange: #b85d24;
-      --orange-2: #fae3d5;
-      --red: #a33f3f;
-      --red-2: #f7dddd;
-      --yellow: #f1c75b;
-      --shadow: 0 16px 50px rgba(22, 43, 33, .08);
-      --radius: 22px;
+      --surface-2: #edf1f3;
+      --ink: #182733;
+      --muted: #566773;
+      --line: #d3dde1;
+      --green: #176b78;
+      --green-2: #e0eef0;
+      --blue: #315f83;
+      --blue-2: #e5edf4;
+      --orange: #94602e;
+      --orange-2: #f3eadf;
+      --red: #a34242;
+      --red-2: #f4e4e2;
+      --yellow: #d4ae50;
+      --shadow: 0 3px 12px rgba(22, 43, 53, .035);
+      --radius: 8px;
     }
     [data-theme="dark"] {
       color-scheme: dark;
-      --bg: #101512;
-      --surface: #18201c;
-      --surface-2: #212c27;
-      --ink: #edf4ef;
-      --muted: #a7b7ae;
-      --line: #35433b;
-      --green: #68d6b5;
-      --green-2: #173d33;
-      --blue: #86bfe7;
-      --blue-2: #1b3547;
-      --orange: #f0a16d;
-      --orange-2: #4b2d20;
-      --red: #ef8b8b;
-      --red-2: #482626;
-      --yellow: #e7c66d;
-      --shadow: 0 18px 60px rgba(0, 0, 0, .3);
+      --bg: #111a20;
+      --surface: #19252d;
+      --surface-2: #22313a;
+      --ink: #e9eff2;
+      --muted: #acbbc2;
+      --line: #354650;
+      --green: #75bac4;
+      --green-2: #203a41;
+      --blue: #94bddb;
+      --blue-2: #263947;
+      --orange: #e0b078;
+      --orange-2: #40382e;
+      --red: #e49490;
+      --red-2: #422f31;
+      --yellow: #dfc16d;
+      --shadow: 0 3px 12px rgba(0, 0, 0, .12);
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      background:
-        radial-gradient(circle at 90% 3%, color-mix(in srgb, var(--green) 12%, transparent), transparent 28rem),
-        var(--bg);
+      background: var(--bg);
       color: var(--ink);
-      font: 16px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans HK", sans-serif;
+      font: 19px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans HK", sans-serif;
     }
     button, input, select { font: inherit; }
     button, input:not([type="checkbox"]), select { min-height: 44px; }
@@ -67,42 +65,41 @@
     .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
     .topbar {
       position: sticky; top: 0; z-index: 10;
-      border-bottom: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
-      background: color-mix(in srgb, var(--bg) 88%, transparent);
-      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
     }
-    .topbar-inner { min-height: 64px; display: flex; align-items: center; gap: 1rem; }
+    .topbar-inner { min-height: 60px; display: flex; align-items: center; gap: .8rem; }
     .brand { margin-right: auto; font-weight: 850; letter-spacing: -.02em; }
-    .toplinks { display: flex; gap: 1rem; }
+    .toplinks { display: flex; flex-wrap: wrap; gap: .15rem .8rem; }
     .toplinks a { display: inline-flex; align-items: center; min-height: 44px; color: var(--muted); text-decoration: none; font-size: .92rem; }
     .icon-btn, .primary-btn {
-      border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink);
-      padding: .55rem .85rem; box-shadow: 0 2px 10px rgba(0,0,0,.04);
+      border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink);
+      padding: .5rem .75rem;
     }
     .icon-btn:hover, .icon-btn:focus-visible { border-color: var(--green); }
-    .hero { padding: clamp(3.5rem, 8vw, 7rem) 0 3rem; }
+    .hero { padding: 2.3rem 0 1.8rem; }
     .hero-grid { display: grid; grid-template-columns: 1.4fr .8fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; }
     .eyebrow { color: var(--green); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; font-size: .78rem; }
-    h1 { margin: .55rem 0 1rem; max-width: 850px; font-size: clamp(2.5rem, 6.4vw, 5.6rem); line-height: .98; letter-spacing: -.065em; }
-    .lede { margin: 0; max-width: 720px; color: var(--muted); font-size: clamp(1.05rem, 2vw, 1.28rem); }
+    h1 { margin: .45rem 0 .75rem; max-width: 850px; font-size: clamp(2rem, 4.3vw, 3.5rem); line-height: 1.12; letter-spacing: -.04em; }
+    .lede { margin: 0; max-width: 760px; color: var(--muted); font-size: 1.05em; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.7rem; }
-    .primary-btn { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; background: var(--green); color: #fff; border-color: var(--green); text-decoration: none; font-weight: 750; padding: .72rem 1.1rem; }
+    .primary-btn { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; background: var(--green); color: #fff; border-color: var(--green); text-decoration: none; font-weight: 700; padding: .65rem 1rem; border-radius: 6px; }
     .secondary-btn { background: var(--surface); color: var(--ink); }
-    .hero-visual { min-height: 350px; position: relative; display: grid; place-items: center; }
+    .hero-visual { min-height: 0; position: relative; display: grid; place-items: center; }
     .orbit { width: min(100%, 390px); aspect-ratio: 1; border: 1px solid var(--line); border-radius: 50%; position: relative; background: color-mix(in srgb, var(--surface) 70%, transparent); box-shadow: var(--shadow); }
     .orbit::before, .orbit::after { content: ""; position: absolute; inset: 17%; border: 1px dashed var(--line); border-radius: 50%; }
     .orbit::after { inset: 38%; background: var(--green); border: 0; box-shadow: 0 0 0 14px var(--green-2); }
     .orbit-label { position: absolute; z-index: 1; min-width: 96px; padding: .55rem .7rem; text-align: center; border: 1px solid var(--line); border-radius: 13px; background: var(--surface); box-shadow: 0 7px 22px rgba(0,0,0,.08); font-size: .85rem; font-weight: 750; }
     .ol-1 { top: 3%; left: 35%; } .ol-2 { right: -1%; top: 43%; } .ol-3 { bottom: 4%; left: 35%; } .ol-4 { left: -2%; top: 43%; }
-    .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; overflow: hidden; margin-top: 2rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--line); }
-    .stat { background: var(--surface); padding: 1.2rem 1.4rem; }
-    .stat strong { display: block; font-size: 1.7rem; line-height: 1.1; }
+    .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 1.2rem; border-block: 1px solid var(--line); }
+    .stat { background: transparent; padding: .75rem 1rem .75rem 0; }
+    .stat strong { display: block; font-size: 1.35rem; line-height: 1.1; }
     .stat span { color: var(--muted); font-size: .88rem; }
-    section { scroll-margin-top: 82px; padding: 4.2rem 0; }
+    section { scroll-margin-top: 82px; padding: 3rem 0; }
     .section-kicker { display: block; color: var(--green); font-weight: 800; font-size: .78rem; letter-spacing: .13em; text-transform: uppercase; }
     h2 { margin: .35rem 0 .7rem; font-size: clamp(2rem, 4vw, 3.45rem); line-height: 1.05; letter-spacing: -.05em; }
     h3 { margin: 0 0 .65rem; font-size: 1.2rem; line-height: 1.25; }
-    .section-head { max-width: 760px; margin-bottom: 2rem; }
+    .section-head { max-width: 760px; margin-bottom: 1.5rem; }
     .section-head p, .muted { color: var(--muted); }
     .module-map { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--line); gap: 1px; }
     .module { min-height: 184px; padding: 1.15rem; background: var(--surface); text-decoration: none; color: var(--ink); transition: transform .2s ease, background .2s ease; }
@@ -115,7 +112,6 @@
     .term h3 { margin-bottom: .35rem; font-size: 1rem; }
     .term p { margin: 0; color: var(--muted); font-size: .9rem; }
     .unit-note { margin-bottom: 1.25rem; padding: .9rem 1rem; border-radius: 14px; background: var(--blue-2); color: var(--ink); }
-    .basics-stack, .kirk-stack { display: grid; gap: 1.25rem; }
     .contract-example { margin: 0 0 1rem; padding: .85rem 1rem; border-radius: 12px; background: var(--green-2); font-weight: 800; overflow-wrap: anywhere; }
     .contract-facts { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .65rem; }
     .contract-fact { min-width: 0; padding: .85rem; border: 1px solid var(--line); border-radius: 13px; background: var(--surface); }
@@ -195,22 +191,23 @@
     .mao-workflow { grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
     .mao-course-stack { display: grid; min-width: 0; gap: 1rem; }
     .mao-chapter-map { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .65rem; min-width: 0; }
-    .mao-chapter-link { display: block; min-width: 0; min-height: 74px; padding: .8rem; border: 1px solid var(--line); border-radius: 13px; background: var(--surface); color: var(--ink); text-decoration: none; overflow-wrap: anywhere; }
+    .mao-chapter-link { display: block; min-width: 0; min-height: 74px; padding: .8rem; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); text-decoration: none; overflow-wrap: anywhere; }
     .mao-chapter-link strong, .mao-chapter-link span { display: block; }
     .mao-chapter-link span { margin-top: .25rem; color: var(--muted); font-size: .82rem; }
     .mao-chapter { scroll-margin-top: 90px; }
     .mao-chapter h3 { margin-top: 1.1rem; }
     .mao-course-cta { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1rem; }
-    .dte-factor, .concept-tier, .mao-workflow li { min-width: 0; padding: 1rem; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+    .dte-factor, .concept-tier, .mao-workflow li { min-width: 0; padding: 1rem; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
     .dte-factor h3, .concept-tier h3, .mao-workflow h4 { margin: 0 0 .45rem; }
     .dte-factor p, .concept-tier p, .mao-workflow p { margin: 0; color: var(--muted); }
     .dte-flow-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .65rem; margin: 0; padding: 0; list-style: none; counter-reset: dte-step; }
-    .dte-flow-grid li { min-width: 0; padding: 2.1rem .85rem .9rem; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); counter-increment: dte-step; position: relative; }
+    .dte-flow-grid li { min-width: 0; padding: 2.1rem .85rem .9rem; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); counter-increment: dte-step; position: relative; }
     .dte-flow-grid li::before { content: counter(dte-step); position: absolute; top: .55rem; left: .7rem; display: grid; place-items: center; width: 1.15rem; height: 1.15rem; border-radius: 50%; background: var(--green-2); color: var(--green); font-size: .75rem; font-weight: 900; }
     .dte-flow-grid strong { display: block; margin-bottom: .3rem; }
     .dte-table-wrap, .fact-table-wrap { min-width: 0; overflow-x: auto; overscroll-behavior-inline: contain; border: 1px solid var(--line); border-radius: 14px; }
     .dte-table, .fact-table { width: 100%; min-width: 680px; border-collapse: collapse; background: var(--surface); }
     .dte-table th, .dte-table td, .fact-table th, .fact-table td { padding: .75rem .85rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+    .dte-table, .fact-table { font-size: .9rem; }
     .dte-table th, .fact-table th { background: var(--surface-2); }
     .dte-table tr:last-child td, .fact-table tr:last-child td { border-bottom: 0; }
     .concept-tier:nth-child(1) { border-top: 4px solid var(--blue); }
@@ -219,18 +216,18 @@
     .dte-calc label { font-size: .9rem; }
     .verdict-callout { border-color: color-mix(in srgb, var(--green) 45%, var(--line)); background: var(--green-2); }
     .review-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .review-card { min-width: 0; padding: 1.2rem; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+    .review-card { min-width: 0; padding: 1.2rem; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
     .review-card h3 { margin-bottom: .55rem; }
     .review-card ul { margin: 0; padding-left: 1.2rem; }
     .review-card li + li { margin-top: .4rem; }
     .evidence-levels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; }
-    .evidence-level { min-width: 0; padding: 1rem; border: 1px solid var(--line); border-top: 4px solid var(--blue); border-radius: 14px; background: var(--surface); }
+    .evidence-level { min-width: 0; padding: 1rem; border: 1px solid var(--line); border-top: 4px solid var(--blue); border-radius: 6px; background: var(--surface); }
     .evidence-level:nth-child(2) { border-top-color: var(--orange); }
     .evidence-level:nth-child(3) { border-top-color: var(--green); }
     .evidence-level h4 { margin: .55rem 0 .3rem; }
     .evidence-level p { margin: 0; color: var(--muted); font-size: .9rem; }
     .strategy-ladder { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .7rem; margin: .75rem 0 1.35rem; padding: 0; list-style: none; counter-reset: ladder; }
-    .strategy-ladder li { min-width: 0; padding: 1rem; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-2); counter-increment: ladder; }
+    .strategy-ladder li { min-width: 0; padding: 1rem; border: 1px solid var(--line); border-radius: 6px; background: var(--surface-2); counter-increment: ladder; }
     .strategy-ladder li::before { content: "階段 " counter(ladder); display: block; margin-bottom: .35rem; color: var(--green); font-size: .77rem; font-weight: 850; }
     .strategy-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; }
     .strategy-table { width: 100%; min-width: 620px; border-collapse: collapse; background: var(--surface); }
@@ -256,7 +253,7 @@
     .source-link-list a { display: inline-flex; align-items: center; min-height: 44px; }
     .risk-gate { margin: .7rem 0 0; padding: .7rem .85rem; border-radius: 11px; background: var(--surface-2); color: var(--muted); font-size: .88rem; }
     .risk-gate.is-blocked { background: var(--red-2); color: var(--red); font-weight: 800; }
-    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.1rem, 3vw, 1.8rem); box-shadow: var(--shadow); }
+    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 7px; padding: clamp(1rem, 2.5vw, 1.5rem); box-shadow: none; }
     .option-matrix { display: grid; grid-template-columns: 80px 1fr 1fr; gap: 1px; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--line); }
     .option-matrix > div { min-height: 86px; background: var(--surface); padding: .8rem; }
     .option-matrix .axis { min-height: auto; display: grid; place-items: center; color: var(--muted); font-size: .8rem; font-weight: 800; }
@@ -298,7 +295,7 @@
     .greek b { display: block; font-size: 1.35rem; margin-bottom: .35rem; }
     .greek p { margin: 0; color: var(--muted); font-size: .91rem; }
     .calculator-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
-    .calc-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.4rem; }
+    .calc-card { background: var(--surface); border: 1px solid var(--line); border-radius: 7px; padding: 1.2rem; }
     .field-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; }
     label { display: block; color: var(--muted); font-size: .82rem; font-weight: 700; }
     input[type="number"], select { width: 100%; margin-top: .3rem; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--ink); padding: .62rem .7rem; }
@@ -313,7 +310,7 @@
     .range-label { position: absolute; top: 40px; transform: translateX(-50%); font-size: .75rem; color: var(--muted); white-space: nowrap; }
     .chart-wrap { width: 100%; min-height: 240px; margin-top: .75rem; border-radius: 14px; background: var(--bg); overflow: hidden; }
     .chart-wrap svg { display: block; width: 100%; height: 250px; }
-    .chart-caption { color: var(--muted); font-size: .8rem; margin-top: .5rem; }
+    .chart-caption { color: var(--muted); font-size: .9rem; margin-top: .5rem; }
     .validation-error { color: var(--red); font-weight: 750; }
     .expectancy-meter { height: 18px; overflow: hidden; border-radius: 999px; background: var(--surface-2); }
     .expectancy-fill { height: 100%; width: 50%; background: var(--green); transition: width .25s ease, background .25s ease; }
@@ -335,7 +332,42 @@
     footer { padding: 2rem 0 4rem; color: var(--muted); border-top: 1px solid var(--line); }
     .mobile-nav { display: none; width: 100%; }
     .mobile-bottom-nav { display: none; }
-    .pill { display: inline-flex; align-items: center; padding: .2rem .55rem; border-radius: 999px; background: var(--surface-2); color: var(--muted); font-size: .76rem; font-weight: 750; }
+    .pill { display: inline-flex; align-items: center; padding: .12rem .38rem; border-left: 2px solid var(--green); background: transparent; color: var(--muted); font-size: .76rem; font-weight: 700; }
+    .path-chooser { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.2rem; }
+    .path-card { display: grid; align-content: start; gap: .3rem; min-width: 0; padding: 1rem 1.1rem; border: 1px solid var(--line); border-left: 4px solid var(--green); border-radius: 6px; background: var(--surface); color: var(--ink); text-decoration: none; }
+    .path-card:nth-child(2) { border-left-color: var(--blue); }
+    .path-card strong { font-size: 1.14rem; }
+    .path-card > span:not(.path-index) { color: var(--muted); }
+    .path-card b { margin-top: .35rem; font-size: .9rem; }
+    .path-index { color: var(--muted); font-size: .76rem; font-weight: 800; letter-spacing: .08em; }
+    .path-overview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-block: 1px solid var(--line); }
+    .path-overview-item { display: grid; grid-template-columns: 2rem 1fr; gap: .1rem .65rem; padding: 1rem 1rem 1rem 0; color: var(--ink); text-decoration: none; }
+    .path-overview-item + .path-overview-item { border-left: 1px solid var(--line); padding-left: 1rem; }
+    .path-overview-item > span { grid-row: span 2; color: var(--green); font-weight: 800; }
+    .path-overview-item small { color: var(--muted); }
+    .mao-course-stack > .mao-chapter { max-width: 52rem; width: 100%; margin-inline: auto; padding: 1.65rem 0; border: 0; border-top: 1px solid var(--line); border-radius: 0; background: transparent; box-shadow: none; }
+    .diagram-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; align-items: start; }
+    .diagram-figure { min-width: 0; margin: 0; padding: .9rem; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+    .diagram-figure h3 { margin-bottom: .55rem; font-size: 1.05rem; }
+    .diagram-figure svg { display: block; width: 100%; height: auto; overflow: visible; }
+    .diagram-figure figcaption { margin-top: .65rem; color: var(--muted); font-size: .88rem; line-height: 1.5; }
+    .diagram-figure svg text { fill: var(--ink); font: 14px system-ui, sans-serif; }
+    .diagram-figure svg .svg-small { font-size: 14px; fill: var(--muted); }
+    .diagram-figure svg .svg-accent { stroke: var(--green); fill: none; }
+    .diagram-figure svg .svg-blue { stroke: var(--blue); fill: none; }
+    .diagram-figure svg .svg-risk { stroke: var(--red); fill: none; }
+    .diagram-figure svg .svg-line { stroke: var(--line); fill: none; }
+    .diagram-figure svg .svg-level { stroke: var(--orange); fill: none; }
+    .diagram-figure svg .svg-dash { stroke-dasharray: 5 4; }
+    .diagram-figure svg .svg-fill { fill: var(--surface-2); stroke: var(--line); }
+    .diagram-wide { grid-column: 1 / -1; }
+    .diagram-intro { max-width: 60rem; margin: 0 0 1.2rem; color: var(--muted); }
+    .setup-flow { display: grid; gap: 0; border-top: 1px solid var(--line); }
+    .setup-flow-row { display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr) minmax(0, 13rem); gap: .8rem; align-items: center; padding: .8rem .2rem; border-bottom: 1px solid var(--line); }
+    .setup-flow-row strong { display: block; }
+    .setup-flow-row span { color: var(--muted); }
+    .setup-flow-row .setup-flow-tag { font-size: .88rem; color: var(--orange); }
+    .mao-course-stack > .section-head, .mao-course-stack > .callout, .mao-course-stack > .mao-chapter-map, .mao-course-stack > .mao-course-cta { max-width: 52rem; width: 100%; margin-inline: auto; }
     @media (min-width: 951px) and (max-width: 1250px) {
       .topbar-inner { flex-wrap: wrap; padding-block: .5rem; }
       .toplinks { display: none; }
@@ -345,6 +377,7 @@
     @media (max-width: 950px) {
       .topbar-inner { flex-wrap: wrap; padding-block: .5rem; }
       .hero-grid, .concept-grid, .two-col { grid-template-columns: 1fr; }
+      .path-chooser { grid-template-columns: 1fr 1fr; }
       .term-grid { grid-template-columns: repeat(2, 1fr); }
       .contract-facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .hero-visual { min-height: 300px; }
@@ -358,10 +391,15 @@
       .dte-flow-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
     @media (max-width: 700px) {
-      body { padding-bottom: 76px; }
-      section { scroll-margin-top: 132px; }
+      body { padding-bottom: 76px; font-size: 16.5px; }
+      section { scroll-margin-top: 132px; padding-block: 2.3rem; }
       .shell { width: min(100% - 22px, 1180px); }
       .hero { padding-top: 2.6rem; }
+      .path-chooser, .path-overview, .diagram-grid { grid-template-columns: 1fr; }
+      .setup-flow-row { grid-template-columns: minmax(0, 1fr); gap: .15rem; }
+      label { font-size: .95rem; }
+      .path-overview-item + .path-overview-item { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; }
+      .diagram-wide { grid-column: auto; }
       .contract-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .trade-flows, .moneyness-results, .concept-figures, .maturity-grid, .method-grid, .inference-grid { grid-template-columns: 1fr; }
       .review-grid, .review-facts, .evidence-levels, .strategy-ladder, .question-grid, .exit-grid, .source-link-list, .dte-factors, .dte-formulas, .dte-flow-grid, .concept-tier-grid, .mao-workflow { grid-template-columns: 1fr; }
@@ -394,8 +432,8 @@
       .option-matrix { grid-template-columns: 60px 1fr 1fr; }
       .source-list { columns: 1; }
       .brand { font-size: .88rem; }
-      .mobile-bottom-nav { position: fixed; z-index: 30; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .35rem; padding: .4rem max(.45rem, env(safe-area-inset-right)) calc(.4rem + env(safe-area-inset-bottom)) max(.45rem, env(safe-area-inset-left)); border-top: 1px solid var(--line); background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(14px); }
-      .mobile-bottom-nav a { display: flex; min-width: 0; min-height: 44px; align-items: center; justify-content: center; padding: .25rem; border: 1px solid var(--line); border-radius: 11px; background: var(--surface); color: var(--ink); text-decoration: none; text-align: center; font-size: .78rem; font-weight: 800; overflow-wrap: anywhere; }
+      .mobile-bottom-nav { position: fixed; z-index: 30; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .35rem; padding: .4rem max(.45rem, env(safe-area-inset-right)) calc(.4rem + env(safe-area-inset-bottom)) max(.45rem, env(safe-area-inset-left)); border-top: 1px solid var(--line); background: var(--surface); }
+      .mobile-bottom-nav a { display: flex; min-width: 0; min-height: 44px; align-items: center; justify-content: center; padding: .25rem; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); text-decoration: none; text-align: center; font-size: .78rem; font-weight: 700; overflow-wrap: anywhere; }
     }
     @media (max-width: 390px) {
       .mobile-bottom-nav { gap: .25rem; padding-left: max(.3rem, env(safe-area-inset-left)); padding-right: max(.3rem, env(safe-area-inset-right)); }
@@ -419,12 +457,12 @@
   <a class="skip-link" href="#main">跳到正文</a>
   <nav class="topbar" aria-label="主導覽">
     <div class="shell topbar-inner">
-      <div class="brand">期權實戰學堂</div>
+      <div class="brand">0DTE × Mao 手冊</div>
       <div class="toplinks">
-        <a href="#roadmap">學習地圖</a><a href="#zero-dte">0DTE 入門</a><a href="#mao-course">Mao 完整課程</a><a href="#basics">入門圖解</a><a href="#glossary">術語速查</a><a href="#course">16 課</a><a href="#kirk-current">KOL 個案</a><a href="#mao-review">KOL 評審 02</a><a href="#editor-review">獨立評審</a><a href="#lab">互動工具</a><a href="#checklist">交易清單</a><a href="#sources">來源</a>
+        <a href="#zero-dte">0DTE</a><a href="#mao-course">Mao 課程</a><a href="#diagrams">圖解</a><a href="#mao-setups">五套 Setup</a><a href="#lab">工具</a><a href="#checklist">清單</a><a href="#sources">來源</a>
       </div>
       <select class="mobile-nav" aria-label="跳到章節" id="mobileNav">
-        <option value="">前往章節…</option><option value="#roadmap">學習地圖</option><option value="#zero-dte">0DTE 入門</option><option value="#mao-course">Mao 完整課程</option><option value="#basics">入門圖解</option><option value="#glossary">術語速查</option><option value="#course">16 課</option><option value="#kirk-current">KOL 個案</option><option value="#mao-review">KOL 評審 02</option><option value="#editor-review">獨立評審</option><option value="#lab">互動工具</option><option value="#checklist">交易清單</option><option value="#sources">來源</option>
+        <option value="">前往章節…</option><option value="#zero-dte">0DTE</option><option value="#mao-course">Mao 課程</option><option value="#diagrams">圖解</option><option value="#mao-setups">五套 Setup</option><option value="#lab">工具</option><option value="#checklist">清單</option><option value="#sources">來源</option>
       </select>
       <button class="icon-btn" id="themeBtn" type="button" aria-label="切換深淺色">◐</button>
       <button class="icon-btn" id="printBtn" type="button">列印</button>
@@ -433,32 +471,18 @@
 
   <header class="hero">
     <div class="shell">
-      <div class="hero-grid">
-        <div>
-          <span class="eyebrow">期權基礎 × 風險管理 × 公開案例</span>
-          <h1>先學識風險，<br>再學點樣贏。</h1>
-          <p class="lede">涵蓋期權基礎、風險管理、策略與公開案例，並以 0DTE Long Call／Put 建立專題入門路徑：把方向、幅度、時間、權利金上限與到期安排放進同一流程。</p>
-          <p class="hero-note">KOL 內容只作案例；本網站會把作者自述、制度事實與編輯判斷分開呈現。</p>
-          <div class="hero-actions">
-            <a class="primary-btn" href="#roadmap">開始學習</a>
-            <a class="primary-btn secondary-btn" href="#mao-course">睇 Mao 完整課程</a>
-            <a class="primary-btn secondary-btn" href="#sources">查看資料來源</a>
-          </div>
-        </div>
-        <div class="hero-visual" aria-label="期權學習核心概念圖">
-          <div class="orbit">
-            <span class="orbit-label ol-1">方向<br><small>Delta</small></span>
-            <span class="orbit-label ol-2">時間<br><small>Theta</small></span>
-            <span class="orbit-label ol-3">波動<br><small>Vega</small></span>
-            <span class="orbit-label ol-4">風控<br><small>Position</small></span>
-          </div>
-        </div>
+      <span class="eyebrow">0DTE × Mao｜交易學習手冊</span>
+      <h1>兩條學習路線，<br>先懂機制再看形態。</h1>
+      <p class="lede">選擇 0DTE 期權路線，理解到期風險與權利金；或由 Mao 課程整理圖表、風控和五套待回測 setup。兩條路線都先用模擬和可觀察規則學習。</p>
+      <div class="path-chooser" aria-label="選擇學習路線">
+        <a class="path-card" href="#zero-dte"><span class="path-index">路線 01</span><strong>0DTE Long Call／Put</strong><span>方向、幅度、時間；到期損益圖與風險計算器。</span><b>開始 0DTE 學習 →</b></a>
+        <a class="path-card" href="#mao-course"><span class="path-index">路線 02</span><strong>Mao 交易圖表課程</strong><span>市場機制、ICT／SMC 術語、五套假設性 setup 和 Journal。</span><b>開始 Mao 課程 →</b></a>
       </div>
-      <div class="stat-row" aria-label="教材統計">
-        <div class="stat"><strong>16</strong><span>核心課堂</span></div>
-        <div class="stat"><strong>5</strong><span>互動計算器</span></div>
-        <div class="stat"><strong>8</strong><span>學習模組</span></div>
-        <div class="stat"><strong>1</strong><span>完整交易流程</span></div>
+      <div class="stat-row" aria-label="教材範圍">
+        <div class="stat"><strong>2</strong><span>學習主線</span></div>
+        <div class="stat"><strong>8</strong><span>教學圖解</span></div>
+        <div class="stat"><strong>5</strong><span>待回測 setup</span></div>
+        <div class="stat"><strong>1</strong><span>交易前清單</span></div>
       </div>
     </div>
   </header>
@@ -467,19 +491,13 @@
     <section id="roadmap">
       <div class="shell">
         <div class="section-head">
-          <span class="section-kicker">Learning map</span>
-          <h2>八個模組由概念走到落單</h2>
-          <p>建議順序學習。每個模組先理解「點解」，再用計算器測試「如果」，最後用清單決定「做唔做」。</p>
+          <span class="section-kicker">兩條主線</span>
+          <h2>先選你想理解的問題</h2>
+          <p>0DTE 路線集中在期權買方的同日損益與風險；Mao 路線由價格圖表和執行規則出發。不要把期貨圖表 setup 當成期權策略已經有效。</p>
         </div>
-        <div class="module-map">
-          <a class="module" href="#m1"><span class="module-num">01</span><strong>基本語言</strong><small>Call、Put、權利與義務</small></a>
-          <a class="module" href="#m2"><span class="module-num">02</span><strong>價格引擎</strong><small>內在值、時間值、Greeks</small></a>
-          <a class="module" href="#m3"><span class="module-num">03</span><strong>波動範圍</strong><small>IV、IV Crush、Expected Move</small></a>
-          <a class="module" href="#m4"><span class="module-num">04</span><strong>策略建構</strong><small>價差、Covered Call</small></a>
-          <a class="module" href="#m5"><span class="module-num">05</span><strong>執行風控</strong><small>流動性、離場、倉位</small></a>
-          <a class="module" href="#m6"><span class="module-num">06</span><strong>建立系統</strong><small>期望值、日誌、Playbook</small></a>
-          <a class="module" href="#zero-dte"><span class="module-num">07</span><strong>0DTE 專題</strong><small>Long Call／Put、同日風險</small></a>
-          <a class="module" href="#mao-course"><span class="module-num">08</span><strong>Mao 完整課程</strong><small>市場機制、圖表、ICT／SMC、五套 setup</small></a>
+        <div class="path-overview">
+          <a class="path-overview-item" href="#zero-dte"><span>01</span><strong>0DTE 期權</strong><small>先理解 premium 是最大損失上限，再分辨到期圖與盤中市價。</small></a>
+          <a class="path-overview-item" href="#mao-course"><span>02</span><strong>Mao 圖表課</strong><small>把型態轉成可觀察定義，逐步記錄並檢驗，不將因果敘事當事實。</small></a>
         </div>
       </div>
     </section>
@@ -561,387 +579,138 @@
       </div>
     </section>
 
-    <section id="basics">
-      <div class="shell basics-stack">
+    <section id="diagrams">
+      <div class="shell">
         <div class="section-head">
-          <span class="section-kicker">Options foundations</span>
-          <h2>入門圖解</h2>
-          <p>先辨識合約欄位、開倉和平倉指令，再看清楚到期與到期前損益的差異。</p>
+          <span class="section-kicker">圖解｜看見規則與限制</span>
+          <h2>先看圖，再讀術語</h2>
+          <p>以下圖解用來說明合約機制和可觀察的價格形態；圖形本身不構成入場訊號，也不能證明任何策略有正期望值。</p>
         </div>
-
-        <article class="panel">
-          <h3>期權合約由甚麼組成？</h3>
-          <p class="contract-example">XYZ 100 Call｜2026-10-16｜Premium $4.20</p>
-          <div class="contract-facts" aria-label="期權合約欄位圖解">
-            <div class="contract-fact"><span>UNDERLYING｜標的</span><strong>XYZ</strong></div>
-            <div class="contract-fact"><span>STRIKE｜行使價</span><strong>$100</strong></div>
-            <div class="contract-fact"><span>CALL / PUT｜類型</span><strong>Call</strong></div>
-            <div class="contract-fact"><span>EXPIRY｜到期日</span><strong>2026-10-16</strong></div>
-            <div class="contract-fact"><span>PREMIUM｜權利金</span><strong>$4.20／股</strong></div>
-            <div class="contract-fact"><span>MULTIPLIER｜合約乘數</span><strong>100 股／張</strong></div>
-          </div>
-          <p class="muted">標準美股個股期權通常一張代表 100 股；$4.20 報價通常即 $420／張。合約規格有例外，交易前應核對。</p>
-        </article>
-
-        <article class="panel">
-          <h3>四種開倉／平倉指令</h3>
-          <div class="trade-flows">
-            <div class="trade-flow" aria-label="買方流程：BTO 然後 STC">
-              <div class="trade-step"><b>BTO</b><span>Buy to Open<br>建立買方部位</span></div>
-              <span class="trade-arrow" aria-hidden="true">→</span>
-              <div class="trade-step"><b>STC</b><span>Sell to Close<br>結束買方部位</span></div>
-            </div>
-            <div class="trade-flow" aria-label="賣方流程：STO 然後 BTC">
-              <div class="trade-step"><b>STO</b><span>Sell to Open<br>建立賣方部位並承擔義務</span></div>
-              <span class="trade-arrow" aria-hidden="true">→</span>
-              <div class="trade-step"><b>BTC</b><span>Buy to Close<br>結束賣方部位</span></div>
-            </div>
-          </div>
-          <p class="chart-caption">平倉交易與行使／被指派不同：平倉是以另一筆交易結束部位；行使或被指派則依合約履行買賣標的的權利與義務。</p>
-        </article>
-
-        <article class="panel">
-          <h3>價內、平值、價外：調整標的價格</h3>
-          <p class="muted">行使價固定為 $100。拖動滑桿，查看 Call、Put 的價內狀態與每股內在值。</p>
-          <div class="moneyness-axis" role="img" aria-label="標的價格軸由 80 美元至 120 美元，行使價固定 100 美元">
-            <div class="moneyness-track"></div>
-            <div class="moneyness-tick" style="left:2%"><span>$80</span></div>
-            <div class="moneyness-tick" style="left:26%"><span>$90</span></div>
-            <div class="moneyness-tick" style="left:50%"><span>$100</span></div>
-            <div class="moneyness-tick" style="left:74%"><span>$110</span></div>
-            <div class="moneyness-tick" style="left:98%"><span>$120</span></div>
-            <div class="strike-marker" id="strikeMarker" style="left:50%"></div>
-            <div class="spot-marker" id="spotMarker" style="left:50%"></div>
-          </div>
-          <div class="price-key">
-            <span><i class="key-spot"></i>標的價格 S = <output id="moneynessPrice">$100</output></span>
-            <span><i class="key-strike"></i>行使價 K = $100</span>
-          </div>
-          <label class="moneyness-input" for="moneynessSlider">標的價格 S：<output id="moneynessSliderValue">$100</output>
-            <input id="moneynessSlider" type="range" min="80" max="120" step="1" value="100" aria-label="調整標的價格，範圍 80 至 120 美元">
-          </label>
-          <div class="moneyness-results" id="moneynessResults" aria-live="polite" aria-atomic="true">
-            <div class="moneyness-result"><h4>Call <span class="state-badge" id="callState">ATM 平值</span></h4><p>內在值：<strong id="callIntrinsic">$0.00／股</strong></p></div>
-            <div class="moneyness-result"><h4>Put <span class="state-badge" id="putState">ATM 平值</span></h4><p>內在值：<strong id="putIntrinsic">$0.00／股</strong></p></div>
-          </div>
-          <div class="formula">Call 內在值 = max(S − K, 0)<br>Put 內在值 = max(K − S, 0)</div>
-          <p class="chart-caption">S = K 時兩者均為 ATM；S &gt; K 時 Call 為 ITM、Put 為 OTM；S &lt; K 時 Put 為 ITM、Call 為 OTM。</p>
-        </article>
-
-        <article class="panel">
-          <h3>到期損益 ≠ 到期前市價</h3>
-          <div class="maturity-grid">
-            <div class="maturity-side"><strong>到期時</strong><p>損益主要由到期時的內在價值，以及開倉時支付或收取的 premium 決定（未計費用）。</p></div>
-            <div class="maturity-side"><strong>到期前</strong><p>期權市價還受剩餘時間、IV、利率等因素影響。因此，到期損益圖不能單獨用來判斷持倉的中途市價或損益。</p></div>
-          </div>
-        </article>
-
-        <div class="concept-figures">
-          <figure class="concept-figure">
-            <h4>Theta：時間價值示意</h4>
-            <svg viewBox="0 0 420 230" role="img" aria-labelledby="thetaSvgTitle thetaSvgDesc">
-              <title id="thetaSvgTitle">Theta 時間價值曲線示意圖</title>
-              <desc id="thetaSvgDesc">在其他條件不變下，尤其是近平值期權，時間價值耗損常於接近到期時加速；曲線只屬示意，實際變化仍受標的價格、IV、價內外程度等因素影響。</desc>
-              <line class="svg-axis" x1="58" y1="22" x2="58" y2="184"></line>
-              <line class="svg-axis" x1="58" y1="184" x2="390" y2="184"></line>
-              <path class="svg-curve" d="M66 48 C170 51 253 69 310 106 C343 128 363 155 379 178"></path>
-              <text class="svg-label" x="17" y="108" transform="rotate(-90 17 108)">時間價值</text>
-              <text class="svg-muted" x="62" y="208">較早</text>
-              <text class="svg-muted" x="315" y="208">接近到期</text>
-              <text class="svg-muted" x="180" y="226">時間經過 →</text>
+        <div class="diagram-grid">
+          <figure class="diagram-figure">
+            <h3>0DTE 買方的三重門檻</h3>
+            <svg viewBox="0 0 360 330" role="img" aria-labelledby="dte-gates-title dte-gates-desc">
+              <title id="dte-gates-title">0DTE 交易三重門檻</title>
+              <desc id="dte-gates-desc">方向、足夠幅度及在到期前出現的時間要求都要符合；權利金限制最大損失，並應按預案在券商截止前離場。</desc>
+              <rect class="svg-fill" x="36" y="16" width="288" height="55" rx="5"/><text x="55" y="39">01　方向</text><text class="svg-small" x="55" y="59">標的要朝預先假設移動</text>
+              <path class="svg-accent" stroke-width="2" d="M180 72v18m-6-7 6 7 6-7"/>
+              <rect class="svg-fill" x="36" y="94" width="288" height="55" rx="5"/><text x="55" y="117">02　幅度</text><text class="svg-small" x="55" y="137">移動須足以抵銷買入成本</text>
+              <path class="svg-accent" stroke-width="2" d="M180 150v18m-6-7 6 7 6-7"/>
+              <rect class="svg-fill" x="36" y="172" width="288" height="55" rx="5"/><text x="55" y="195">03　時間</text><text class="svg-small" x="55" y="215">有利變動要在到期前發生</text>
+              <path class="svg-risk" stroke-width="2" d="M180 228v18m-6-7 6 7 6-7"/>
+              <rect x="36" y="250" width="138" height="58" rx="5" fill="var(--red-2)" stroke="var(--line)"/><text x="49" y="274">風險上限</text><text class="svg-small" x="49" y="294">已付權利金</text>
+              <rect x="186" y="250" width="138" height="58" rx="5" fill="var(--blue-2)" stroke="var(--line)"/><text x="198" y="274">同日離場</text><text class="svg-small" x="198" y="294">券商截止前處理</text>
             </svg>
-            <figcaption>Illustrative / not to scale。在其他條件不變下，尤其是近平值期權，時間價值耗損常於接近到期時加速；實際變化仍受標的價格、IV、價內外程度等因素影響。</figcaption>
+            <figcaption>少一項都可能令買入期權的預期失效。premium 限定買方的合約損失，但不能令方法變成低風險。</figcaption>
           </figure>
-          <figure class="concept-figure">
-            <h4>IV Crush：premium 組成示意</h4>
-            <svg viewBox="0 0 420 230" role="img" aria-labelledby="ivSvgTitle ivSvgDesc">
-              <title id="ivSvgTitle">IV Crush 前後期權 premium 組成示意圖</title>
-              <desc id="ivSvgDesc">假設標的價格不變，事件後隱含波動率回落，內在價值保持相同而時間價值縮短；示意圖不保證每次發生。</desc>
-              <text class="svg-label" x="12" y="82">事件前</text>
-              <rect x="112" y="53" width="112" height="42" rx="5" fill="var(--blue-2)" stroke="var(--blue)" stroke-width="2"></rect>
-              <rect x="224" y="53" width="172" height="42" rx="5" fill="var(--green-2)" stroke="var(--green)" stroke-width="2"></rect>
-              <text class="svg-label" x="168" y="79" text-anchor="middle">內在價值</text>
-              <text class="svg-label" x="310" y="79" text-anchor="middle">時間價值</text>
-              <text class="svg-label" x="12" y="157">事件後</text>
-              <rect x="112" y="128" width="112" height="42" rx="5" fill="var(--blue-2)" stroke="var(--blue)" stroke-width="2"></rect>
-              <rect x="224" y="128" width="86" height="42" rx="5" fill="var(--green-2)" stroke="var(--green)" stroke-width="2"></rect>
-              <text class="svg-label" x="168" y="154" text-anchor="middle">內在價值</text>
-              <text class="svg-muted" x="267" y="154" text-anchor="middle">時間值↓</text>
-              <text class="svg-muted" x="115" y="202">標的價格不變，IV 回落時示意</text>
+
+          <figure class="diagram-figure">
+            <h3>Long Call｜到期損益／股</h3>
+            <svg viewBox="0 0 360 250" role="img" aria-labelledby="call-payoff-title call-payoff-desc">
+              <title id="call-payoff-title">Long Call 到期損益圖</title>
+              <desc id="call-payoff-desc">例子行使價 K 為 100 美元，權利金 P 為每股 5 美元。到期標的低於 100 時最大損失為 5 美元每股；在 105 美元打和，之後損益隨標的上升。</desc>
+              <line class="svg-line" x1="38" y1="150" x2="330" y2="150" stroke-width="2"/><line class="svg-line" x1="180" y1="28" x2="180" y2="206" stroke-width="1"/>
+              <path class="svg-accent" stroke-width="4" d="M50 180H180L310 70"/>
+              <line class="svg-level svg-dash" x1="213" y1="42" x2="213" y2="202" stroke-width="1.5"/><circle cx="213" cy="150" r="4" fill="var(--green)"/>
+              <text class="svg-small" x="39" y="171">最大損失 −P</text><text class="svg-small" x="180" y="222" text-anchor="middle">K=100</text><text class="svg-small" x="213" y="42" text-anchor="middle">打和 K+P=105</text>
+              <text class="svg-small" x="330" y="170" text-anchor="end">標的到期價 S →</text><text class="svg-small" x="186" y="28">損益</text><text class="svg-small" x="314" y="63">損益上升</text>
             </svg>
-            <figcaption>標的價格可以不變，而 IV 回落令時間價值下降。只屬示意，不代表每次事件後都會發生。</figcaption>
+            <figcaption>示意例：K=$100、P=$5。到期損益 = max(S−K,0)−P；未計費用，實際每張再乘合約乘數。</figcaption>
           </figure>
-        </div>
-      </div>
-    </section>
 
-    <section id="glossary">
-      <div class="shell">
-        <div class="section-head">
-          <span class="section-kicker">Core terminology</span>
-          <h2>術語速查：建立基本定義</h2>
-          <p>先理解每個術語代表的權利、義務與風險，再逐步熟悉英文名稱。</p>
-        </div>
-        <div class="unit-note"><strong>合約單位：</strong>美股個股期權通常以「每股」報價；一張標準合約通常代表 100 股。因此，權利金報價 $2.00，買入一張通常需要支付 $200（未計費用）。合約規格可能有例外，交易前必須核對。</div>
-        <div class="term-grid">
-          <article class="term"><h3>Long Call / Long Put</h3><p>Long 指買入期權。Call 賦予買方按行使價買入標的的權利；Put 賦予買方按行使價賣出標的的權利，實際行使時間視乎合約類型。買方先付權利金；Call 通常用於看升，Put 通常用於看跌或對沖。</p></article>
-          <article class="term"><h3>Short Put</h3><p>賣出 Put 後，賣方收取權利金，並承擔被指派時按行使價買入標的的義務。若一張標準個股合約被指派，通常須買入 100 股。權利金可抵銷部分損失，但不能消除股價下跌風險。</p></article>
-          <article class="term"><h3>Bull Put Spread</h3><p>賣出較高行使價 Put，同時買入較低行使價 Put 作風險限制；開倉通常收取淨權利金（credit）。適合溫和看升或預期標的不會大跌。盈利上限為淨權利金，最大虧損有限但仍可能相當可觀。</p></article>
-          <article class="term"><h3>Covered Call</h3><p>每賣出一張標準個股 Short Call，通常需持有 100 股作覆蓋。權利金只提供相應金額的有限緩衝，並非保本策略；若股價高於行使價，股票可能按行使價被買走。只適合願意按行使價賣出股票的人。</p></article>
-          <article class="term"><h3>Greeks</h3><p>Greeks 是期權價格對因素變化的敏感度估算：Delta 對應標的價格；Gamma 對應 Delta 的變化；Theta 對應時間流逝；Vega 對應隱含波動率；Rho 對應利率。這些都是「其他條件不變」下的近似值，不是預測或保證。</p></article>
-          <article class="term"><h3>IV Crush</h3><p>Implied Volatility（IV，隱含波動率）急跌，常見於業績等事件公布後。即使標的方向如預期，若價格變動幅度不足，IV 回落仍可能令買入的期權貶值。</p></article>
-          <article class="term"><h3>Expected Move</h3><p>按期權市場的 IV 和剩餘時間估算的預期波幅。±1 標準差常被近似解讀為約 68% 範圍，但只在模型假設下成立，並非實際機率保證。計算所用 IV 應對應相同到期日；本頁簡化公式未反映波動率偏斜（skew）或期限結構（term structure）。</p></article>
-          <article class="term"><h3>DTE / Strike</h3><p>DTE（Days To Expiration）是距離到期日的日數，通常按日曆日計。Strike（行使價）是合約約定的交易價格：Call 對應買入價，Put 對應賣出價。到期日與行使價共同影響合約結果。</p></article>
-          <article class="term"><h3>Credit / Debit</h3><p>Credit 是開倉時淨收取的權利金；Debit 是開倉時淨支付的權利金。兩者通常按每股報價，乘以合約股數計算每張金額。收取 credit 不代表必然盈利，平倉或履約仍可能產生更大支出。</p></article>
-          <article class="term"><h3>Bid-ask / OI</h3><p>Bid 是買方願意出的價格，Ask 是賣方要求的價格；差距越闊，成交成本可能越高，兩者中間價亦不保證能成交。OI（Open Interest，未平倉合約數）是尚未平倉的合約數，與當日成交量不同，也不直接顯示市場方向。</p></article>
-          <article class="term"><h3>行使 / 被指派</h3><p>期權買方行使權利；賣方被指派時，須履行買入（Short Put）或賣出（Short Call）標的的義務。美式期權可能在到期前被行使；價差中的短腿被指派後，帳戶可能暫時持有股票或需要額外保證金。</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section id="course">
-      <div class="shell">
-        <div class="section-head">
-          <span class="section-kicker">16 lessons</span>
-          <h2>完整課程重點</h2>
-          <p>點擊每課展開。內容係教學摘要，數字例子只為解釋結構，唔代表交易建議。</p>
-        </div>
-
-        <div class="two-col" id="m1">
-          <div class="panel">
-            <h3>期權四格地圖</h3>
-            <p class="muted">買方付權利金換取權利；賣方收權利金並承擔義務。方向只係第一層，時間同波動同樣會影響結果。</p>
-            <div class="option-matrix" role="table" aria-label="期權四種基本部位">
-              <div class="axis"></div><div class="axis">買入 Buy</div><div class="axis">賣出 Sell</div>
-              <div class="axis">Call</div><div><strong class="up">Long Call</strong><small>看升；最大虧損＝權利金</small></div><div><strong class="down">Short Call</strong><small>看不升；裸沽風險可極高</small></div>
-              <div class="axis">Put</div><div><strong class="down">Long Put</strong><small>看跌；最大虧損＝權利金</small></div><div><strong class="up">Short Put</strong><small>看不跌；需承擔接貨風險</small></div>
-            </div>
-          </div>
-          <div class="panel">
-            <h3>先問四條問題</h3>
-            <ol>
-              <li><strong>方向：</strong>升、跌，定係橫行？</li>
-              <li><strong>幅度：</strong>預期郁幾多，市場又定價幾多？</li>
-              <li><strong>時間：</strong>幾時發生？DTE 夠唔夠？</li>
-              <li><strong>失敗：</strong>錯咗最多輸幾多？何時離場？</li>
-            </ol>
-            <div class="formula">好交易 ≠ 猜中方向<br>好交易 = 有優勢的假設 + 可承受的風險</div>
-          </div>
-        </div>
-
-        <div class="lesson-list" style="margin-top:1.25rem">
-          <details class="lesson" open><summary><span class="lesson-no">01</span><span class="lesson-title">交易者思維：先定最大損失</span><span class="chev">＋</span></summary><div class="lesson-body"><p>期權係槓桿工具，唔係預言工具。落單前先定義最大虧損、失效條件、持倉期限同離場規則。若其中一項講唔清，代表交易未準備好。</p><ul><li>用「如果…就…」寫計劃，例如：如果標的跌穿技術失效位，就平倉。</li><li>唔用勝率代替風險；單次巨額虧損可以抹去多次小勝。</li></ul></div></details>
-          <details class="lesson"><summary><span class="lesson-no">02</span><span class="lesson-title">Call / Put × Buy / Sell</span><span class="chev">＋</span></summary><div class="lesson-body"><p>以下打和點均指到期損益平衡，權利金按每股計，並忽略費用：</p><ul><li><strong>Long Call：</strong>到期打和點 = Call 行使價 + 權利金。到期股價高於打和點才有淨盈利；低於打和點可能仍有部分虧損，股價不高於行使價時損失全部權利金。</li><li><strong>Long Put：</strong>到期打和點 = Put 行使價 − 權利金。到期股價低於打和點才有淨盈利；高於打和點可能仍有部分虧損，股價不低於行使價時損失全部權利金。</li><li><strong>Short Put：</strong>到期股價等於或高於行使價時取得最大盈利（所收權利金）。股價介乎打和點（行使價 − 權利金）與行使價之間仍有部分盈利；只有跌穿打和點才出現到期淨虧損。</li><li><strong>Short Call：</strong>到期股價等於或低於行使價時取得最大盈利（所收權利金）。股價介乎行使價與打和點（行使價 + 權利金）之間仍有部分盈利；高於打和點才出現到期淨虧損。裸 Short Call 的理論最大損失無上限，因標的價格理論上可持續上升。</li></ul><p>賣方收到的權利金，是承擔合約義務的補償。新手應先理解到期損益及履約風險，再考慮使用定義風險策略。</p></div></details>
-          <details class="lesson"><summary><span class="lesson-no">03</span><span class="lesson-title">權利金：內在值＋時間值</span><span class="chev">＋</span></summary><div class="lesson-body"><div class="formula">權利金 = 內在值 + 時間值</div><p>價內期權可以同時有內在值與時間值；價外期權通常只有時間值。到期時，時間值歸零。平值附近通常對時間同波動最敏感。</p></div></details>
-        </div>
-      </div>
-    </section>
-
-    <section id="m2">
-      <div class="shell">
-        <div class="section-head"><span class="section-kicker">Price engine</span><h2>Greeks：四個同時轉動的齒輪</h2><p>Greeks 唔係預測，而係敏感度：假設其他條件不變，某個因素郁一下，期權理論價大約點變。</p></div>
-        <div class="greeks">
-          <article class="greek"><b>Δ Delta</b><p>方向敏感度。Long Call Delta +0.35：其他條件不變時，標的價格升 $1，期權理論價在當前附近約升 $0.35；Long Put Delta 通常為負，例如 −0.35，標的升 $1 時理論價約跌 $0.35。這是局部近似，Delta 會隨標的價格、時間等因素改變，Gamma 描述 Delta 的變化。</p></article>
-          <article class="greek"><b>Γ Gamma</b><p>Delta 的變化速度。近到期、近平值時通常較高，部位會變得更「跳」。</p></article>
-          <article class="greek"><b>Θ Theta</b><p>時間流逝成本。買方通常負 Theta；賣方通常正 Theta，但承擔尾部風險。</p></article>
-          <article class="greek"><b>V Vega</b><p>IV 變化敏感度。事件前 IV 上升，事件後可能急跌，方向啱都未必賺。</p></article>
-        </div>
-        <div class="lesson-list" style="margin-top:1.25rem">
-          <details class="lesson"><summary><span class="lesson-no">04</span><span class="lesson-title">Delta、Gamma、Theta、Vega</span><span class="chev">＋</span></summary><div class="lesson-body"><p>同一張合約會同時受四個力影響。遠期 Long Call 可能方向睇啱，但升幅不足以抵消 Theta；業績前買 Put 可能遇到 IV Crush；短期期權則可能因 Gamma 高而突然改變風險。</p><p><strong>實戰問題：</strong>你主要買緊方向、時間，定係波動？邊一個 Greek 最可能令你輸？</p></div></details>
-          <details class="lesson"><summary><span class="lesson-no">05</span><span class="lesson-title">IV 與 IV Crush</span><span class="chev">＋</span></summary><div class="lesson-body"><p>Implied Volatility 反映市場對未來波幅的定價。事件前不確定性高，IV 往往上升；事件公布後不確定性消失，IV 可能迅速回落。</p><ul><li>買方：要同時考慮方向、幅度、速度與 IV。</li><li>賣方：收取較高權利金，但要承擔跳空和尾部風險。</li><li>價差：可部分抵銷 Vega，同時鎖定最大損失。</li></ul></div></details>
-        </div>
-      </div>
-    </section>
-
-    <section id="m3">
-      <div class="shell">
-        <div class="section-head"><span class="section-kicker">Volatility range</span><h2>由「睇方向」升級至「睇市場定價」</h2><p>Expected Move 唔係保證區間，而係根據 IV 推算的概率尺度。用佢比較自己預期與市場預期。</p></div>
-        <div class="concept-grid">
-          <div class="panel"><h3>Expected Move 快速公式</h3><div class="formula">預期波幅 ≈ 股價 × IV × √(DTE ÷ 365)</div><p class="muted">例如股價 $100、IV 30%、30 日：預期波幅約 $8.60，即大概 $91.40–$108.60。公式係近似值，跳空可超出區間。</p><p class="chart-caption">±1 標準差常近似解讀為約 68% 範圍，但只在模型假設下成立，並非實際機率保證。計算器應使用與預計期限相符的 IV；此簡化公式未反映 volatility skew 或 term structure。</p></div>
-          <div class="panel"><h3>比較先有意義</h3><ul><li><strong>你預期幅度 &gt; 市場定價：</strong>買方策略可能較合理。</li><li><strong>你預期幅度 &lt; 市場定價：</strong>定義風險賣方策略可能較合理。</li><li><strong>冇明顯差異：</strong>交易優勢不足，唔落單亦係決定。</li></ul></div>
-        </div>
-        <div class="lesson-list" style="margin-top:1.25rem">
-          <details class="lesson"><summary><span class="lesson-no">06</span><span class="lesson-title">Expected Move 與概率思維</span><span class="chev">＋</span></summary><div class="lesson-body"><p>用 Expected Move 幫手選 strike 同判斷權利金是否昂貴。佢只係市場隱含分布的簡化尺度，唔代表價格一定留喺區間內。</p></div></details>
-          <details class="lesson"><summary><span class="lesson-no">07</span><span class="lesson-title">Strike 選擇：勝率、回報與安全距離</span><span class="chev">＋</span></summary><div class="lesson-body"><p>對賣方而言，較遠價外（OTM）行使價通常到期失效概率較高，但可收取的 credit 較少，風險回報未必較佳。對買方而言，較遠價外期權 premium 較低，但需要標的作出更大幅度變動才可能在到期時盈利。以上概率估算不是保證。選擇 Short strike 時，不應只依賴 Delta；亦須考慮支撐阻力、Expected Move、催化劑、流動性及最大損失。</p></div></details>
-        </div>
-      </div>
-    </section>
-
-    <section id="m4">
-      <div class="shell">
-        <div class="section-head"><span class="section-kicker">Strategy construction</span><h2>用組合限制風險</h2><p>價差將上限與下限同時鎖定，犧牲部分盈利空間，換取更清楚的風險結構。</p></div>
-        <div class="two-col">
-          <div class="panel"><h3>Bull Put Spread</h3><p>沽出較高行使價 Put，同時買入較低行使價 Put。屬看升／不大跌策略，收取淨權利金。兩腿須為同一標的、同一到期日及相同張數。</p><div class="formula">（每股，到期時，未計費用；每張再乘合約乘數）<br>最大盈利 = 淨權利金<br>最大虧損 = 價差寬度 − 淨權利金<br>打和點 = Short strike − 淨權利金</div></div>
-          <div class="panel"><h3>Bear Put Spread</h3><p>買入較高行使價 Put，同時沽出較低行使價 Put。屬看跌策略，付出淨權利金。兩腿須為同一標的、同一到期日及相同張數。</p><div class="formula">（每股，到期時，未計費用；每張再乘合約乘數）<br>最大盈利 = 價差寬度 − 淨成本<br>最大虧損 = 淨成本<br>打和點 = Long strike − 淨成本</div></div>
-        </div>
-        <article class="panel spread-example">
-          <h3>Bear Put Spread 數字示例：逐步計算</h3>
-          <p>假設兩張 Put 到期日相同，每邊各 1 張；標準美股個股合約乘數為 100。以下忽略佣金、滑點及提前行使，並假設交易者看跌標的、但希望限制最大風險。</p>
-          <div class="leg-grid">
-            <div class="leg"><strong class="down">① 買入行使價 $100 的 Put：付 $6.00</strong><p>取得按 $100 賣出標的的權利；權利金成本為 $6 × 100 = $600。</p></div>
-            <div class="leg"><strong>② 賣出行使價 $95 的 Put：收 $3.00</strong><p>收取 $3 × 100 = $300，但被指派時有義務按 $95 買入標的。</p></div>
-          </div>
-          <div class="formula">淨成本（Debit）= $6 − $3 = $3／股 = $300／組<br>價差寬度 = $100 − $95 = $5／股<br>最大虧損 = $300　｜　最大盈利 = ($5 − $3) × 100 = $200<br>打和點 = $100 − $3 = $97</div>
-          <p><strong>為何加入 Short $95 Put？</strong>Long $100 Put 單獨買入需付 $600。賣出 $95 Put 收取 $300，將淨成本及最大虧損降至 $300；代價是放棄股價低於 $95 後的額外盈利，因此最大盈利封頂為 $200。這是降低成本並交換盈利上限，不是額外免費保障。</p>
-          <div class="payoff-table-wrap" role="region" aria-label="Bear Put Spread 到期損益例子" tabindex="0">
-            <table class="payoff-table">
-              <thead><tr><th>到期股價</th><th>兩個期權部位的結果</th><th>整組到期損益</th></tr></thead>
-              <tbody>
-                <tr><td>$100 或以上</td><td>兩張 Put 到期均沒有內在價值；初始支付的 $300 淨成本全數損失。</td><td><strong class="down">−$300（最大虧損）</strong></td></tr>
-                <tr><td>高於 $95、低於 $100</td><td>$100 Long Put 有內在價值；$95 Short Put 沒有內在價值。若到期股價為 $98，Long Put 價值為 $200，扣除 $300 成本後虧損 $100；股價為 $97 時打和。</td><td>損益由虧損逐步轉為盈利；$97 為打和點。</td></tr>
-                <tr><td>$95 或以下</td><td>Long Put 的盈利繼續增加，但 Short Put 的虧損以相同速度增加，因此兩個部位的合計內在價值固定為 $5／股。</td><td><strong class="up">+$200（最大盈利）</strong></td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="fit-grid">
-            <div class="fit-card"><strong>較適合的情況</strong><p>預期標的到期時會跌至 $97 以下；希望以有限淨成本建立看跌部位，並接受最大盈利為 $200。</p></div>
-            <div class="fit-card"><strong>較不適合的情況</strong><p>預期股價只會小幅下跌或橫行、跌勢可能遲於到期日，或預期股價大幅跌穿 $95 且希望保留更多下跌盈利；此組合在 $95 或以下已達盈利上限。</p></div>
-          </div>
-          <p><strong>常見誤解：</strong>「方向正確就會盈利」——未必；此例到期股價須低於 $97 才有到期盈利。「最大虧損等於 $500 價差寬度」——此例的最大虧損是已支付的 $300 淨成本。「股價跌得越多，盈利越大」——股價到達 $95 或以下後，盈利已達 $200 上限。到期前的組合市價亦會受時間、IV 和買賣差價影響；上表只列到期損益。</p>
-          <p class="chart-caption"><strong>到期與被指派：</strong>美式股票期權的 Short Put 可在到期前被指派。到期附近的收市後股價變動、行使指示及券商規則亦可能影響結果，兩腿未必會按持倉者預期自動互相抵銷。不熟悉流程者應在到期前向券商確認安排，並在需要時考慮平倉。</p>
-        </article>
-        <div class="lesson-list" style="margin-top:1.25rem">
-          <details class="lesson"><summary><span class="lesson-no">08</span><span class="lesson-title">Bull Put Spread：收息但先封頂風險</span><span class="chev">＋</span></summary><div class="lesson-body"><p>適合溫和看升或認為標的不會跌穿某水平。最好選擇成交活躍、bid-ask 較窄的合約，以限價單輸入整組淨 credit。</p></div></details>
-          <details class="lesson"><summary><span class="lesson-no">09</span><span class="lesson-title">Bear Put Spread 與 Covered Call</span><span class="chev">＋</span></summary><div class="lesson-body"><p><strong>Bear Put Spread</strong> 適合有限度看跌；<strong>Covered Call</strong> 是持有正股，同時賣出 Call 收取權利金。若股價高於行使價，股票可能被指派賣出，因此上升盈利受限；股價下跌時仍承受正股下跌風險。</p></div></details>
-        </div>
-      </div>
-    </section>
-
-    <section id="m5">
-      <div class="shell">
-        <div class="section-head"><span class="section-kicker">Execution & risk</span><h2>交易成敗，往往由執行決定</h2><p>策略名稱唔會保護你；流動性、倉位、事件與離場規則先會。</p></div>
-        <div class="lesson-list">
-          <details class="lesson"><summary><span class="lesson-no">10</span><span class="lesson-title">落單與流動性</span><span class="chev">＋</span></summary><div class="lesson-body"><ul><li>檢查成交量、Open Interest、bid-ask spread。</li><li>價差單使用組合限價，避免逐邊落單造成裸露風險。</li><li>由 mid-price 附近開始，逐小格改善成交價；唔好為成交而亂追。</li></ul></div></details>
-          <details class="lesson"><summary><span class="lesson-no">11</span><span class="lesson-title">止賺、止蝕與資金效率</span><span class="chev">＋</span></summary><div class="lesson-body"><p>離場可以由價格、時間或事件觸發。收權利金策略當已賺取大部分潛在盈利，餘下回報可能唔值得繼續承擔尾部風險；買方策略臨近到期則要留意 Theta 與 Gamma 加速。</p></div></details>
-          <details class="lesson"><summary><span class="lesson-no">12</span><span class="lesson-title">業績與事件風險</span><span class="chev">＋</span></summary><div class="lesson-body"><p>業績、FDA、法院判決、央行決議等都可能令價格跳空。事件前要問：Expected Move 幾多？IV 幾高？最大損失是否承受到？如冇事件優勢，可以減倉、改定義風險或避開。</p></div></details>
-          <details class="lesson"><summary><span class="lesson-no">13</span><span class="lesson-title">倉位大小：先由最壞情況倒推</span><span class="chev">＋</span></summary><div class="lesson-body"><div class="formula">每單風險預算 = 帳戶資金 × 風險百分比<br>合約數 = ⌊風險預算 ÷ 每張最大損失⌋</div><p>相關性高的多個倉位要合併看待；五個科技股好倉唔等於分散投資。</p></div></details>
-        </div>
-      </div>
-    </section>
-
-    <section id="m6">
-      <div class="shell">
-        <div class="section-head"><span class="section-kicker">Build a system</span><h2>由單次輸贏，轉為可重複流程</h2><p>重點唔係每次都啱，而係長期重複正期望值、控制回撤，同時知道策略喺咩環境失效。</p></div>
-        <div class="lesson-list">
-          <details class="lesson"><summary><span class="lesson-no">14</span><span class="lesson-title">勝率陷阱與期望值</span><span class="chev">＋</span></summary><div class="lesson-body"><div class="formula">期望值 = 勝率 × 平均盈利 − 敗率 × 平均虧損</div><p>85% 勝率並不自動代表好策略。如果每次贏 $100、每次輸 $700，期望值仍可為負。一定要同時記錄勝率、盈虧比與最大回撤。</p></div></details>
-          <details class="lesson"><summary><span class="lesson-no">15</span><span class="lesson-title">交易日誌：記錄決策質素</span><span class="chev">＋</span></summary><div class="lesson-body"><p>至少記錄：日期、標的、策略、DTE、strikes、credit/debit、IV、Expected Move、入場理由、最大損失、離場規則、結果與檢討。將「好結果」同「好決策」分開評分。</p></div></details>
-          <details class="lesson"><summary><span class="lesson-no">16</span><span class="lesson-title">建立個人 Playbook</span><span class="chev">＋</span></summary><div class="lesson-body"><p>每個策略寫成一頁：適用市況、入場條件、禁止條件、倉位上限、管理規則、過往樣本。只保留自己理解、執行到、統計上有證據的策略。</p></div></details>
-        </div>
-      </div>
-    </section>
-
-    <section id="kirk-current">
-      <div class="shell kirk-stack">
-        <div class="section-head">
-          <span class="section-kicker">Public case study</span>
-          <h2>KOL 操作方向個案：Kirk</h2>
-          <p>截至 2026-09-26 已擷取文章</p>
-        </div>
-        <p class="current-disclaimer"><strong>資料範圍：</strong>這是作者當時公開的個人流程，不是即時持倉、交易訊號或已驗證策略。</p>
-
-        <article class="panel">
-          <h3>核心方向摘要</h3>
-          <p>作者目前不是單純預測市場升跌；較常在標的急跌及 IV Expansion 時，研究中性至溫和看升的 defined-risk Bull Put Spread，並由以往 Delta 優先改為 IV / Expected Move 優先。</p>
-          <h4>文章描述的研究流程</h4>
-          <div class="current-flow-wrap" role="region" aria-label="Kirk 文章所述流程，由左至右；手機上改為直向">
-            <ol class="current-flow">
-              <li><strong>標的急跌</strong>由急跌情況開始研究。</li>
-              <li><strong>計算 IV / Expected Move</strong>使用相應到期日的 IV 與 Expected Move。</li>
-              <li><strong>尋找約 −1 EM 範圍</strong>視作文章中提及的安全範圍參考。</li>
-              <li><strong>觀察 Sell Put Delta</strong>文章示例約 0.15，並非固定規則。</li>
-              <li><strong>核對技術位置</strong>Lower Bollinger Band、Lower Keltner Channel、支持位及 Margin of Safety。</li>
-              <li><strong>確認風險與 premium</strong>核對最大損失及權利金是否合理。</li>
-              <li><strong>限價單等待成交</strong>以限價單等待成交。</li>
-            </ol>
-          </div>
-        </article>
-
-        <article class="panel">
-          <h3>入場後管理</h3>
-          <ol>
-            <li><strong>Expected Move 是風險尺度，不是撈底工具。</strong></li>
-            <li>文章示例中 Delta 曾升近 0.25、倉位曾浮虧約 50%；這不是通用止損線。</li>
-            <li>若短時間已取得約 50% 潛在盈利，作者會把盈利比例與剩餘時間一併考慮，傾向 BTC 釋放 buying power，而非機械持有至到期。作者過往亦提及 50%–80% 個人止盈框架，但不代表普遍最優。</li>
-          </ol>
-        </article>
-
-        <article class="panel">
-          <h3>方法轉變：以往與目前測試</h3>
-          <div class="method-grid">
-            <div class="method-card">
-              <h4>以往</h4>
-              <ul><li>Delta 先行</li><li>曾使用 Naked Sell Put</li><li>較容易受高勝率吸引</li></ul>
-            </div>
-            <div class="method-arrow" aria-hidden="true">→</div>
-            <div class="method-card">
-              <h4>目前測試</h4>
-              <ul><li>IV / Expected Move 先行</li><li>以 Bull Put Spread 定義風險</li><li>先問最大虧損</li><li>快速達標時重視時間效率</li></ul>
-            </div>
-          </div>
-          <p class="chart-caption"><strong>驗證階段：</strong>截至 2026-09-14，作者稱此 IV-first playbook 只驗證到第二個月，尚不能稱為長期有效策略。</p>
-        </article>
-
-        <article class="panel">
-          <h3>最新虧損復盤｜作者自述，截至 2026-09-22</h3>
-          <p class="muted">下列數字均為作者自述，未經獨立核驗；9 筆虧損交易的分類不代表整體淨回報。</p>
-          <div class="current-stats" aria-label="作者文章所報告的已平倉交易統計">
-            <div class="current-stat"><strong>63</strong><span>筆已平倉</span></div>
-            <div class="current-stat"><strong>54 勝 / 9 負</strong><span>已平倉交易結果</span></div>
-            <div class="current-stat"><strong>85.7%</strong><span>勝率</span></div>
-          </div>
-          <figure class="concept-figure" style="margin-top:1rem">
-            <svg class="loss-chart" viewBox="0 0 1000 76" role="img" aria-labelledby="lossSvgTitle lossSvgDesc">
-              <title id="lossSvgTitle">9 筆虧損交易按策略分類的水平堆疊條</title>
-              <desc id="lossSvgDesc">總虧損 14,759 美元：Naked Sell Put 13,552 美元，約 91.8%；Covered Call 1,024 美元，約 6.9%；Bull Put Spread 183 美元，約 1.2%。</desc>
-              <rect x="0" y="14" width="918.2" height="44" rx="7" fill="var(--red-2)" stroke="var(--red)" stroke-width="2"></rect>
-              <rect x="918.2" y="14" width="69.4" height="44" fill="var(--orange-2)" stroke="var(--orange)" stroke-width="2"></rect>
-              <rect x="987.6" y="14" width="12.4" height="44" rx="3" fill="var(--green-2)" stroke="var(--green)" stroke-width="2"></rect>
+          <figure class="diagram-figure">
+            <h3>Long Put｜到期損益／股</h3>
+            <svg viewBox="0 0 360 250" role="img" aria-labelledby="put-payoff-title put-payoff-desc">
+              <title id="put-payoff-title">Long Put 到期損益圖</title>
+              <desc id="put-payoff-desc">例子行使價 K 為 100 美元，權利金 P 為每股 5 美元。到期標的高於 100 時最大損失為 5 美元每股；在 95 美元打和，標的越低損益越高。</desc>
+              <line class="svg-line" x1="38" y1="150" x2="330" y2="150" stroke-width="2"/><line class="svg-line" x1="180" y1="28" x2="180" y2="206" stroke-width="1"/>
+              <path class="svg-blue" stroke-width="4" d="M50 70L180 180H310"/>
+              <line class="svg-level svg-dash" x1="148" y1="42" x2="148" y2="202" stroke-width="1.5"/><circle cx="148" cy="150" r="4" fill="var(--blue)"/>
+              <text class="svg-small" x="228" y="171">最大損失 −P</text><text class="svg-small" x="180" y="222" text-anchor="middle">K=100</text><text class="svg-small" x="148" y="42" text-anchor="middle">打和 K−P=95</text>
+              <text class="svg-small" x="330" y="170" text-anchor="end">標的到期價 S →</text><text class="svg-small" x="186" y="28">損益</text><text class="svg-small" x="42" y="62">損益上升</text>
             </svg>
-            <ul class="loss-list" aria-label="堆疊條的數字標籤">
-              <li><span>Naked Sell Put</span><strong>$13,552（約 91.8%）</strong></li>
-              <li><span>Covered Call</span><strong>$1,024（約 6.9%）</strong></li>
-              <li><span>Bull Put Spread</span><strong>$183（約 1.2%）</strong></li>
-              <li><span>按分類加總</span><strong>$14,759</strong></li>
-            </ul>
+            <figcaption>示意例：K=$100、P=$5。到期損益 = max(K−S,0)−P；未計費用，實際每張再乘合約乘數。</figcaption>
           </figure>
-          <p class="chart-caption">原文標題寫 $14,758，正文與分類總和為 $14,759；本頁按分類總和顯示。高勝率不等於風險受控。</p>
-          <ul class="review-facts">
-            <li>4 筆 Naked Sell Put 合計虧損 $13,552，約佔列出的總虧損 92%；作者稱虧損集中在 1 月 17 日至 2 月 5 日，約 20 日。</li>
-            <li>已實現 P/L 曾約為 −$12,105；作者稱約兩個半月後才回到接近打和。</li>
-            <li>Covered Call 共 15 筆：11 筆盈利合計 $877，4 筆虧損合計 $1,024；只計期權腿淨額約 −$147，未包括正股損益，不能當作整體策略回報。</li>
-          </ul>
-          <p class="current-disclaimer"><strong>比較限制：</strong>不同策略缺少交易數量、倉位大小及資金曝險等資料，不能直接比較優劣。</p>
-        </article>
 
-        <article class="panel">
-          <h3>可取教訓（作者自述的復盤項目）</h3>
-          <ul>
-            <li>公開呈現虧損與回撤，而不只列出成功交易。</li>
-            <li>由 Naked Sell Put 轉向 defined-risk 策略。</li>
-            <li>Covered Call 的行使價應是願意出售股票的價格。</li>
-            <li>評估止盈時，連同剩餘時間考慮盈利比例。</li>
-            <li>財報前避免承擔短期期權風險。</li>
-            <li>落單錯誤亦屬交易系統風險，應納入復盤。</li>
-          </ul>
-        </article>
+          <figure class="diagram-figure">
+            <h3>蠟燭圖 OHLC 與市場結構</h3>
+            <svg viewBox="0 0 360 360" role="img" aria-labelledby="candle-title candle-desc">
+              <title id="candle-title">蠟燭圖 OHLC 與高低點結構</title>
+              <desc id="candle-desc">上方標示單根蠟燭的最高價、開市、收市、最低價、實體和影線；下方對照較高高點與較高低點的上行結構，以及較低高點與較低低點的下行結構。</desc>
+              <text x="16" y="20">OHLC：單根蠟燭的價格範圍</text>
+              <line x1="164" y1="38" x2="164" y2="151" stroke="var(--ink)" stroke-width="3"/><rect x="145" y="72" width="38" height="48" fill="var(--green-2)" stroke="var(--green)" stroke-width="2"/>
+              <line class="svg-line" x1="182" y1="40" x2="260" y2="40"/><text class="svg-small" x="268" y="44">High 最高</text>
+              <line class="svg-line" x1="183" y1="72" x2="260" y2="72"/><text class="svg-small" x="268" y="76">Open 開市</text>
+              <line class="svg-line" x1="183" y1="120" x2="260" y2="120"/><text class="svg-small" x="268" y="124">Close 收市</text>
+              <line class="svg-line" x1="164" y1="151" x2="260" y2="151"/><text class="svg-small" x="268" y="155">Low 最低</text>
+              <text class="svg-small" x="18" y="92">影線</text><text class="svg-small" x="18" y="108">Wick</text><text class="svg-small" x="185" y="101">實體 Body</text>
+              <line class="svg-line" x1="12" y1="181" x2="348" y2="181"/>
+              <text x="18" y="204">上行結構</text><polyline class="svg-accent" stroke-width="3" points="24,265 78,231 130,248 190,207 248,222 326,187"/>
+              <text class="svg-small" x="71" y="225">HH</text><text class="svg-small" x="116" y="267">HL</text><text class="svg-small" x="184" y="200">HH</text><text class="svg-small" x="235" y="242">HL</text>
+              <text x="18" y="291">下行結構</text><polyline class="svg-risk" stroke-width="3" points="24,302 78,320 130,308 190,339 248,328 326,350"/>
+              <text class="svg-small" x="68" y="316">LL</text><text class="svg-small" x="116" y="303">LH</text><text class="svg-small" x="184" y="344">LL</text><text class="svg-small" x="235" y="322">LH</text>
+            </svg>
+            <figcaption>HH／HL 或 LH／LL 是按指定 swing 規則描述過往價格路徑，不是未來方向保證；判斷會受時間框架影響。</figcaption>
+          </figure>
 
-        <div class="inference-grid">
-          <article class="inference-card">
-            <h4>目前可合理歸納</h4>
-            <ul><li>偏向 defined-risk Bull Put Spread</li><li>IV / Expected Move 優先</li><li>技術位多重確認</li><li>重視最大虧損與快速止盈效率</li></ul>
-          </article>
-          <article class="inference-card">
-            <h4>目前不可歸納</h4>
-            <ul><li>不能因此判斷作者此刻持有哪個 ticker</li><li>不能視為看好整體市場</li><li>不能假設 Delta 0.15 / −1 EM 必定安全</li><li>不能把兩個月結果當作長期 edge</li></ul>
-          </article>
-        </div>
+          <figure class="diagram-figure">
+            <h3>Liquidity sweep｜突破後收回</h3>
+            <svg viewBox="0 0 360 340" role="img" aria-labelledby="sweep-title sweep-desc">
+              <title id="sweep-title">BSL 與 SSL sweep 的價格路徑示意</title>
+              <desc id="sweep-desc">價格以長影線短暫越過預先標記的高點或低點，之後收回參考區間；此為可觀察的價格路徑，圖形不能證明機構刻意獵取止損。</desc>
+              <text x="16" y="23">BSL 參考：前高上方</text><line class="svg-level svg-dash" x1="36" y1="82" x2="333" y2="82" stroke-width="2"/><text class="svg-small" x="38" y="74">預先標記的前高</text>
+              <polyline fill="none" stroke="var(--ink)" stroke-width="3" points="38,154 82,130 125,140 168,112 210,53 238,105 280,126 324,115"/><line x1="210" y1="53" x2="210" y2="154" stroke="var(--red)" stroke-width="2.5"/><rect x="202" y="126" width="16" height="15" fill="var(--red-2)" stroke="var(--red)"/><circle cx="210" cy="53" r="4" fill="var(--red)"/><text class="svg-small" x="218" y="48">長上影：刺穿後收回</text>
+              <line class="svg-line" x1="16" y1="178" x2="344" y2="178"/>
+              <text x="16" y="204">SSL 參考：前低下方</text><line class="svg-level svg-dash" x1="36" y1="292" x2="333" y2="292" stroke-width="2"/><text class="svg-small" x="38" y="284">預先標記的前低</text>
+              <polyline fill="none" stroke="var(--ink)" stroke-width="3" points="38,234 82,253 125,244 168,268 210,316 238,273 280,250 324,263"/><line x1="210" y1="234" x2="210" y2="316" stroke="var(--red)" stroke-width="2.5"/><rect x="202" y="238" width="16" height="15" fill="var(--red-2)" stroke="var(--red)"/><circle cx="210" cy="316" r="4" fill="var(--red)"/><text class="svg-small" x="218" y="332">長下影：跌破後收回</text>
+            </svg>
+            <figcaption>可以記錄「穿越預先標記的高／低點後收市回到區間」等規則；不能只憑長影線推斷機構有意獵止損。</figcaption>
+          </figure>
 
-        <div class="current-sources" aria-label="Kirk 方向摘要的直接來源">
-          <a class="case-source" href="https://www.patreon.com/kirkinvestmentplan/posts/ben-zhou-qi-quan-169029077"><span class="source-tag">作者自述</span>Sep 14 post</a>
-          <a class="case-source" href="https://www.patreon.com/kirkinvestmentplan/posts/2026nian-wo-zuo-170338159"><span class="source-tag">作者自述</span>Sep 26 loss post</a>
+          <figure class="diagram-figure">
+            <h3>FVG／IFVG｜三根蠟燭的區域規則</h3>
+            <svg viewBox="0 0 360 300" role="img" aria-labelledby="fvg-title fvg-desc">
+              <title id="fvg-title">FVG 三根蠟燭及 IFVG 觀察示意</title>
+              <desc id="fvg-desc">以常見的看升定義示範：第三根蠟燭的低點高於第一根蠟燭的高點，兩者之間標為未重疊區；價格按明確收市規則穿越後，部分方法會以反向角色觀察該區。</desc>
+              <text x="16" y="22">常見看升 FVG 定義示例</text>
+              <line x1="72" y1="116" x2="72" y2="202" stroke="var(--ink)" stroke-width="2"/><rect x="62" y="146" width="20" height="36" fill="var(--surface-2)" stroke="var(--ink)"/><text class="svg-small" x="54" y="222">第 1 根</text>
+              <line x1="165" y1="69" x2="165" y2="191" stroke="var(--green)" stroke-width="2"/><rect x="155" y="83" width="20" height="86" fill="var(--green-2)" stroke="var(--green)"/><text class="svg-small" x="147" y="222">第 2 根</text>
+              <line x1="258" y1="62" x2="258" y2="95" stroke="var(--ink)" stroke-width="2"/><rect x="248" y="70" width="20" height="18" fill="var(--surface-2)" stroke="var(--ink)"/><text class="svg-small" x="240" y="222">第 3 根</text>
+              <rect x="85" y="95" width="158" height="21" fill="var(--blue-2)" stroke="var(--blue)" stroke-dasharray="4 3"/><text class="svg-small" x="94" y="111">第 1 根高點至第 3 根低點</text>
+              <text class="svg-small" x="18" y="258">IFVG：穿越後，部分方法按反向角色觀察。</text>
+              <text class="svg-small" x="18" y="281">區域與收市條件須預先固定；教材定義不一。</text>
+            </svg>
+            <figcaption>FVG／IFVG 是可轉成回測規則的圖表標籤；區域不保證被回補或支撐／阻力，也不證明市場參與者意圖。</figcaption>
+          </figure>
+
+          <figure class="diagram-figure">
+            <h3>Multi-timeframe funnel｜背景到觸發</h3>
+            <svg viewBox="0 0 360 320" role="img" aria-labelledby="mtf-title mtf-desc">
+              <title id="mtf-title">多時間框架由背景收窄至執行</title>
+              <desc id="mtf-desc">先用較高時間框架整理背景與關鍵區，再以五分鐘圖觀察 setup，最後用一分鐘圖按預定條件確認觸發；較高時間框架訊號不是必然預測。</desc>
+              <path d="M18 22H342L306 106H54Z" fill="var(--blue-2)" stroke="var(--blue)" stroke-width="1.5"/><text x="180" y="54" text-anchor="middle">HTF｜背景</text><text class="svg-small" x="180" y="77" text-anchor="middle">市場結構、關鍵區、情境假設</text>
+              <path d="M55 119H305L273 203H87Z" fill="var(--surface-2)" stroke="var(--line)" stroke-width="1.5"/><text x="180" y="151" text-anchor="middle">5m｜Setup</text><text class="svg-small" x="180" y="174" text-anchor="middle">等待事前定義的形態／收市條件</text>
+              <path d="M91 216H269L244 290H116Z" fill="var(--green-2)" stroke="var(--green)" stroke-width="1.5"/><text x="180" y="246" text-anchor="middle">1m｜Trigger</text><text class="svg-small" x="180" y="268" text-anchor="middle">確認執行；不等於保證成功</text>
+            </svg>
+            <figcaption>時間框架用來組織觀察，不是訊號投票。更細的圖表可能帶來更多雜訊，並不自動提高勝率。</figcaption>
+          </figure>
+
+          <figure class="diagram-figure diagram-wide">
+            <h3>五套 setup｜把敘述轉成可測試的流程</h3>
+            <div class="setup-flow" role="list" aria-label="五套待回測 setup 流程摘要">
+              <div class="setup-flow-row" role="listitem"><strong>A｜Key-level reversal</strong><span>HTF 關鍵位 → 5m 證據 → 1m 觸發</span><span class="setup-flow-tag">待回測假設，不是 proven edge</span></div>
+              <div class="setup-flow-row" role="listitem"><strong>B｜HTF → LTF 延續</strong><span>事前 bias／區域 → 結構觸發</span><span class="setup-flow-tag">待回測假設，不是 proven edge</span></div>
+              <div class="setup-flow-row" role="listitem"><strong>C｜IFVG reversal</strong><span>Sweep → 收市穿越 FVG → 回測確認</span><span class="setup-flow-tag">待回測假設，不是 proven edge</span></div>
+              <div class="setup-flow-row" role="listitem"><strong>D｜5m ORB</strong><span>09:30–09:35 ET → 收市／失衡條件</span><span class="setup-flow-tag">待回測假設，不是 proven edge</span></div>
+              <div class="setup-flow-row" role="listitem"><strong>E｜30m range FVG</strong><span>開市區間 → 離開／回測規則完整才評估</span><span class="setup-flow-tag">待回測假設，不是 proven edge</span></div>
+            </div>
+            <figcaption>每行仍須寫清背景、觸發、入場、失效、目標與 journal 欄位；重大數據、價差過闊、目標太近或當日風險已滿時，按預先定義的 no-trade 規則停止。詳細規則見 <a href="#mao-setups">五套 Setup 章節</a>。</figcaption>
+          </figure>
         </div>
       </div>
     </section>
+
+
 
     <section id="mao-course">
       <div class="shell mao-course-stack">
@@ -1269,118 +1038,6 @@
       </div>
     </section>
 
-    <section id="editor-review">
-      <div class="shell editor-stack">
-        <div class="section-head">
-          <span class="section-kicker">Independent review</span>
-          <h2>獨立評審：可以學框架，不應照抄參數</h2>
-          <p>以下評審多個 KOL 個案，並把官方制度資料、作者自述和編輯判斷分開；策略階梯、風控數字及入場清單屬編輯教學框架，不是官方標準。</p>
-        </div>
-        <div class="callout verdict-callout" role="note">
-          <div class="callout-icon" aria-hidden="true">✓</div>
-          <div><strong>評審結論：</strong>風險框架有改善，但資料不足以證明長期 edge。</div>
-        </div>
-
-        <div class="review-grid">
-          <article class="review-card">
-            <h3>值得保留</h3>
-            <ul>
-              <li>先定最大虧損，再考慮 premium。</li>
-              <li>以 defined-risk 策略取代裸賣。</li>
-              <li>記錄敗績與執行錯誤。</li>
-              <li>快速達標時，比較剩餘收益與剩餘風險。</li>
-              <li>不把 Covered Call 當作免費收益。</li>
-            </ul>
-          </article>
-          <article class="review-card">
-            <h3>必須修正</h3>
-            <ul>
-              <li>−1 Expected Move 不是安全線，只是模型區間。</li>
-              <li>Delta 0.15 不是固定 15% 虧損機率。</li>
-              <li>BOLL、KC 與支持位可能同源，不是多份獨立證據。</li>
-              <li>50% 止盈是管理規則，不是已證實的最優值。</li>
-              <li>兩個月測試、勝率及虧損分類不足以證明 edge。</li>
-              <li>IV expansion 亦代表市場正為更大風險定價。</li>
-            </ul>
-          </article>
-        </div>
-
-        <article class="panel">
-          <h3>證據層級</h3>
-          <div class="evidence-levels">
-            <div class="evidence-level">
-              <span class="pill">制度事實</span>
-              <h4>OCC／OIC／FINRA</h4>
-              <p>合約權利義務、行使與指派制度、官方列出的策略損益邊界，可按制度文件核對。</p>
-            </div>
-            <div class="evidence-level">
-              <span class="pill">作者自述</span>
-              <h4>公開交易紀錄與復盤</h4>
-              <p>倉位、盈虧、勝率及操作流程來自作者文章；本頁未能獨立審計帳戶或完整交易紀錄。</p>
-            </div>
-            <div class="evidence-level">
-              <span class="pill">編輯判斷</span>
-              <h4>本頁的評審與框架</h4>
-              <p>用於辨認假設、風險及學習次序；不是監管機構結論、個人化建議或績效保證。</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="panel">
-          <h3>我會點建立策略</h3>
-          <p class="muted">以下是保守的教學次序與編輯風控示例，不是官方標準或投資建議。</p>
-          <h4>策略階梯</h4>
-          <ol class="strategy-ladder">
-            <li>先模擬 Long Call／Long Put。</li>
-            <li>再用一張 defined-risk Debit Spread 練習價差。</li>
-            <li>熟悉行使、指派及資金安排後，才研究 Credit Spread。</li>
-            <li>最後才考慮 Covered Call／Cash-Secured Put 等持股相關策略。</li>
-          </ol>
-
-          <h4>策略選擇表</h4>
-          <p class="chart-caption">此表只列出對應的教學情境，未替代個別合約分析。</p>
-          <div class="strategy-table-wrap" role="region" aria-label="策略情境表" tabindex="0">
-            <table class="strategy-table">
-              <thead><tr><th scope="col">情境</th><th scope="col">策略示例</th></tr></thead>
-              <tbody>
-                <tr><td>溫和看升、IV 正常</td><td>Bull Call Spread</td></tr>
-                <tr><td>溫和看跌、IV 正常</td><td>Bear Put Spread</td></tr>
-                <tr><td>中性至溫和看升、IV 較高</td><td>Bull Put Spread（進階）</td></tr>
-                <tr><td>已持股並真心願意賣出</td><td>Covered Call</td></tr>
-                <tr><td>真心願意按有效成本買入 100 股</td><td>Cash-Secured Put</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="risk-framework">
-            <strong>保守風控示例｜編輯框架，不是官方標準</strong>
-            <p>每筆交易的理論最大虧損可先以帳戶資金 0.5% 作示例上限；有經驗時亦不超過 1%。所有未平倉部位的最大虧損合計，可示例控制在帳戶資金 3%–5%。合約張數向下取整；最少一張也超出預算時，應跳過，不向上取整。</p>
-            <p><strong>$100,000 帳戶：</strong>0.5% 預算為 $500。$5 寬、淨收 Credit $1.20 的 Bull Put Spread，每股最大虧損 $3.80；按標準 100 股合約，每張最大虧損 $380，因此預算內最多一張。<strong>$20,000 帳戶：</strong>0.5% 預算為 $100，低於每張 $380，應跳過交易。</p>
-          </div>
-
-          <h4>入場前七問</h4>
-          <div class="question-grid">
-            <div class="question-card"><strong>1. 方向</strong><span>預期看升、看跌，還是區間？</span></div>
-            <div class="question-card"><strong>2. 時間</strong><span>觀點預計多久兌現？到期日是否匹配？</span></div>
-            <div class="question-card"><strong>3. IV／事件</strong><span>IV 定價如何？財報或其他事件在何時？</span></div>
-            <div class="question-card"><strong>4. 流動性</strong><span>Bid-ask、成交量及 OI 是否可接受？</span></div>
-            <div class="question-card"><strong>5. 最大損失</strong><span>單筆及全部未平倉部位最壞情況是多少？</span></div>
-            <div class="question-card"><strong>6. 價格失效</strong><span>標的價格到哪裡代表原有假設失效？</span></div>
-            <div class="question-card"><strong>7. 時間失效</strong><span>到哪個日期仍未發生預期，就重新評估或離場？</span></div>
-          </div>
-
-          <div class="avoid-note"><strong>初學階段先避免：</strong>裸賣 Short Call／Short Put、財報期間持有隔夜短期期權風險，以及流動性差的合約。未完成本頁 0DTE 安全模組前，先避免實盤 0DTE；即使完成，也先做模擬盤並用定義風險。</div>
-          <h4 style="margin-top:1.25rem">離場規則按風險來源拆分</h4>
-          <div class="exit-grid">
-            <div class="exit-item"><strong>價格</strong><span>預先定義價格假設何時失效。</span></div>
-            <div class="exit-item"><strong>時間</strong><span>檢視剩餘時間、待實現收益與剩餘風險。</span></div>
-            <div class="exit-item"><strong>波動</strong><span>重新評估 IV 變化對各期權腿的影響。</span></div>
-            <div class="exit-item"><strong>到期／指派</strong><span>核對行使、指派、券商截止時間與資金需求。</span></div>
-          </div>
-          <p class="chart-caption">不設一個適用所有策略的萬用止盈百分比；退出條件須配合策略結構及其失效假設。</p>
-        </article>
-      </div>
-    </section>
 
     <section id="lab">
       <div class="shell">
@@ -1418,17 +1075,6 @@
             <div class="range-track" aria-hidden="true"><div class="range-line"></div><div class="range-edge left"></div><div class="range-center"></div><div class="range-edge right"></div><span class="range-label" id="emLowLabel" style="left:18%">91.40</span><span class="range-label" id="emMidLabel" style="left:50%">100.00</span><span class="range-label" id="emHighLabel" style="left:82%">108.60</span></div>
           </article>
 
-          <article class="calc-card">
-            <h3>Bull Put Spread</h3>
-            <div class="field-grid">
-              <label>Short strike<input id="bpShort" type="number" step="0.5" value="95"></label>
-              <label>Long strike<input id="bpLong" type="number" step="0.5" value="90"></label>
-              <label>淨 Credit $<input id="bpCredit" type="number" min="0" step="0.05" value="1.2"></label>
-            </div>
-            <div class="result-box"><div><span>最大盈利／張</span><strong id="bpProfit">$120</strong></div><div><span>最大虧損／張</span><strong id="bpLoss">$380</strong></div><div><span>打和點</span><strong id="bpBreak">$93.80</strong></div></div>
-            <p class="chart-caption validation-error" id="bpValidation" role="status" aria-live="polite"></p>
-            <div class="chart-wrap" id="bpChart" role="img" aria-label="Bull Put Spread 到期損益圖"></div>
-          </article>
 
           <article class="calc-card">
             <h3>勝率陷阱</h3>
@@ -1482,69 +1128,33 @@
       </div>
     </section>
 
-    <section id="plan">
-      <div class="shell">
-        <div class="section-head"><span class="section-kicker">4-week route</span><h2>四星期學習路線</h2><p>每日 30–45 分鐘；先用模擬盤或紙上交易，唔急住追求實盤速度。</p></div>
-        <div class="timeline">
-          <article class="week"><h3>識字</h3><p>第 1–4 課。畫出四格地圖，能解釋權利金與四個 Greeks。</p></article>
-          <article class="week"><h3>識價</h3><p>第 5–7 課。每日計一次 Expected Move，觀察事件前後 IV。</p></article>
-          <article class="week"><h3>識砌</h3><p>第 8–10 課。紙上建立價差，練習限價單與到期損益圖。</p></article>
-          <article class="week"><h3>識守</h3><p>第 11–16 課。制定倉位、離場與日誌，完成個人 Playbook。</p></article>
-        </div>
-      </div>
-    </section>
 
     <section id="sources">
       <div class="shell">
-        <div class="callout"><div class="callout-icon">⚠</div><div><strong>重要聲明</strong><br>本教材只作教育與文章整理，不構成投資建議。期權可能令你損失全部權利金；部分沽空策略損失可以非常大。實際交易前，請理解合約規格、佣金、稅務、流動性及提前行使風險。</div></div>
-        <div class="section-head" style="margin-top:3rem"><span class="section-kicker">Sources</span><h2>延伸閱讀</h2><p>來源按作者文章／作者自述與官方制度資料分類。Patreon 原文能否閱讀全文取決於登入與會籍權限；作者自述未由本頁獨立核驗。</p></div>
+        <div class="callout"><div class="callout-icon" aria-hidden="true">!</div><div><strong>重要聲明</strong><br>本教材只作教育與文章整理，不構成投資建議。期權買方可能損失全部權利金；期貨等槓桿產品的損失可能超出已繳保證金。實際交易前，請理解合約規格、結算方式、佣金、稅務、流動性及券商截止時間。</div></div>
+        <div class="section-head" style="margin-top:2rem"><span class="section-kicker">Sources</span><h2>延伸閱讀與核對資料</h2><p>期權制度與風險資料優先列官方來源；Mao 課程的逐字稿由用戶提供，內容經摘要及編輯校正，未逐字重現。資料可能更新，交易前請核對券商與交易所當前規格。</p></div>
         <div class="source-group">
-        <h3><span class="source-tag">作者文章／作者自述</span></h3>
-        <ol class="source-list">
-          <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/shi-mo-shi-qi-3-160733817">什麼是期權？</a></li>
-          <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/delta-jiao-xue-160824440">Delta 教學</a></li>
-          <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/gamma-jiao-xue-160826278">Gamma 教學</a></li>
-          <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/theta-theta-jiao-160955028">Theta 教學</a></li>
-          <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/vega-jiao-xue-qi-160961345">Vega 教學</a></li>
-          <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/rho-jiao-xue-li-160961773">Rho 教學</a></li>
-          <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/qi-quan-xue-tang-166775660">IV 與波動率</a></li>
-          <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/ben-zhou-qi-quan-167633655">Expected Move</a></li>
-          <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/qi-quan-xin-bull-164410743">Bull Put Spread 落單</a></li>
-          <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/qi-quan-xin-chai-163990833">Bear Put Spread</a></li>
-          <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/qi-quan-xin-mie-163451588">安全距離與風險</a></li>
-          <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/6yue-qi-quan-fan-163273029">期權策略回顧</a></li>
-          <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/si-ge-jiao-yi-ri-165087663">GOOG 交易例子</a></li>
-          <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/2026nian-wo-zuo-170338159">勝率與虧損統計</a></li>
-          <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/xiang-xi-qi-quan-159427778">業績期權分析</a></li>
-          <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/ben-zhou-qi-quan-169029077">每週期權觀察</a></li>
-        </ol>
-        </div>
-        <div class="source-group">
-          <h3><span class="source-tag">官方制度／策略資料</span></h3>
+          <h3><span class="source-tag">官方期權與 0DTE 風險資料</span></h3>
           <ul class="source-link-list">
             <li><a href="https://www.finra.org/investors/investing/investment-products/options">FINRA Options</a></li>
-            <li><a href="https://prd-web.optionseducation.org/strategies/all-strategies/bull-put-spread-credit-put-spread">OIC Bull Put Spread</a></li>
+            <li><a href="https://syndication.finra.org/content/zeroing-options-trading-strategy-0dte">FINRA：0DTE</a></li>
+            <li><a href="https://www.finra.org/investors/insights/frequent-intraday-trading">FINRA：Frequent Intraday Trading</a></li>
+            <li><a href="https://prd-web.optionseducation.org/news/may-keytakeaways">OIC：May 2026 0DTE Risk Profile</a></li>
             <li><a href="https://prd-web.optionseducation.org/advancedconcepts/gamma">OIC Gamma</a></li>
             <li><a href="https://www.optionseducation.org/news/the-crush-is-real">OIC The Crush Is Real</a></li>
             <li><a href="https://www.theocc.com/company-information/documents-and-archives/options-disclosure-document">OCC Options Disclosure Document（ODD）</a></li>
-            <li><a href="https://www.optionseducation.org/strategies/all-strategies/bear-put-spread">OIC Bear Put Spread</a></li>
-            <li><a href="https://www.optionseducation.org/referencelibrary/faq/options-assignment">OIC Options Assignment</a></li>
-            <li><a href="https://www.optionseducation.org/optionsoverview/exercising-options">OIC Exercising Options</a></li>
           </ul>
         </div>
         <div class="source-group">
-          <h3><span class="source-tag">KOL 個案 02 核對資料</span></h3>
+          <h3><span class="source-tag">Mao 逐字稿 fact-check｜官方與研究資料</span></h3>
           <ul class="source-link-list">
-            <li><a href="https://www.finra.org/investors/insights/frequent-intraday-trading">FINRA Frequent Intraday Trading</a></li>
-            <li><a href="https://syndication.finra.org/content/zeroing-options-trading-strategy-0dte">FINRA 0DTE</a></li>
-            <li><a href="https://prd-web.optionseducation.org/news/may-keytakeaways">OIC May 2026 0DTE Risk Profile</a></li>
             <li><a href="https://www.sec.gov/files/investor/alerts/tradingseminars.htm">SEC Trading Seminar Fraud</a></li>
             <li><a href="https://faculty.haas.berkeley.edu/odean/papers/Day%20Traders/The%20Cross-Section%20of%20Speculator%20Skill.pdf">Barber et al., Cross-Section of Speculator Skill</a></li>
             <li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3423101">Chague et al., Day Trading for a Living?</a></li>
             <li><a href="https://www.cftc.gov/media/9196/enftradersglobalgroupcomplaint082923/download">CFTC Traders Global complaint（個案提示）</a></li>
             <li><a href="https://www.cmegroup.com/content/dam/cmegroup/education/modules/files/EQ240_EQ_for_AIT.pdf">CME E-mini contract specifications</a></li>
           </ul>
-          <p class="muted"><strong>用戶提供的 KOL 訪談逐字稿：</strong>無公開連結；本頁只作摘要，未逐字重現，作者的績效自述未獨立核驗。</p>
+          <p class="muted"><strong>用戶提供的 a2ky9／Mao 訪談逐字稿：</strong>無公開連結；本頁以摘要方式重組教材，未逐字重現。作者的個人經歷與績效說法未經獨立核驗。</p>
         </div>
       </div>
     </section>
@@ -1571,7 +1181,6 @@
         const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
         document.documentElement.dataset.theme = next;
         try { localStorage.setItem('options-learning-theme', next); } catch (_) {}
-        drawBullPut();
       });
       $('printBtn').addEventListener('click', () => window.print());
       $('mobileNav').addEventListener('change', (e) => { if (e.target.value) location.hash = e.target.value; });
@@ -1624,95 +1233,6 @@
         $('emHighLabel').textContent = (price + move).toFixed(2);
       }
 
-      function updateMoneyness() {
-        const spot = Number($('moneynessSlider').value);
-        const strike = 100;
-        const callState = spot > strike ? 'ITM 價內' : spot < strike ? 'OTM 價外' : 'ATM 平值';
-        const putState = spot < strike ? 'ITM 價內' : spot > strike ? 'OTM 價外' : 'ATM 平值';
-        const callIntrinsic = Math.max(spot - strike, 0);
-        const putIntrinsic = Math.max(strike - spot, 0);
-        const markerPosition = 2 + 96 * (spot - 80) / 40;
-        $('spotMarker').style.left = `${markerPosition}%`;
-        $('moneynessPrice').textContent = money(spot, 0);
-        $('moneynessSliderValue').textContent = money(spot, 0);
-        $('callState').textContent = callState;
-        $('putState').textContent = putState;
-        $('callIntrinsic').textContent = `${money(callIntrinsic)}／股`;
-        $('putIntrinsic').textContent = `${money(putIntrinsic)}／股`;
-      }
-
-      function drawBullPut() {
-        const shortRaw = $('bpShort').value.trim();
-        const longRaw = $('bpLong').value.trim();
-        const creditRaw = $('bpCredit').value.trim();
-        const shortK = Number(shortRaw);
-        const longK = Number(longRaw);
-        const credit = Number(creditRaw);
-        const validation = $('bpValidation');
-        const clearInvalid = (message) => {
-          $('bpProfit').textContent = '—';
-          $('bpLoss').textContent = '—';
-          $('bpBreak').textContent = '—';
-          $('bpChart').innerHTML = '';
-          $('bpChart').setAttribute('aria-label', '輸入無效，未繪製到期損益圖。');
-          validation.textContent = message;
-        };
-        if ([shortRaw, longRaw, creditRaw].some(value => value === '') || ![shortK, longK, credit].every(Number.isFinite)) {
-          clearInvalid('輸入無效：請為 Short strike、Long strike 及淨 Credit 輸入有效數值。');
-          return;
-        }
-        if (shortK <= longK) {
-          clearInvalid('輸入無效：Short strike 必須高於 Long strike。');
-          return;
-        }
-        const width = shortK - longK;
-        if (credit <= 0 || credit >= width) {
-          clearInvalid('輸入無效：淨 Credit 必須大於 $0，並小於價差寬度（Short strike − Long strike）。');
-          return;
-        }
-        validation.textContent = '';
-        const maxProfit = credit * 100;
-        const maxLoss = (width - credit) * 100;
-        const breakEven = shortK - credit;
-        $('bpProfit').textContent = money(maxProfit, 0);
-        $('bpLoss').textContent = money(maxLoss, 0);
-        $('bpBreak').textContent = money(breakEven);
-
-        const minX = Math.min(longK, breakEven) - Math.max(3, width * .8);
-        const maxX = Math.max(shortK, breakEven) + Math.max(3, width * .8);
-        const pts = [];
-        for (let i = 0; i <= 80; i++) {
-          const s = minX + (maxX - minX) * i / 80;
-          const pnl = (credit - Math.max(shortK - s, 0) + Math.max(longK - s, 0)) * 100;
-          pts.push({ s, pnl });
-        }
-        const w = 640, h = 250, pad = 42;
-        const yMin = -Math.max(maxLoss, 1) * 1.25, yMax = Math.max(maxProfit, 1) * 1.6;
-        const sx = x => pad + (x - minX) / (maxX - minX || 1) * (w - pad * 2);
-        const sy = y => h - pad - (y - yMin) / (yMax - yMin || 1) * (h - pad * 2);
-        const path = pts.map((p, i) => `${i ? 'L' : 'M'}${sx(p.s).toFixed(1)},${sy(p.pnl).toFixed(1)}`).join(' ');
-        const styles = getComputedStyle(document.documentElement);
-        const ink = styles.getPropertyValue('--muted').trim();
-        const line = styles.getPropertyValue('--line').trim();
-        const green = styles.getPropertyValue('--green').trim();
-        const red = styles.getPropertyValue('--red').trim();
-        const zeroY = sy(0);
-        $('bpChart').setAttribute('aria-label', 'Bull Put Spread 到期損益圖');
-        $('bpChart').innerHTML = `<svg viewBox="0 0 ${w} ${h}" aria-hidden="true">
-          <defs><linearGradient id="pnlGrad" x1="0" x2="1"><stop offset="0" stop-color="${red}"/><stop offset=".58" stop-color="${green}"/><stop offset="1" stop-color="${green}"/></linearGradient></defs>
-          <line x1="${pad}" y1="${zeroY}" x2="${w-pad}" y2="${zeroY}" stroke="${line}" stroke-width="2"/>
-          <line x1="${sx(longK)}" y1="${pad/2}" x2="${sx(longK)}" y2="${h-pad}" stroke="${line}" stroke-dasharray="5 5"/>
-          <line x1="${sx(shortK)}" y1="${pad/2}" x2="${sx(shortK)}" y2="${h-pad}" stroke="${line}" stroke-dasharray="5 5"/>
-          <path d="${path}" fill="none" stroke="url(#pnlGrad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="${sx(breakEven)}" cy="${zeroY}" r="5" fill="${green}"/>
-          <text x="${pad}" y="${h-12}" fill="${ink}" font-size="12">${minX.toFixed(1)}</text>
-          <text x="${w-pad}" y="${h-12}" fill="${ink}" font-size="12" text-anchor="end">${maxX.toFixed(1)} 標的價格</text>
-          <text x="${sx(longK)}" y="18" fill="${ink}" font-size="11" text-anchor="middle">Long ${longK}</text>
-          <text x="${sx(shortK)}" y="18" fill="${ink}" font-size="11" text-anchor="middle">Short ${shortK}</text>
-          <text x="${sx(breakEven)}" y="${zeroY-10}" fill="${ink}" font-size="11" text-anchor="middle">打和 ${breakEven.toFixed(2)}</text>
-        </svg>`;
-      }
-
       function updateExpectancy() {
         const winRate = Math.min(100, Math.max(0, number('exWinRate'))) / 100;
         const avgWin = Math.max(0, number('exWin'));
@@ -1754,8 +1274,6 @@
       ['zdK','zdPremium','zdSpot','zdMultiplier','zdAccount','zdRisk'].forEach(id => $(id).addEventListener('input', updateZeroDte));
       $('zdType').addEventListener('change', updateZeroDte);
       ['emPrice','emIv','emDte'].forEach(id => $(id).addEventListener('input', updateExpectedMove));
-      $('moneynessSlider').addEventListener('input', updateMoneyness);
-      ['bpShort','bpLong','bpCredit'].forEach(id => $(id).addEventListener('input', drawBullPut));
       ['exWinRate','exWin','exLoss'].forEach(id => $(id).addEventListener('input', updateExpectancy));
       ['psAccount','psRisk','psLoss'].forEach(id => $(id).addEventListener('input', updatePosition));
 
@@ -1768,7 +1286,7 @@
       }
       checks.forEach(c => c.addEventListener('change', updateChecklist));
 
-      updateZeroDte(); updateExpectedMove(); updateMoneyness(); drawBullPut(); updateExpectancy(); updatePosition(); updateChecklist();
+      updateZeroDte(); updateExpectedMove(); updateExpectancy(); updatePosition(); updateChecklist();
     })();
   </script>
 </body>
