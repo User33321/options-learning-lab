@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="繁體中文 0DTE Long Option 風險教學、Mao 交易圖表課程、互動計算器與可測試 setup。">
+  <meta name="description" content="繁體中文 0DTE Long Option 風險教學、Mao Heatmap 與 ICT 交易圖表課程、互動計算器及可測試 setup。">
   <title>0DTE 與交易圖表手冊｜Mao 課程</title>
   <style>
     :root {
@@ -486,10 +486,10 @@
     <div class="shell topbar-inner">
       <div class="brand">0DTE × Mao 手冊</div>
       <div class="toplinks">
-        <a href="#zero-dte">0DTE</a><a href="#mao-course">Mao 課程</a><a href="#heatmap">Heatmap</a><a href="#diagrams">圖解</a><a href="#mao-setups">五套 Setup</a><a href="#lab">工具</a><a href="#checklist">清單</a><a href="#sources">來源</a>
+        <a href="#zero-dte">0DTE</a><a href="#mao-course">Mao 課程</a><a href="#heatmap">Heatmap</a><a href="#ict-playbook">ICT 流程</a><a href="#diagrams">圖解</a><a href="#mao-setups">五套 Setup</a><a href="#lab">工具</a><a href="#checklist">清單</a><a href="#sources">來源</a>
       </div>
       <select class="mobile-nav" aria-label="跳到章節" id="mobileNav">
-        <option value="">前往章節…</option><option value="#zero-dte">0DTE</option><option value="#mao-course">Mao 課程</option><option value="#heatmap">Heatmap</option><option value="#diagrams">圖解</option><option value="#mao-setups">五套 Setup</option><option value="#lab">工具</option><option value="#checklist">清單</option><option value="#sources">來源</option>
+        <option value="">前往章節…</option><option value="#zero-dte">0DTE</option><option value="#mao-course">Mao 課程</option><option value="#heatmap">Heatmap</option><option value="#ict-playbook">ICT 實戰流程</option><option value="#diagrams">圖解</option><option value="#mao-setups">五套 Setup</option><option value="#lab">工具</option><option value="#checklist">清單</option><option value="#sources">來源</option>
       </select>
       <button class="icon-btn" id="themeBtn" type="button" aria-label="切換深淺色">◐</button>
       <button class="icon-btn" id="printBtn" type="button">列印</button>
@@ -507,7 +507,7 @@
       </div>
       <div class="stat-row" aria-label="教材範圍">
         <div class="stat"><strong>2</strong><span>學習主線</span></div>
-        <div class="stat"><strong>13</strong><span>教學圖解</span></div>
+        <div class="stat"><strong>16</strong><span>教學圖解</span></div>
         <div class="stat"><strong>5</strong><span>待回測 setup</span></div>
         <div class="stat"><strong>1</strong><span>交易前清單</span></div>
       </div>
@@ -823,6 +823,93 @@
       </div>
     </section>
 
+    <section id="ict-playbook">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-kicker">A2KY9 · ICT WALKTHROUGH</span>
+          <h2>ICT 實戰流程｜由一堆術語變成一條決策鏈</h2>
+          <p>這章整理新逐字稿中真正可重複的部分：先界定背景與位置，價格到達後才看低週期觸發，最後才決定風險。它不是「三個 confluence 就一定贏」，而是一個可以事前寫低、事後回測的研究框架。</p>
+        </div>
+        <div class="callout" role="note"><div class="callout-icon" aria-hidden="true">i</div><div><strong>先講結論：</strong>London high、FVG、SMT、CHOCH 或 IFVG 都只是定義後的圖表條件。單獨出現不等於有人刻意掃單，亦不等於下一步必然反轉。逐字稿內的 Prop firm 推廣、折扣、即場模擬盈利與未核實績效沒有納入教材。</div></div>
+
+        <div class="current-flow-wrap" style="margin-top:1.2rem">
+        <ol class="current-flow" aria-label="ICT 由高週期到交易決策的七步流程">
+          <li><strong>固定市場與時鐘</strong><small>例如 NQ；全程用 ET／交易所時間，先核對夏令時間、假期與數據公布。</small></li>
+          <li><strong>定義 HTF 背景</strong><small>Daily → 4H → 1H；只記 trend／range、主要 swing、FVG 或前日高低。</small></li>
+          <li><strong>標記 session 位</strong><small>Asia／London／premarket high-low 必須有明確起訖時間，不用肉眼隨意截取。</small></li>
+          <li><strong>等待價格到位</strong><small>HTF zone 與 session level 重疊只代表值得觀察，不是預掛反轉單的理由。</small></li>
+          <li><strong>讀 LTF 觸發</strong><small>在 1m／30s 固定 sweep、MSS／CHOCH、FVG／IFVG 與收市確認的版本。</small></li>
+          <li><strong>先定失效與目標</strong><small>止損放在 setup 真正失效的位置；目標須事前指定，不以想賺金額倒推。</small></li>
+          <li><strong>執行或跳過</strong><small>條件缺一、新聞令 spread 失真、目標太近或已達日風險上限，就不交易。</small></li>
+        </ol>
+        </div>
+
+        <div class="diagram-grid" style="margin-top:1.2rem">
+          <figure class="diagram-figure diagram-wide">
+            <h3>圖 14｜Top-down 唔係逐個 timeframe 搵理由</h3>
+            <svg viewBox="0 0 980 330" role="img" aria-labelledby="ictFunnelTitle ictFunnelDesc">
+              <title id="ictFunnelTitle">由高時間框架背景到低時間框架執行的漏斗</title>
+              <desc id="ictFunnelDesc">由市場和時鐘、背景、位置、觸發、風險依次收窄，任何一層不清楚便不交易。</desc>
+              <path class="svg-fill" d="M70 48H910L810 102H170Z"/>
+              <path class="svg-fill" d="M170 118H810L720 172H260Z"/>
+              <path class="svg-fill" d="M260 188H720L635 242H345Z"/>
+              <path d="M345 258H635L560 312H420Z" fill="var(--green-2)" stroke="var(--green)"/>
+              <text x="490" y="80" text-anchor="middle">市場／合約／交易所時鐘</text>
+              <text class="svg-small" x="490" y="98" text-anchor="middle">數據日曆 · Daily / 4H / 1H 背景</text>
+              <text x="490" y="150" text-anchor="middle">事前位置</text>
+              <text class="svg-small" x="490" y="168" text-anchor="middle">前日高低 · session high-low · 已定義 FVG</text>
+              <text x="490" y="220" text-anchor="middle">到位後的 LTF 證據</text>
+              <text class="svg-small" x="490" y="238" text-anchor="middle">sweep · SMT（可選）· MSS / CHOCH · IFVG</text>
+              <text x="490" y="288" text-anchor="middle">Entry / Invalidation / Exit</text>
+              <text class="svg-small" x="490" y="307" text-anchor="middle">風險合理才執行；否則 no trade</text>
+            </svg>
+            <figcaption>每向下一層，候選交易應該更少。若由 30 秒圖開始四處找 IFVG，再回到高週期替入場補故事，流程就倒轉了。</figcaption>
+          </figure>
+
+          <figure class="diagram-figure">
+            <h3>圖 15｜SMT 只係「未確認」</h3>
+            <svg viewBox="0 0 520 300" role="img" aria-labelledby="smtTitle smtDesc">
+              <title id="smtTitle">NQ 與 ES 高點互相確認和背離的比較</title>
+              <desc id="smtDesc">NQ 創新高而 ES 未有創新高，稱為 bearish SMT 候選，但仍須後續價格觸發。</desc>
+              <line class="svg-line svg-dash" x1="55" y1="70" x2="475" y2="70" stroke-width="2"/>
+              <line class="svg-line svg-dash" x1="55" y1="218" x2="475" y2="218" stroke-width="2"/>
+              <polyline class="svg-accent" points="60,130 135,104 205,118 285,83 370,52 460,42" stroke-width="5"/>
+              <polyline class="svg-blue" points="60,270 135,244 205,258 285,226 370,236 460,229" stroke-width="5"/>
+              <circle cx="460" cy="42" r="6" fill="var(--green)"/>
+              <circle cx="460" cy="229" r="6" fill="var(--blue)"/>
+              <text x="62" y="35">NQ：higher high</text>
+              <text x="62" y="198">ES：未突破參考高點</text>
+              <text class="svg-small" x="315" y="128">= bearish SMT 候選</text>
+              <text class="svg-small" x="315" y="148">≠ 自動做 short</text>
+            </svg>
+            <figcaption>先固定兩個相關市場、同一觀察時段和同一組參考高低點。相關性會變；SMT 只能描述未互相確認，仍要等待結構及風險條件。</figcaption>
+          </figure>
+
+          <figure class="diagram-figure">
+            <h3>由片中示範拆成可測試條件</h3>
+            <div class="setup-flow">
+              <div class="setup-flow-row"><strong>Context</strong><span>1H FVG 內；日／4H bias 不清楚就標記 neutral。</span><span class="setup-flow-tag">先分類，不預測</span></div>
+              <div class="setup-flow-row"><strong>Location</strong><span>價格到 London high／premarket high 或已定 HTF 區域。</span><span class="setup-flow-tag">未到位不看 trigger</span></div>
+              <div class="setup-flow-row"><strong>Confirmation</strong><span>同時段 NQ／ES SMT 候選 + 固定 swing 規則的 MSS／CHOCH + IFVG 收市／回測。</span><span class="setup-flow-tag">每項都要有定義</span></div>
+              <div class="setup-flow-row"><strong>Invalidation</strong><span>價格突破事前指定的 setup extreme 或按規則收回失效區。</span><span class="setup-flow-tag">止損不向外搬</span></div>
+              <div class="setup-flow-row"><strong>Exit</strong><span>下一個預定 session level／liquidity reference，或統一固定 R 測試。</span><span class="setup-flow-tag">不以美元願望改 TP</span></div>
+            </div>
+            <figcaption>「有三個 confluence」本身不可回測；真正可回測的是每個條件的市場、時段、價格規則、先後次序與失效方式。</figcaption>
+          </figure>
+        </div>
+
+        <h3 style="margin-top:1.5rem">逐字稿最重要的四個修正</h3>
+        <div class="review-grid">
+          <div class="review-card"><h4>01｜Neutral 就係有效答案</h4><p>Daily、4H、1H 沒有一致方向時，不必硬選 bullish／bearish。Neutral 代表等待位置與新資料，不代表分析失敗。</p></div>
+          <div class="review-card"><h4>02｜新聞日唔係普通 price action</h4><p>先查官方經濟日曆。數據前後的 gap、滑點與 order-book 變化可能令 1m／30s 圖形失真；可直接定為 no-trade window。</p></div>
+          <div class="review-card"><h4>03｜模擬盈利唔係策略證據</h4><p>片中 paper trade 的盈虧只是一個示例，未包含真實排隊、滑點、心理壓力與完整樣本。不能用一個反敗為勝的交易證明 edge。</p></div>
+          <div class="review-card"><h4>04｜期望值數學要計啱</h4><p>若勝率 50%、平均贏 2R、平均輸 1R，成本前期望值是 0.5×2R − 0.5×1R = <strong>+0.5R／筆</strong>，不是片中猶豫的 0.6；佣金與滑點要再扣除。</p></div>
+        </div>
+
+        <div class="unit-note" style="margin-top:1rem"><strong>最小 Journal 欄位：</strong>instrument、exchange timezone、HTF state、session bounds、location、SMT pair／reference、trigger version、entry、invalidation、target、fees／slippage、是否新聞時段、是否按規則。若入場後才填理由，該筆不可當作乾淨樣本。</div>
+      </div>
+    </section>
+
     <section id="mao-course">
       <div class="shell mao-course-stack">
         <div class="section-head">
@@ -842,7 +929,7 @@
           <a class="mao-chapter-link" href="#mao-setups"><strong>07｜五套假設性 Setup</strong><span>拆成可記錄的規則</span></a>
           <a class="mao-chapter-link" href="#mao-routine"><strong>08｜每日流程與 Journal</strong><span>練習、復盤、驗證</span></a>
         </nav>
-        <p class="unit-note"><strong>進階補充：</strong>想由蠟燭圖再落一層理解掛單與成交，可以先讀 <a href="#heatmap">Heatmap／Market Mechanics 圖解章節</a>。</p>
+        <p class="unit-note"><strong>進階補充：</strong>想由蠟燭圖再落一層理解掛單與成交，可以先讀 <a href="#heatmap">Heatmap／Market Mechanics 圖解章節</a>；想睇今次逐字稿整理出的完整 top-down 示範，就讀 <a href="#ict-playbook">ICT 實戰流程</a>。</p>
 
         <article class="panel mao-chapter" id="mao-reality">
           <span class="pill">01｜交易的現實</span>
@@ -998,6 +1085,7 @@
           <h4>把形態寫成可檢驗模板</h4>
           <p class="formula">Instrument｜Timeframe｜Session｜Entry｜Invalidation｜Exit｜Cost</p>
           <p>例：先寫明交易哪個合約、用哪個 timeframe、哪段 session；setup 如何觸發、甚麼情況代表失效、用甚麼離場規則，以及佣金、bid-ask 和滑點如何計入。規則改動要重新編號，不能事後挑選成功圖表。</p>
+          <p class="unit-note"><strong>新逐字稿延伸：</strong>完整的 HTF → session location → SMT／MSS／IFVG → invalidation 流程與兩張圖解，見 <a href="#ict-playbook">ICT 實戰流程</a>。</p>
           <a href="#mao-map">↑ 回課程章節地圖</a>
         </article>
 
@@ -1271,8 +1359,10 @@
             <li><a href="https://www.cmegroup.com/education/courses/market-regulation/disruptive-practices-prohibited/disruptive-practices-prohibited-spoofing">CME Rule 575：Spoofing</a></li>
             <li><a href="https://www.cftc.gov/LawRegulation/FederalRegister/FinalRules/2013-12365.html">CFTC：Spoofing interpretive guidance</a></li>
             <li><a href="https://bookmap.com/knowledgebase/docs/KB-SettingUpAndOperating-HeatmapMainChart">Bookmap：Heatmap main chart 說明</a></li>
+            <li><a href="https://www.cmegroup.com/markets/equities/nasdaq/e-mini-nasdaq-100.timeAndSales.html">CME：E-mini Nasdaq-100 合約與交易時段</a></li>
+            <li><a href="https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/fraudadv_tradingsystem.html">CFTC：模擬／假設交易結果的限制</a></li>
           </ul>
-          <p class="muted"><strong>用戶提供的 a2ky9／Mao 交易入門及 Heatmap 逐字稿：</strong>無公開連結；本頁以摘要方式重組教材，未逐字重現。作者的個人經歷、績效、平台與 Prop firm 推薦未經獨立核驗，亦不構成本頁推薦。</p>
+          <p class="muted"><strong>用戶提供的 a2ky9／Mao 交易入門、Heatmap 及 ICT walkthrough 逐字稿：</strong>無公開連結；本頁以摘要方式重組教材，未逐字重現。作者的個人經歷、績效、平台與 Prop firm 推薦未經獨立核驗，亦不構成本頁推薦。</p>
         </div>
       </div>
     </section>
@@ -1282,7 +1372,7 @@
   <nav class="mobile-bottom-nav" aria-label="手機快速導覽">
     <a href="#zero-dte">0DTE</a>
     <a href="#mao-course">Mao課程</a>
-    <a href="#heatmap">Heatmap</a>
+    <a href="#ict-playbook">ICT流程</a>
     <a href="#checklist">清單</a>
   </nav>
 
