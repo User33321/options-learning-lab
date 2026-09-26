@@ -545,8 +545,8 @@
       </div>
       <div class="stat-row" aria-label="教材範圍">
         <div class="stat"><strong>2</strong><span>學習主線</span></div>
-        <div class="stat"><strong>20</strong><span>教學圖解</span></div>
-        <div class="stat"><strong>4</strong><span>決策步驟</span></div>
+        <div class="stat"><strong>23</strong><span>教學圖解</span></div>
+        <div class="stat"><strong>3＋1</strong><span>CLC＋風險檢查</span></div>
         <div class="stat"><strong>1</strong><span>交易前清單</span></div>
       </div>
     </div>
@@ -600,6 +600,38 @@
           </article>
         </div>
         <p class="chart-caption"><strong>符號：</strong>S＝到期時標的價格；K＝行使價；P＝每股已付權利金。以上只計到期損益；到期前期權價格亦受 IV、買賣差價及剩餘分鐘影響。</p>
+
+        <figure class="diagram-figure diagram-wide">
+          <h3>到期損益圖 ≠ 盤中期權報價</h3>
+          <svg viewBox="0 0 620 500" role="img" aria-labelledby="dte-intraday-title dte-intraday-desc">
+            <title id="dte-intraday-title">比較 Long Call 到期損益與盤中時間值變化</title>
+            <desc id="dte-intraday-desc">上圖顯示到期 Long Call 淨損益：標的低於行使價時損失權利金，超過行使價後損益上升，於行使價加權利金打和。下圖為時間值概念曲線：假設標的近平值且隱含波幅固定，時間值傾向在接近到期時加速流失；盤中實際期權報價還會受標的、波幅和買賣差價影響。</desc>
+            <rect class="svg-fill" x="12" y="12" width="596" height="236" rx="6"/>
+            <text x="32" y="42">A｜到期時：看標的落點 S</text>
+            <line class="svg-line" x1="76" y1="202" x2="575" y2="202" stroke-width="2"/>
+            <line class="svg-line" x1="76" y1="67" x2="76" y2="214" stroke-width="2"/>
+            <line class="svg-line svg-dash" x1="76" y1="165" x2="575" y2="165" stroke-width="2"/>
+            <text class="svg-small" x="34" y="161">損益 0</text>
+            <path class="svg-blue" stroke-width="5" d="M98 219H320L520 80"/>
+            <line class="svg-level svg-dash" x1="320" y1="83" x2="320" y2="207" stroke-width="2"/>
+            <line class="svg-accent svg-dash" x1="398" y1="92" x2="398" y2="207" stroke-width="2"/>
+            <text x="282" y="227">K</text><text x="386" y="227">K＋P</text>
+            <text class="svg-small" x="103" y="193">最大損失：P</text>
+            <text class="svg-small" x="417" y="106">到期打和後才轉正</text>
+            <text class="svg-small" x="419" y="239">標的價 S →</text>
+            <rect class="svg-fill" x="12" y="263" width="596" height="224" rx="6"/>
+            <text x="32" y="293">B｜盤中：剩餘時間越少，時間值通常越薄</text>
+            <line class="svg-line" x1="76" y1="448" x2="575" y2="448" stroke-width="2"/>
+            <line class="svg-line" x1="76" y1="318" x2="76" y2="454" stroke-width="2"/>
+            <path class="svg-accent" stroke-width="5" d="M90 330C178 331 251 334 320 344C397 355 466 380 526 423L552 441"/>
+            <text class="svg-small" x="34" y="325">時間值</text>
+            <text class="svg-small" x="91" y="472">剩餘時間較多</text>
+            <text class="svg-small" x="425" y="472">接近到期 →</text>
+            <text class="svg-small" x="120" y="393">概念示意：S≈K、IV 不變</text>
+            <text class="svg-small" x="282" y="418">到期時，時間值歸零</text>
+          </svg>
+          <figcaption>讀圖：上圖係「到期那一刻」的 Long Call 損益；下圖只講時間值，在近平值、IV 不變等假設下，Theta 並非線性，到期愈近通常衰減愈快。盤中總權利金＝內在值＋時間值；標的或 IV 變動可令報價上升，價差亦會影響實際可成交價，所以不代表期權必然一路跌。<a href="https://www.optionseducation.org/optionsoverview/options-pricing">OIC：權利金組成</a> · <a href="https://prd-web.optionseducation.org/advancedconcepts/theta">OIC：Theta</a></figcaption>
+        </figure>
 
         <article class="panel">
           <h3>同日交易流程</h3>
@@ -809,6 +841,39 @@
             </tbody></table>
           </div>
           <p class="chart-caption">計算不含新增出入金、費用或稅項。回撤愈大，回本所需升幅愈不成比例；避免把「追回虧損」當成加大風險的理由。</p>
+          <figure class="diagram-figure diagram-wide">
+            <h3>同樣由 $100 起步：回撤愈深，回本要求愈大</h3>
+            <svg viewBox="0 0 620 340" role="img" aria-labelledby="drawdown-title drawdown-desc">
+              <title id="drawdown-title">四種帳戶回撤後剩餘資金與回本升幅比較</title>
+              <desc id="drawdown-desc">以初始資金 100 為統一尺度，回撤百分之五、二十、五十、九十後分別剩下 95、80、50、10；回到原本金分別需要上升約百分之 5.3、25、100、900。</desc>
+              <text x="20" y="34">由 $100 計｜綠色＝剩餘資金　紅色＝回撤</text>
+              <text class="svg-small" x="145" y="66">帳戶餘額（統一 100% 刻度）</text>
+              <text class="svg-small" x="450" y="66">餘額</text><text class="svg-small" x="515" y="66">回本需升</text>
+              <text x="22" y="105">−5%</text>
+              <rect class="svg-fill" x="145" y="82" width="260" height="30" rx="3"/>
+              <rect x="145" y="82" width="247" height="30" rx="3" fill="var(--green)"/>
+              <rect x="392" y="82" width="13" height="30" fill="var(--red)"/>
+              <text x="450" y="105">$95</text><text x="515" y="105">+5.3%</text>
+              <text x="22" y="157">−20%</text>
+              <rect class="svg-fill" x="145" y="134" width="260" height="30" rx="3"/>
+              <rect x="145" y="134" width="208" height="30" rx="3" fill="var(--green)"/>
+              <rect x="353" y="134" width="52" height="30" fill="var(--red)"/>
+              <text x="450" y="157">$80</text><text x="515" y="157">+25%</text>
+              <text x="22" y="209">−50%</text>
+              <rect class="svg-fill" x="145" y="186" width="260" height="30" rx="3"/>
+              <rect x="145" y="186" width="130" height="30" rx="3" fill="var(--green)"/>
+              <rect x="275" y="186" width="130" height="30" fill="var(--red)"/>
+              <text x="450" y="209">$50</text><text x="515" y="209">+100%</text>
+              <text x="22" y="261">−90%</text>
+              <rect class="svg-fill" x="145" y="238" width="260" height="30" rx="3"/>
+              <rect x="145" y="238" width="26" height="30" rx="3" fill="var(--green)"/>
+              <rect x="171" y="238" width="234" height="30" fill="var(--red)"/>
+              <text x="450" y="261">$10</text><text x="515" y="261">+900%</text>
+              <line class="svg-line" x1="145" y1="291" x2="405" y2="291" stroke-width="1"/>
+              <text class="svg-small" x="140" y="317">0</text><text class="svg-small" x="375" y="317">100</text>
+            </svg>
+            <figcaption>回本所需升幅＝回撤金額 ÷ 回撤後餘額。例如由 $100 跌 50% 剩 $50，要由 $50 升 100% 才回 $100。這是數學示意，不是回報目標；回撤時先減風險、停下復盤，唔好為「追回」而加注。</figcaption>
+          </figure>
           <div class="unit-note"><strong>每日停止條件示例｜教學框架，不是通用標準：</strong>當日按規則虧損 2 次、觸及 0.5% 模擬日風險上限，或發現自己情緒失控時就停止下單，保存紀錄並離開交易畫面。</div>
           <a href="#mao-map">↑ 回課程章節地圖</a>
         </article>
@@ -1549,14 +1614,15 @@
           </article>
 
           <article class="calc-card">
-            <h3>Expected Move</h3>
+            <h3>Expected Move｜簡化 1σ 估算</h3>
             <div class="field-grid">
-              <label>股價 $<input id="emPrice" type="number" min="0.01" step="0.01" value="100"></label>
+              <label>標的價 $<input id="emPrice" type="number" min="0.01" step="0.01" value="100"></label>
               <label>IV %<input id="emIv" type="number" min="0" step="0.1" value="30"></label>
-              <label>到期日數<input id="emDte" type="number" min="1" step="1" value="30"></label>
+              <label>日曆日數（最少 1）<input id="emDte" type="number" min="1" step="1" value="30"></label>
             </div>
-            <div class="result-box"><div><span>預期波幅</span><strong id="emMove">$8.60</strong></div><div><span>下限</span><strong id="emLow">$91.40</strong></div><div><span>上限</span><strong id="emHigh">$108.60</strong></div></div>
+            <div class="result-box"><div><span>估算 ±1σ</span><strong id="emMove">$8.60</strong></div><div><span>下限</span><strong id="emLow">$91.40</strong></div><div><span>上限</span><strong id="emHigh">$108.60</strong></div></div>
             <div class="range-track" aria-hidden="true"><div class="range-line"></div><div class="range-edge left"></div><div class="range-center"></div><div class="range-edge right"></div><span class="range-label" id="emLowLabel" style="left:18%">91.40</span><span class="range-label" id="emMidLabel" style="left:50%">100.00</span><span class="range-label" id="emHighLabel" style="left:82%">108.60</span></div>
+            <p class="chart-caption">公式：現價 × 年化 IV × √(日曆日數 ÷ 365)。只是波幅的簡化一個標準差估算，不是價格目標或保證區間；本工具最少按 1 個完整日計，唔會按 0DTE 剩餘分鐘計算。<a href="https://www.cmegroup.com/education/courses/introduction-to-options/discover-options-volatility">CME：波幅與時間尺度</a></p>
           </article>
 
 
@@ -1567,9 +1633,10 @@
               <label>平均盈利 $<input id="exWin" type="number" min="0" value="100"></label>
               <label>平均虧損 $<input id="exLoss" type="number" min="0" value="700"></label>
             </div>
-            <div class="result-box"><div><span>每單期望值</span><strong id="exValue">−$20.00</strong></div><div><span>損益平衡勝率</span><strong id="exBreakeven">87.5%</strong></div></div>
+            <div class="result-box"><div><span>每單毛期望值</span><strong id="exValue">−$20.00</strong></div><div><span>損益平衡勝率</span><strong id="exBreakeven">87.5%</strong></div></div>
             <div class="expectancy-meter" aria-hidden="true"><div class="expectancy-fill" id="exFill"></div></div>
             <p class="chart-caption" id="exText">高勝率，但平均大輸足以令期望值變負。</p>
+            <p class="chart-caption">此計算未扣佣金、交易所費用、bid-ask 及滑點。估計淨期望值時，要再減每單實際成本。</p>
           </article>
 
           <article class="calc-card">
@@ -1625,6 +1692,9 @@
             <li><a href="https://www.finra.org/investors/insights/frequent-intraday-trading">FINRA：Frequent Intraday Trading</a></li>
             <li><a href="https://prd-web.optionseducation.org/news/may-keytakeaways">OIC：May 2026 0DTE Risk Profile</a></li>
             <li><a href="https://prd-web.optionseducation.org/advancedconcepts/gamma">OIC Gamma</a></li>
+            <li><a href="https://www.optionseducation.org/optionsoverview/options-pricing">OIC：權利金、內在值與時間值</a></li>
+            <li><a href="https://prd-web.optionseducation.org/advancedconcepts/theta">OIC：Theta 與非線性時間衰減</a></li>
+            <li><a href="https://www.cmegroup.com/education/courses/introduction-to-options/discover-options-volatility">CME：年化波幅與平方根時間估算</a></li>
             <li><a href="https://www.optionseducation.org/news/the-crush-is-real">OIC The Crush Is Real</a></li>
             <li><a href="https://www.theocc.com/company-information/documents-and-archives/options-disclosure-document">OCC Options Disclosure Document（ODD）</a></li>
           </ul>
@@ -1657,7 +1727,7 @@
     </section>
   </main>
 
-  <footer><div class="shell">整理日期：2026-09-26 · 教育用途 · 原始文章及制度資料見本頁「延伸閱讀」</div></footer>
+  <footer><div class="shell">整理日期：2026-09-27 · 教育用途 · 原始文章及制度資料見本頁「延伸閱讀」</div></footer>
   <nav class="mobile-bottom-nav" aria-label="手機快速導覽">
     <a href="#zero-dte">0DTE</a>
     <a href="#mao-course">Mao課程</a>
@@ -1720,7 +1790,7 @@
       function updateExpectedMove() {
         const price = Math.max(0, number('emPrice'));
         const iv = Math.max(0, number('emIv')) / 100;
-        const dte = Math.max(0, number('emDte'));
+        const dte = Math.max(1, number('emDte'));
         const move = price * iv * Math.sqrt(dte / 365);
         $('emMove').textContent = money(move);
         $('emLow').textContent = money(price - move);
