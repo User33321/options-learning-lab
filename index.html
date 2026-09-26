@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Kirk Investment Plan Patreon 文章重點與期權入門互動課程">
+  <meta name="description" content="繁體中文期權基礎、風險管理、互動計算器與公開案例獨立評審。">
   <title>期權實戰學堂｜圖解＋互動課程</title>
   <style>
     :root {
@@ -56,9 +56,12 @@
       font: 16px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans HK", sans-serif;
     }
     button, input, select { font: inherit; }
+    button, input:not([type="checkbox"]), select { min-height: 44px; }
+    input[type="number"], select { font-size: 16px; }
     button, select, input[type="checkbox"] { cursor: pointer; }
     a { color: var(--green); text-underline-offset: 3px; }
     a:hover { text-decoration-thickness: 2px; }
+    p, li, th, td, .formula, a { overflow-wrap: anywhere; }
     .skip-link { position: fixed; top: -4rem; left: 1rem; z-index: 20; background: var(--ink); color: var(--bg); padding: .6rem 1rem; }
     .skip-link:focus { top: 1rem; }
     .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
@@ -71,7 +74,7 @@
     .topbar-inner { min-height: 64px; display: flex; align-items: center; gap: 1rem; }
     .brand { margin-right: auto; font-weight: 850; letter-spacing: -.02em; }
     .toplinks { display: flex; gap: 1rem; }
-    .toplinks a { color: var(--muted); text-decoration: none; font-size: .92rem; }
+    .toplinks a { display: inline-flex; align-items: center; min-height: 44px; color: var(--muted); text-decoration: none; font-size: .92rem; }
     .icon-btn, .primary-btn {
       border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink);
       padding: .55rem .85rem; box-shadow: 0 2px 10px rgba(0,0,0,.04);
@@ -83,7 +86,7 @@
     h1 { margin: .55rem 0 1rem; max-width: 850px; font-size: clamp(2.5rem, 6.4vw, 5.6rem); line-height: .98; letter-spacing: -.065em; }
     .lede { margin: 0; max-width: 720px; color: var(--muted); font-size: clamp(1.05rem, 2vw, 1.28rem); }
     .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.7rem; }
-    .primary-btn { background: var(--green); color: #fff; border-color: var(--green); text-decoration: none; font-weight: 750; padding: .72rem 1.1rem; }
+    .primary-btn { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; background: var(--green); color: #fff; border-color: var(--green); text-decoration: none; font-weight: 750; padding: .72rem 1.1rem; }
     .secondary-btn { background: var(--surface); color: var(--ink); }
     .hero-visual { min-height: 350px; position: relative; display: grid; place-items: center; }
     .orbit { width: min(100%, 390px); aspect-ratio: 1; border: 1px solid var(--line); border-radius: 50%; position: relative; background: color-mix(in srgb, var(--surface) 70%, transparent); box-shadow: var(--shadow); }
@@ -163,6 +166,8 @@
     .current-flow strong { display: block; margin-bottom: .35rem; }
     .current-flow small { color: var(--muted); }
     .current-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
+    .review-facts { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem 1rem; margin: 1rem 0; padding-left: 1.2rem; }
+    .review-facts li { min-width: 0; }
     .current-stat { padding: 1rem; border-radius: 14px; background: var(--surface-2); text-align: center; }
     .current-stat strong { display: block; font-size: 1.5rem; line-height: 1.2; }
     .current-stat span { display: block; color: var(--muted); font-size: .84rem; }
@@ -177,6 +182,49 @@
     .loss-list { display: grid; gap: .5rem; margin: .8rem 0 0; padding: 0; list-style: none; }
     .loss-list li { display: flex; justify-content: space-between; gap: .75rem; padding: .55rem .7rem; border: 1px solid var(--line); border-radius: 10px; font-size: .87rem; }
     .current-sources { display: flex; flex-wrap: wrap; gap: .6rem 1rem; }
+    .case-source { display: inline-flex; align-items: center; min-height: 44px; gap: .4rem; padding: .35rem .65rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+    .source-tag { display: inline-block; padding: .08rem .42rem; border-radius: 999px; background: var(--orange-2); color: var(--ink); font-size: .72rem; font-weight: 800; white-space: nowrap; }
+    .hero-note { margin-top: 1rem; padding: .7rem .9rem; border-left: 3px solid var(--blue); border-radius: 0 11px 11px 0; background: var(--blue-2); color: var(--ink); font-size: .9rem; }
+    .editor-stack { display: grid; gap: 1.25rem; }
+    .verdict-callout { border-color: color-mix(in srgb, var(--green) 45%, var(--line)); background: var(--green-2); }
+    .review-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .review-card { min-width: 0; padding: 1.2rem; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+    .review-card h3 { margin-bottom: .55rem; }
+    .review-card ul { margin: 0; padding-left: 1.2rem; }
+    .review-card li + li { margin-top: .4rem; }
+    .evidence-levels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; }
+    .evidence-level { min-width: 0; padding: 1rem; border: 1px solid var(--line); border-top: 4px solid var(--blue); border-radius: 14px; background: var(--surface); }
+    .evidence-level:nth-child(2) { border-top-color: var(--orange); }
+    .evidence-level:nth-child(3) { border-top-color: var(--green); }
+    .evidence-level h4 { margin: .55rem 0 .3rem; }
+    .evidence-level p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .strategy-ladder { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .7rem; margin: .75rem 0 1.35rem; padding: 0; list-style: none; counter-reset: ladder; }
+    .strategy-ladder li { min-width: 0; padding: 1rem; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-2); counter-increment: ladder; }
+    .strategy-ladder li::before { content: "階段 " counter(ladder); display: block; margin-bottom: .35rem; color: var(--green); font-size: .77rem; font-weight: 850; }
+    .strategy-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; }
+    .strategy-table { width: 100%; min-width: 620px; border-collapse: collapse; background: var(--surface); }
+    .strategy-table th, .strategy-table td { padding: .75rem .85rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+    .strategy-table th { background: var(--surface-2); }
+    .strategy-table tr:last-child td { border-bottom: 0; }
+    .risk-framework { margin: .8rem 0; padding: 1rem; border: 1px solid color-mix(in srgb, var(--orange) 40%, var(--line)); border-radius: 14px; background: var(--orange-2); }
+    .risk-framework p { margin: .35rem 0 0; }
+    .question-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .65rem; margin: .75rem 0 1.25rem; }
+    .question-card { min-width: 0; padding: .8rem; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+    .question-card strong { display: block; color: var(--green); }
+    .question-card span { display: block; margin-top: .2rem; color: var(--muted); font-size: .86rem; }
+    .avoid-note { padding: 1rem; border-radius: 14px; background: var(--red-2); border: 1px solid color-mix(in srgb, var(--red) 35%, var(--line)); }
+    .exit-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .7rem; margin-top: .75rem; }
+    .exit-item { min-width: 0; padding: .85rem; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+    .exit-item strong { display: block; }
+    .exit-item span { color: var(--muted); font-size: .86rem; }
+    .source-group + .source-group { margin-top: 1.5rem; }
+    .source-group h3 { margin-bottom: .35rem; }
+    .source-group > p { margin: 0 0 .65rem; color: var(--muted); font-size: .9rem; }
+    .source-link-list { display: grid; grid-template-columns: 1fr 1fr; gap: .45rem 1rem; margin: 0; padding-left: 1.2rem; }
+    .source-link-list li { min-width: 0; overflow-wrap: anywhere; }
+    .source-link-list a { display: inline-flex; align-items: center; min-height: 44px; }
+    .risk-gate { margin: .7rem 0 0; padding: .7rem .85rem; border-radius: 11px; background: var(--surface-2); color: var(--muted); font-size: .88rem; }
+    .risk-gate.is-blocked { background: var(--red-2); color: var(--red); font-weight: 800; }
     .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.1rem, 3vw, 1.8rem); box-shadow: var(--shadow); }
     .option-matrix { display: grid; grid-template-columns: 80px 1fr 1fr; gap: 1px; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--line); }
     .option-matrix > div { min-height: 86px; background: var(--surface); padding: .8rem; }
@@ -252,8 +300,10 @@
     .callout-icon { font-size: 1.6rem; }
     .source-list { columns: 2; column-gap: 2rem; }
     .source-list li { break-inside: avoid; margin-bottom: .45rem; }
+    .source-list a { display: inline-flex; align-items: center; min-height: 44px; }
     footer { padding: 2rem 0 4rem; color: var(--muted); border-top: 1px solid var(--line); }
     .mobile-nav { display: none; width: 100%; }
+    .mobile-bottom-nav { display: none; }
     .pill { display: inline-flex; align-items: center; padding: .2rem .55rem; border-radius: 999px; background: var(--surface-2); color: var(--muted); font-size: .76rem; font-weight: 750; }
     @media (max-width: 950px) {
       .topbar-inner { flex-wrap: wrap; padding-block: .5rem; }
@@ -269,10 +319,13 @@
       .mobile-nav { display: block; order: 2; flex: 0 0 100%; max-width: none; }
     }
     @media (max-width: 700px) {
+      body { padding-bottom: 76px; }
+      section { scroll-margin-top: 132px; }
       .shell { width: min(100% - 22px, 1180px); }
       .hero { padding-top: 2.6rem; }
       .contract-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .trade-flows, .moneyness-results, .concept-figures, .maturity-grid, .method-grid, .inference-grid { grid-template-columns: 1fr; }
+      .review-grid, .review-facts, .evidence-levels, .strategy-ladder, .question-grid, .exit-grid, .source-link-list { grid-template-columns: 1fr; }
       .current-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .45rem; }
       .current-stat { padding: .75rem .4rem; }
       .current-stat strong { font-size: 1.25rem; }
@@ -295,9 +348,16 @@
       .option-matrix { grid-template-columns: 60px 1fr 1fr; }
       .source-list { columns: 1; }
       .brand { font-size: .88rem; }
+      .mobile-bottom-nav { position: fixed; z-index: 30; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .35rem; padding: .4rem max(.45rem, env(safe-area-inset-right)) calc(.4rem + env(safe-area-inset-bottom)) max(.45rem, env(safe-area-inset-left)); border-top: 1px solid var(--line); background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(14px); }
+      .mobile-bottom-nav a { display: flex; min-width: 0; min-height: 44px; align-items: center; justify-content: center; padding: .25rem; border: 1px solid var(--line); border-radius: 11px; background: var(--surface); color: var(--ink); text-decoration: none; text-align: center; font-size: .78rem; font-weight: 800; overflow-wrap: anywhere; }
+    }
+    @media (max-width: 390px) {
+      .mobile-bottom-nav { gap: .25rem; padding-left: max(.3rem, env(safe-area-inset-left)); padding-right: max(.3rem, env(safe-area-inset-right)); }
+      .mobile-bottom-nav a { font-size: .72rem; }
     }
     @media print {
       .topbar, .hero-actions, .calculator-grid, .checklist-wrap { display: none !important; }
+      .mobile-bottom-nav { display: none !important; }
       body { background: #fff; color: #111; font-size: 11pt; }
       .hero, section { padding: 1.5rem 0; }
       .hero-grid { display: block; }
@@ -315,10 +375,10 @@
     <div class="shell topbar-inner">
       <div class="brand">期權實戰學堂</div>
       <div class="toplinks">
-        <a href="#roadmap">學習地圖</a><a href="#basics">入門圖解</a><a href="#glossary">術語速查</a><a href="#course">16 課</a><a href="#kirk-current">KOL 個案</a><a href="#lab">互動工具</a><a href="#checklist">交易清單</a><a href="#sources">來源</a>
+        <a href="#roadmap">學習地圖</a><a href="#basics">入門圖解</a><a href="#glossary">術語速查</a><a href="#course">16 課</a><a href="#kirk-current">KOL 個案</a><a href="#editor-review">獨立評審</a><a href="#lab">互動工具</a><a href="#checklist">交易清單</a><a href="#sources">來源</a>
       </div>
       <select class="mobile-nav" aria-label="跳到章節" id="mobileNav">
-        <option value="">前往章節…</option><option value="#roadmap">學習地圖</option><option value="#basics">入門圖解</option><option value="#glossary">術語速查</option><option value="#course">16 課</option><option value="#kirk-current">KOL 個案</option><option value="#lab">互動工具</option><option value="#checklist">交易清單</option><option value="#sources">來源</option>
+        <option value="">前往章節…</option><option value="#roadmap">學習地圖</option><option value="#basics">入門圖解</option><option value="#glossary">術語速查</option><option value="#course">16 課</option><option value="#kirk-current">KOL 個案</option><option value="#editor-review">獨立評審</option><option value="#lab">互動工具</option><option value="#checklist">交易清單</option><option value="#sources">來源</option>
       </select>
       <button class="icon-btn" id="themeBtn" type="button" aria-label="切換深淺色">◐</button>
       <button class="icon-btn" id="printBtn" type="button">列印</button>
@@ -332,6 +392,7 @@
           <span class="eyebrow">期權基礎 × 風險管理 × 公開案例</span>
           <h1>先學識風險，<br>再學點樣贏。</h1>
           <p class="lede">整合期權基礎、OIC 制度資料與公開交易案例，製作成圖解互動教材：由 Call / Put、Greeks、IV，一路學到價差、倉位管理與交易復盤。</p>
+          <p class="hero-note">KOL 內容只作案例；本網站會把作者自述、制度事實與編輯判斷分開呈現。</p>
           <div class="hero-actions">
             <a class="primary-btn" href="#roadmap">開始學習</a>
             <a class="primary-btn secondary-btn" href="#sources">查看資料來源</a>
@@ -695,8 +756,8 @@
         </article>
 
         <article class="panel">
-          <h3>2026 年截至 9 月 22 日：9 筆虧損交易的分類</h3>
-          <p class="muted">以下只表示作者所列 9 筆虧損交易的虧損分類，不代表整體淨回報。</p>
+          <h3>最新虧損復盤｜作者自述，截至 2026-09-22</h3>
+          <p class="muted">下列數字均為作者自述，未經獨立核驗；9 筆虧損交易的分類不代表整體淨回報。</p>
           <div class="current-stats" aria-label="作者文章所報告的已平倉交易統計">
             <div class="current-stat"><strong>63</strong><span>筆已平倉</span></div>
             <div class="current-stat"><strong>54 勝 / 9 負</strong><span>已平倉交易結果</span></div>
@@ -718,6 +779,24 @@
             </ul>
           </figure>
           <p class="chart-caption">原文標題寫 $14,758，正文與分類總和為 $14,759；本頁按分類總和顯示。高勝率不等於風險受控。</p>
+          <ul class="review-facts">
+            <li>4 筆 Naked Sell Put 合計虧損 $13,552，約佔列出的總虧損 92%；作者稱虧損集中在 1 月 17 日至 2 月 5 日，約 20 日。</li>
+            <li>已實現 P/L 曾約為 −$12,105；作者稱約兩個半月後才回到接近打和。</li>
+            <li>Covered Call 共 15 筆：11 筆盈利合計 $877，4 筆虧損合計 $1,024；只計期權腿淨額約 −$147，未包括正股損益，不能當作整體策略回報。</li>
+          </ul>
+          <p class="current-disclaimer"><strong>比較限制：</strong>不同策略缺少交易數量、倉位大小及資金曝險等資料，不能直接比較優劣。</p>
+        </article>
+
+        <article class="panel">
+          <h3>可取教訓（作者自述的復盤項目）</h3>
+          <ul>
+            <li>公開呈現虧損與回撤，而不只列出成功交易。</li>
+            <li>由 Naked Sell Put 轉向 defined-risk 策略。</li>
+            <li>Covered Call 的行使價應是願意出售股票的價格。</li>
+            <li>評估止盈時，連同剩餘時間考慮盈利比例。</li>
+            <li>財報前避免承擔短期期權風險。</li>
+            <li>落單錯誤亦屬交易系統風險，應納入復盤。</li>
+          </ul>
         </article>
 
         <div class="inference-grid">
@@ -732,9 +811,122 @@
         </div>
 
         <div class="current-sources" aria-label="Kirk 方向摘要的直接來源">
-          <a href="https://www.patreon.com/kirkinvestmentplan/posts/ben-zhou-qi-quan-169029077">Sep 14 post</a>
-          <a href="https://www.patreon.com/kirkinvestmentplan/posts/2026nian-wo-zuo-170338159">Sep 26 loss post</a>
+          <a class="case-source" href="https://www.patreon.com/kirkinvestmentplan/posts/ben-zhou-qi-quan-169029077"><span class="source-tag">作者自述</span>Sep 14 post</a>
+          <a class="case-source" href="https://www.patreon.com/kirkinvestmentplan/posts/2026nian-wo-zuo-170338159"><span class="source-tag">作者自述</span>Sep 26 loss post</a>
         </div>
+      </div>
+    </section>
+
+    <section id="editor-review">
+      <div class="shell editor-stack">
+        <div class="section-head">
+          <span class="section-kicker">Independent review</span>
+          <h2>獨立評審：可以學框架，不應照抄參數</h2>
+          <p>以下把官方制度資料、作者自述和編輯判斷分開；策略階梯、風控數字及入場清單屬編輯教學框架，不是官方標準。</p>
+        </div>
+        <div class="callout verdict-callout" role="note">
+          <div class="callout-icon" aria-hidden="true">✓</div>
+          <div><strong>評審結論：</strong>風險框架有改善，但資料不足以證明長期 edge。</div>
+        </div>
+
+        <div class="review-grid">
+          <article class="review-card">
+            <h3>值得保留</h3>
+            <ul>
+              <li>先定最大虧損，再考慮 premium。</li>
+              <li>以 defined-risk 策略取代裸賣。</li>
+              <li>記錄敗績與執行錯誤。</li>
+              <li>快速達標時，比較剩餘收益與剩餘風險。</li>
+              <li>不把 Covered Call 當作免費收益。</li>
+            </ul>
+          </article>
+          <article class="review-card">
+            <h3>必須修正</h3>
+            <ul>
+              <li>−1 Expected Move 不是安全線，只是模型區間。</li>
+              <li>Delta 0.15 不是固定 15% 虧損機率。</li>
+              <li>BOLL、KC 與支持位可能同源，不是多份獨立證據。</li>
+              <li>50% 止盈是管理規則，不是已證實的最優值。</li>
+              <li>兩個月測試、勝率及虧損分類不足以證明 edge。</li>
+              <li>IV expansion 亦代表市場正為更大風險定價。</li>
+            </ul>
+          </article>
+        </div>
+
+        <article class="panel">
+          <h3>證據層級</h3>
+          <div class="evidence-levels">
+            <div class="evidence-level">
+              <span class="pill">制度事實</span>
+              <h4>OCC／OIC／FINRA</h4>
+              <p>合約權利義務、行使與指派制度、官方列出的策略損益邊界，可按制度文件核對。</p>
+            </div>
+            <div class="evidence-level">
+              <span class="pill">作者自述</span>
+              <h4>公開交易紀錄與復盤</h4>
+              <p>倉位、盈虧、勝率及操作流程來自作者文章；本頁未能獨立審計帳戶或完整交易紀錄。</p>
+            </div>
+            <div class="evidence-level">
+              <span class="pill">編輯判斷</span>
+              <h4>本頁的評審與框架</h4>
+              <p>用於辨認假設、風險及學習次序；不是監管機構結論、個人化建議或績效保證。</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h3>我會點建立策略</h3>
+          <p class="muted">以下是保守的教學次序與編輯風控示例，不是官方標準或投資建議。</p>
+          <h4>策略階梯</h4>
+          <ol class="strategy-ladder">
+            <li>先模擬 Long Call／Long Put。</li>
+            <li>再用一張 defined-risk Debit Spread 練習價差。</li>
+            <li>熟悉行使、指派及資金安排後，才研究 Credit Spread。</li>
+            <li>最後才考慮 Covered Call／Cash-Secured Put 等持股相關策略。</li>
+          </ol>
+
+          <h4>策略選擇表</h4>
+          <p class="chart-caption">表格可左右滑動。此表只列出對應的教學情境，未替代個別合約分析。</p>
+          <div class="strategy-table-wrap" role="region" aria-label="策略情境表，可左右滑動" tabindex="0">
+            <table class="strategy-table">
+              <thead><tr><th scope="col">情境</th><th scope="col">策略示例</th></tr></thead>
+              <tbody>
+                <tr><td>溫和看升、IV 正常</td><td>Bull Call Spread</td></tr>
+                <tr><td>溫和看跌、IV 正常</td><td>Bear Put Spread</td></tr>
+                <tr><td>中性至溫和看升、IV 較高</td><td>Bull Put Spread（進階）</td></tr>
+                <tr><td>已持股並真心願意賣出</td><td>Covered Call</td></tr>
+                <tr><td>真心願意按有效成本買入 100 股</td><td>Cash-Secured Put</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="risk-framework">
+            <strong>保守風控示例｜編輯框架，不是官方標準</strong>
+            <p>每筆交易的理論最大虧損可先以帳戶資金 0.5% 作示例上限；有經驗時亦不超過 1%。所有未平倉部位的最大虧損合計，可示例控制在帳戶資金 3%–5%。合約張數向下取整；最少一張也超出預算時，應跳過，不向上取整。</p>
+            <p><strong>$100,000 帳戶：</strong>0.5% 預算為 $500。$5 寬、淨收 Credit $1.20 的 Bull Put Spread，每股最大虧損 $3.80；按標準 100 股合約，每張最大虧損 $380，因此預算內最多一張。<strong>$20,000 帳戶：</strong>0.5% 預算為 $100，低於每張 $380，應跳過交易。</p>
+          </div>
+
+          <h4>入場前七問</h4>
+          <div class="question-grid">
+            <div class="question-card"><strong>1. 方向</strong><span>預期看升、看跌，還是區間？</span></div>
+            <div class="question-card"><strong>2. 時間</strong><span>觀點預計多久兌現？到期日是否匹配？</span></div>
+            <div class="question-card"><strong>3. IV／事件</strong><span>IV 定價如何？財報或其他事件在何時？</span></div>
+            <div class="question-card"><strong>4. 流動性</strong><span>Bid-ask、成交量及 OI 是否可接受？</span></div>
+            <div class="question-card"><strong>5. 最大損失</strong><span>單筆及全部未平倉部位最壞情況是多少？</span></div>
+            <div class="question-card"><strong>6. 價格失效</strong><span>標的價格到哪裡代表原有假設失效？</span></div>
+            <div class="question-card"><strong>7. 時間失效</strong><span>到哪個日期仍未發生預期，就重新評估或離場？</span></div>
+          </div>
+
+          <div class="avoid-note"><strong>初學階段先避免：</strong>裸賣 Short Call／Short Put、0DTE、財報期間持有隔夜短期期權風險，以及流動性差的合約。</div>
+          <h4 style="margin-top:1.25rem">離場規則按風險來源拆分</h4>
+          <div class="exit-grid">
+            <div class="exit-item"><strong>價格</strong><span>預先定義價格假設何時失效。</span></div>
+            <div class="exit-item"><strong>時間</strong><span>檢視剩餘時間、待實現收益與剩餘風險。</span></div>
+            <div class="exit-item"><strong>波動</strong><span>重新評估 IV 變化對各期權腿的影響。</span></div>
+            <div class="exit-item"><strong>到期／指派</strong><span>核對行使、指派、券商截止時間與資金需求。</span></div>
+          </div>
+          <p class="chart-caption">不設一個適用所有策略的萬用止盈百分比；退出條件須配合策略結構及其失效假設。</p>
+        </article>
       </div>
     </section>
 
@@ -780,11 +972,12 @@
           <article class="calc-card">
             <h3>倉位大小</h3>
             <div class="field-grid">
-              <label>帳戶資金 $<input id="psAccount" type="number" min="0" step="100" value="50000"></label>
-              <label>每單風險 %<input id="psRisk" type="number" min="0" max="100" step="0.1" value="1"></label>
+              <label>帳戶資金 $<input id="psAccount" type="number" min="0" step="100" value="100000"></label>
+              <label>每單風險 %<input id="psRisk" type="number" min="0" max="100" step="0.1" value="0.5"></label>
               <label>每張最大損失 $<input id="psLoss" type="number" min="1" step="10" value="380"></label>
             </div>
             <div class="result-box"><div><span>風險預算</span><strong id="psBudget">$500</strong></div><div><span>最多合約</span><strong id="psContracts">1 張</strong></div><div><span>實際最大風險</span><strong id="psActual">$380</strong></div></div>
+            <p class="risk-gate" id="psGate" role="status" aria-live="polite">按向下取整計算；最少一張也超出預算時，顯示 0 張並跳過交易，不可向上取整。</p>
             <p class="chart-caption">計算結果向下取整；如果係 0 張，代表策略風險超出你設定的單筆預算。此計算只適用於已知理論最大虧損的定義風險策略，未計佣金、滑點、提前指派造成的暫時持倉或券商資本要求。</p>
           </article>
         </div>
@@ -831,7 +1024,9 @@
     <section id="sources">
       <div class="shell">
         <div class="callout"><div class="callout-icon">⚠</div><div><strong>重要聲明</strong><br>本教材只作教育與文章整理，不構成投資建議。期權可能令你損失全部權利金；部分沽空策略損失可以非常大。實際交易前，請理解合約規格、佣金、稅務、流動性及提前行使風險。</div></div>
-        <div class="section-head" style="margin-top:3rem"><span class="section-kicker">Sources</span><h2>延伸閱讀</h2><p>以下連結指向原 Patreon 文章；能否閱讀全文取決於你的登入與會籍權限。</p></div>
+        <div class="section-head" style="margin-top:3rem"><span class="section-kicker">Sources</span><h2>延伸閱讀</h2><p>來源按作者文章／作者自述與官方制度資料分類。Patreon 原文能否閱讀全文取決於登入與會籍權限；作者自述未由本頁獨立核驗。</p></div>
+        <div class="source-group">
+        <h3><span class="source-tag">作者文章／作者自述</span></h3>
         <ol class="source-list">
           <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/shi-mo-shi-qi-3-160733817">什麼是期權？</a></li>
           <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/delta-jiao-xue-160824440">Delta 教學</a></li>
@@ -850,12 +1045,31 @@
           <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/xiang-xi-qi-quan-159427778">業績期權分析</a></li>
           <li><a href="https://www.patreon.com/kirkinvestmentplan/posts/ben-zhou-qi-quan-169029077">每週期權觀察</a></li>
         </ol>
-        <p class="chart-caption"><strong>制度與策略核對：</strong><a href="https://www.optionseducation.org/strategies/all-strategies/bear-put-spread">OIC Bear Put Spread</a> · <a href="https://www.optionseducation.org/referencelibrary/faq/options-assignment">OIC Options Assignment</a> · <a href="https://www.optionseducation.org/optionsoverview/exercising-options">OIC Exercising Options</a></p>
+        </div>
+        <div class="source-group">
+          <h3><span class="source-tag">官方制度／策略資料</span></h3>
+          <ul class="source-link-list">
+            <li><a href="https://www.finra.org/investors/investing/investment-products/options">FINRA Options</a></li>
+            <li><a href="https://prd-web.optionseducation.org/strategies/all-strategies/bull-put-spread-credit-put-spread">OIC Bull Put Spread</a></li>
+            <li><a href="https://prd-web.optionseducation.org/advancedconcepts/gamma">OIC Gamma</a></li>
+            <li><a href="https://www.optionseducation.org/news/the-crush-is-real">OIC The Crush Is Real</a></li>
+            <li><a href="https://www.theocc.com/company-information/documents-and-archives/options-disclosure-document">OCC Options Disclosure Document（ODD）</a></li>
+            <li><a href="https://www.optionseducation.org/strategies/all-strategies/bear-put-spread">OIC Bear Put Spread</a></li>
+            <li><a href="https://www.optionseducation.org/referencelibrary/faq/options-assignment">OIC Options Assignment</a></li>
+            <li><a href="https://www.optionseducation.org/optionsoverview/exercising-options">OIC Exercising Options</a></li>
+          </ul>
+        </div>
       </div>
     </section>
   </main>
 
   <footer><div class="shell">整理日期：2026-09-26 · 教育用途 · 原始文章及制度資料見本頁「延伸閱讀」</div></footer>
+  <nav class="mobile-bottom-nav" aria-label="手機快速導覽">
+    <a href="#roadmap">開始</a>
+    <a href="#editor-review">評審</a>
+    <a href="#lab">工具</a>
+    <a href="#checklist">清單</a>
+  </nav>
 
   <script>
     (() => {
@@ -864,12 +1078,12 @@
       const number = (id) => Number($(id).value) || 0;
 
       let savedTheme = null;
-      try { savedTheme = localStorage.getItem('kirk-course-theme'); } catch (_) {}
+      try { savedTheme = localStorage.getItem('options-learning-theme'); } catch (_) {}
       if (savedTheme) document.documentElement.dataset.theme = savedTheme;
       $('themeBtn').addEventListener('click', () => {
         const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
         document.documentElement.dataset.theme = next;
-        try { localStorage.setItem('kirk-course-theme', next); } catch (_) {}
+        try { localStorage.setItem('options-learning-theme', next); } catch (_) {}
         drawBullPut();
       });
       $('printBtn').addEventListener('click', () => window.print());
@@ -992,14 +1206,27 @@
       }
 
       function updatePosition() {
-        const account = Math.max(0, number('psAccount'));
-        const risk = Math.max(0, number('psRisk')) / 100;
-        const loss = Math.max(1, number('psLoss'));
+        const account = Number($('psAccount').value);
+        const riskInput = Number($('psRisk').value);
+        const loss = Number($('psLoss').value);
+        if (![account, riskInput, loss].every(Number.isFinite) || account < 0 || riskInput < 0 || riskInput > 100 || loss <= 0) {
+          $('psBudget').textContent = '—';
+          $('psContracts').textContent = '—';
+          $('psActual').textContent = '—';
+          $('psGate').classList.add('is-blocked');
+          $('psGate').textContent = '輸入無效：帳戶資金及風險百分比不可為負數，風險百分比不可超過 100%，每張最大損失必須大於 $0。';
+          return;
+        }
+        const risk = riskInput / 100;
         const budget = account * risk;
         const contracts = Math.floor(budget / loss);
         $('psBudget').textContent = money(budget, 0);
-        $('psContracts').textContent = `${contracts} 張`;
+        $('psContracts').textContent = contracts === 0 ? '0 張／跳過交易' : contracts + ' 張';
         $('psActual').textContent = money(contracts * loss, 0);
+        $('psGate').classList.toggle('is-blocked', loss > budget);
+        $('psGate').textContent = loss > budget
+          ? '每張最大虧損 ' + money(loss, 0) + ' 高於風險預算 ' + money(budget, 0) + '；最少一張也超標，應跳過交易，不可向上取整。'
+          : '按向下取整計算；實際最大風險不會高於設定的風險預算。';
       }
 
       ['emPrice','emIv','emDte'].forEach(id => $(id).addEventListener('input', updateExpectedMove));
